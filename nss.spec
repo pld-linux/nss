@@ -1,18 +1,16 @@
-# $Revision: 1.29 $ $Date: 2002-10-18 09:01:28 $
+# $Revision: 1.30 $ $Date: 2002-10-21 11:45:12 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
-Version:	3.4.2
-%define		snap	20020929
-Release:	3.%{snap}
+Version:	3.6
+Release:	1
 Epoch:		1
 License:	GPL
 Group:		Libraries
-#Source0:	ftp://ftp.mozilla.org/pub/security/nss/releases/NSS_3_4_2_RTM/src/%{name}-%{version}.tar.gz
-Source0:	%{name}-%{snap}.tar.bz2
+Source0:	ftp://ftp.mozilla.org/pub/security/nss/releases/NSS_3_6_RTM/src/%{name}-%{version}.tar.gz
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-system-zlib.patch
-BuildRequires:  nspr-devel >= 4.1.2-3
+BuildRequires:  nspr-devel >= 4.2.2
 BuildRequires:	zip >= 2.1
 BuildConflicts:	mozilla < 0.9.6-3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -68,7 +66,7 @@ Static NSS Toolkit libraries.
 Statyczne wersje bibliotek z NSS.
 
 %prep
-%setup -q -n %{name}-%{snap}
+%setup -q
 %patch0 -p1
 %patch1 -p1
 
