@@ -7,7 +7,7 @@ diff -Nur nss-3.3.1/mozilla/security/coreconf/Linux.mk nss-3.3.1.new/mozilla/sec
  
 -# INCLUDES += -I/usr/include -Y/usr/include/linux
  G++INCLUDES		= -I/usr/include/g++
-+INCLUDES += -I/usr/include -I/usr/include/nspr
++INCLUDES += -I/usr/include/nspr
 diff -Nur nss-3.3.1/mozilla/security/nss/cmd/modutil/manifest.mn nss-3.3.1.new/mozilla/security/nss/cmd/modutil/manifest.mn
 --- nss-3.3.1/mozilla/security/nss/cmd/modutil/manifest.mn	Thu Dec 13 13:47:50 2001
 +++ nss-3.3.1.new/mozilla/security/nss/cmd/modutil/manifest.mn	Thu Dec 13 14:16:18 2001
