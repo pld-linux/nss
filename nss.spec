@@ -1,4 +1,4 @@
-# $Revision: 1.15 $ $Date: 2002-02-22 23:29:19 $
+# $Revision: 1.16 $ $Date: 2002-02-23 04:05:42 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
@@ -15,15 +15,15 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	libnss3
 
 %description
+#7, PKCS #11, PKCS #12, S/MIME, TLS, SSL v2 and v3, X.509 v3
 NSS supports cross-platform development of security-enabled server
 applications. Applications built with NSS can support PKCS #5, PKCS
-#7, PKCS #11, PKCS #12, S/MIME, TLS, SSL v2 and v3, X.509 v3
 certificates, and other security standards.
 
 %description -l pl
+#11, PKCS #12, S/MIME, TLS, SSL v2 oraz v3, certyfikaty X.509 v3, i
 NNS wspomaga pisanie wieloplatformowych bezpiecznych serwerów.
 Aplikacja u¿ywaj±ca NSS jest w stanie obs³u¿yæ PKCS #5, PKCS #7, PKCS
-#11, PKCS #12, S/MIME, TLS, SSL v2 oraz v3, certyfikaty X.509 v3, i
 wiele innych bezpiecznych standardów.
 
 %package devel
