@@ -1,13 +1,15 @@
-# $Revision: 1.28 $ $Date: 2002-07-26 12:02:30 $
+# $Revision: 1.29 $ $Date: 2002-10-18 09:01:28 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
 Version:	3.4.2
-Release:	1
+%define		snap	20020929
+Release:	3.%{snap}
 Epoch:		1
 License:	GPL
 Group:		Libraries
-Source0:	ftp://ftp.mozilla.org/pub/security/nss/releases/NSS_3_4_2_RTM/src/%{name}-%{version}.tar.gz
+#Source0:	ftp://ftp.mozilla.org/pub/security/nss/releases/NSS_3_4_2_RTM/src/%{name}-%{version}.tar.gz
+Source0:	%{name}-%{snap}.tar.bz2
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-system-zlib.patch
 BuildRequires:  nspr-devel >= 4.1.2-3
@@ -18,14 +20,14 @@ Obsoletes:	libnss3
 
 %description
 NSS supports cross-platform development of security-enabled server
-applications. Applications built with NSS can support PKCS #5, PKCS
-#7, PKCS #11, PKCS #12, S/MIME, TLS, SSL v2 and v3, X.509 v3
+applications. Applications built with NSS can support PKCS #5, 
+PKCS #7, PKCS #11, PKCS #12, S/MIME, TLS, SSL v2 and v3, X.509 v3
 certificates, and other security standards.
 
 %description -l pl
 NSS wspomaga pisanie wieloplatformowych bezpiecznych serwerów.
-Aplikacja u¿ywaj±ca NSS jest w stanie obs³u¿yæ PKCS #5, PKCS #7, PKCS
-#11, PKCS #12, S/MIME, TLS, SSL v2 oraz v3, certyfikaty X.509 v3, i
+Aplikacja u¿ywaj±ca NSS jest w stanie obs³u¿yæ PKCS #5, PKCS #7, 
+PKCS #11, PKCS #12, S/MIME, TLS, SSL v2 oraz v3, certyfikaty X.509 v3, i
 wiele innych bezpiecznych standardów.
 
 %package tools
@@ -66,7 +68,7 @@ Static NSS Toolkit libraries.
 Statyczne wersje bibliotek z NSS.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{snap}
 %patch0 -p1
 %patch1 -p1
 
@@ -106,10 +108,10 @@ cd mozilla/security/nss
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/nss,%{_libdir}}
 
-install mozilla/dist/private/security/*	$RPM_BUILD_ROOT%{_includedir}/nss
+install mozilla/dist/private/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install mozilla/dist/public/dbm/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install mozilla/dist/public/seccmd/*	$RPM_BUILD_ROOT%{_includedir}/nss
-install mozilla/dist/public/security/*	$RPM_BUILD_ROOT%{_includedir}/nss
+install mozilla/dist/public/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install mozilla/dist/pld/bin/*		$RPM_BUILD_ROOT%{_bindir}
 install mozilla/dist/pld/lib/*		$RPM_BUILD_ROOT%{_libdir}
 
