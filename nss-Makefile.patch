@@ -1,3 +1,54 @@
+diff -Nur nss-3.3.1/mozilla/security/nss/cmd/platlibs.mk nss-3.3.1/mozilla/security/nss/cmd/platlibs.mk
+--- nss-3.3.1/mozilla/security/nss/cmd/platlibs.mk	Wed Jan 31 22:29:29 2001
++++ nss-3.3.1/mozilla/security/nss/cmd/platlibs.mk.new	Wed Dec 19 01:14:17 2001
+@@ -79,21 +79,21 @@
+ else
+ 
+ # $(PROGRAM) has explicit dependencies on $(EXTRA_LIBS)
+-CRYPTOLIB=$(DIST)/lib/libfreebl.$(LIB_SUFFIX)
++CRYPTOLIB=$(DIST)/lib/libfreebl_3.$(LIB_SUFFIX)
+ ifdef MOZILLA_SECURITY_BUILD
+ 	CRYPTOLIB=$(DIST)/lib/libcrypto.$(LIB_SUFFIX)
+ endif
+ ifdef MOZILLA_BSAFE_BUILD
+ 	CRYPTOLIB+=$(DIST)/lib/libbsafe.$(LIB_SUFFIX)
+-	CRYPTOLIB+=$(DIST)/lib/libfreebl.$(LIB_SUFFIX)
++	CRYPTOLIB+=$(DIST)/lib/libfreebl_03.$(LIB_SUFFIX)
+ endif
+ EXTRA_LIBS += \
+-	$(DIST)/lib/libsmime.$(LIB_SUFFIX) \
+-	$(DIST)/lib/libssl.$(LIB_SUFFIX) \
++	$(DIST)/lib/libsmime3.$(LIB_SUFFIX) \
++	$(DIST)/lib/libssl3.$(LIB_SUFFIX) \
+ 	$(DIST)/lib/libjar.$(LIB_SUFFIX) \
+ 	$(DIST)/lib/libzlib.$(LIB_SUFFIX) \
+-	$(DIST)/lib/libnss.$(LIB_SUFFIX) \
+-	$(DIST)/lib/libssl.$(LIB_SUFFIX) \
++	$(DIST)/lib/libnss3.$(LIB_SUFFIX) \
++	$(DIST)/lib/libssl3.$(LIB_SUFFIX) \
+ 	$(DIST)/lib/libsectool.$(LIB_SUFFIX) \
+ 	$(DIST)/lib/libpkcs12.$(LIB_SUFFIX) \
+ 	$(DIST)/lib/libpkcs7.$(LIB_SUFFIX) \
+diff -Nur nss-3.3.1/mozilla/security/nss/lib/fortcrypt/swfort/pkcs11/Makefile nss-3.3.1/mozilla/security/nss/lib/fortcrypt/swfort/pkcs11/Makefile
+--- nss-3.3.1/mozilla/security/nss/lib/fortcrypt/swfort/pkcs11/Makefile	Wed Dec 19 00:32:07 2001
++++ nss-3.3.1/mozilla/security/nss/lib/fortcrypt/swfort/pkcs11/Makefile.new	Wed Dec 19 00:32:52 2001
+@@ -69,14 +69,14 @@
+ #	$(DIST)/lib/libdbm.a 
+ #	$(DIST)/lib/libnspr3.a 
+ #
+-CRYPTO_LIB = $(DIST)/lib/libfreebl.$(LIB_SUFFIX) 
++CRYPTO_LIB = $(DIST)/lib/libfreebl_3.$(LIB_SUFFIX) 
+ 
+ ifdef MOZILLA_SECURITY_BUILD
+ CRYPTO_LIB = $(DIST)/lib/libcrypto.$(LIB_SUFFIX)
+ endif
+ ifdef MOZILLA_BSAFE_BUILD
+ CRYPTO_LIB += $(DIST)/lib/libbsafe.$(LIB_SUFFIX)
+-CRYPTO_LIB += $(DIST)/lib/libfreebl.$(LIB_SUFFIX)
++CRYPTO_LIB += $(DIST)/lib/libfreebl_3.$(LIB_SUFFIX)
+ endif
+ 
+ ifeq ($(OS_ARCH), OS2)
 diff -Nur nss-3.3.1/mozilla/security/coreconf/ruleset.mk nss-3.3.1/mozilla/security/coreconf/ruleset.mk
 --- nss-3.3.1/mozilla/security/coreconf/ruleset.mk	Sat Jun  2 08:03:14 2001
 +++ nss-3.3.1/mozilla/security/coreconf/ruleset.mk.new	Wed Dec 19 00:00:36 2001
