@@ -1,38 +1,30 @@
---- nss-3.4.rc1/mozilla/security/nss/cmd/manifest.mn.orig	Thu Dec  6 00:35:55 2001
-+++ nss-3.4.rc1/mozilla/security/nss/cmd/manifest.mn	Thu Apr 11 22:56:51 2002
+--- nss-3.8/mozilla/security/nss/cmd/manifest.mn.orig	Tue Jan 28 18:53:19 2003
++++ nss-3.8/mozilla/security/nss/cmd/manifest.mn	Mon May 19 10:58:27 2003
 @@ -37,7 +37,6 @@
- REQUIRES = security nspr libdbm
+ REQUIRES = nss nspr libdbm
  
  DIRS = lib  \
 - zlib \
   atob  \
   bltest \
   btoa  \
---- nss-3.4.rc1/mozilla/security/nss/cmd/platlibs.mk.orig	Thu Apr 11 22:58:28 2002
-+++ nss-3.4.rc1/mozilla/security/nss/cmd/platlibs.mk	Thu Apr 11 22:58:49 2002
-@@ -94,7 +94,6 @@
- 	$(DIST)/lib/$(LIB_PREFIX)smime3.$(LIB_SUFFIX) \
- 	$(DIST)/lib/$(LIB_PREFIX)ssl3.$(LIB_SUFFIX) \
- 	$(DIST)/lib/$(LIB_PREFIX)jar.$(LIB_SUFFIX) \
+--- nss-3.8/mozilla/security/nss/cmd/platlibs.mk.orig	Mon May 19 10:09:48 2003
++++ nss-3.8/mozilla/security/nss/cmd/platlibs.mk	Mon May 19 10:16:54 2003
+@@ -141,7 +141,7 @@
+ endif
+ 
+ JAR_LIBS = $(DIST)/lib/$(LIB_PREFIX)jar.$(LIB_SUFFIX) \
 -	$(DIST)/lib/$(LIB_PREFIX)zlib.$(LIB_SUFFIX) \
- 	$(DIST)/lib/$(LIB_PREFIX)nss3.$(LIB_SUFFIX) \
- 	$(DIST)/lib/$(LIB_PREFIX)ssl3.$(LIB_SUFFIX) \
- 	$(DIST)/lib/$(LIB_PREFIX)sectool.$(LIB_SUFFIX) \
---- nss-3.4.rc1/mozilla/security/nss/cmd/signtool/manifest.mn.orig	Fri Dec 22 18:09:00 2000
-+++ nss-3.4.rc1/mozilla/security/nss/cmd/signtool/manifest.mn	Thu Apr 11 23:07:13 2002
-@@ -53,3 +53,6 @@
- DEFINES += -DNSPR20
++	-lz \
+ 	$(NULL)
  
- USE_STATIC_LIBS = 1
-+
-+EXTRA_LIBS += -lz \
-+	$(NULL)
---- nss-3.4.rc1/mozilla/security/nss/cmd/modutil/manifest.mn.orig	Thu Nov  8 01:14:18 2001
-+++ nss-3.4.rc1/mozilla/security/nss/cmd/modutil/manifest.mn	Thu Apr 11 23:12:39 2002
-@@ -58,3 +58,6 @@
- INCLUDES += -I$(CORE_DEPTH)/nss/lib/pk11wrap
+ else # USE_STATIC_LIBS
+@@ -219,7 +219,7 @@
+ 	$(NULL)
  
- USE_STATIC_LIBS = 1 
-+
-+EXTRA_LIBS += -lz \
-+	$(NULL)
+ JAR_LIBS = $(DIST)/lib/$(LIB_PREFIX)jar.$(LIB_SUFFIX) \
+-	$(DIST)/lib/$(LIB_PREFIX)zlib.$(LIB_SUFFIX) \
++	-lz \
+ 	$(NULL)
+ endif
+ 

@@ -26,7 +26,7 @@ diff -Nur nss-3.4.rc1.orig/mozilla/security/coreconf/ruleset.mk nss-3.4.rc1/mozi
 diff -Nur nss-3.4.rc1.orig/mozilla/security/nss/cmd/platlibs.mk nss-3.4.rc1/mozilla/security/nss/cmd/platlibs.mk
 --- nss-3.4.rc1.orig/mozilla/security/nss/cmd/platlibs.mk	Sat Feb 16 00:38:41 2002
 +++ nss-3.4.rc1/mozilla/security/nss/cmd/platlibs.mk	Thu Apr 11 20:45:49 2002
-@@ -82,21 +82,21 @@
+@@ -82,19 +82,19 @@
  else
  
  # $(PROGRAM) has explicit dependencies on $(EXTRA_LIBS)
@@ -43,12 +43,10 @@ diff -Nur nss-3.4.rc1.orig/mozilla/security/nss/cmd/platlibs.mk nss-3.4.rc1/mozi
  EXTRA_LIBS += \
 -	$(DIST)/lib/$(LIB_PREFIX)smime.$(LIB_SUFFIX) \
 -	$(DIST)/lib/$(LIB_PREFIX)ssl.$(LIB_SUFFIX) \
-+	$(DIST)/lib/$(LIB_PREFIX)smime3.$(LIB_SUFFIX) \
-+	$(DIST)/lib/$(LIB_PREFIX)ssl3.$(LIB_SUFFIX) \
- 	$(DIST)/lib/$(LIB_PREFIX)jar.$(LIB_SUFFIX) \
- 	$(DIST)/lib/$(LIB_PREFIX)zlib.$(LIB_SUFFIX) \
 -	$(DIST)/lib/$(LIB_PREFIX)nss.$(LIB_SUFFIX) \
 -	$(DIST)/lib/$(LIB_PREFIX)ssl.$(LIB_SUFFIX) \
++	$(DIST)/lib/$(LIB_PREFIX)smime3.$(LIB_SUFFIX) \
++	$(DIST)/lib/$(LIB_PREFIX)ssl3.$(LIB_SUFFIX) \
 +	$(DIST)/lib/$(LIB_PREFIX)nss3.$(LIB_SUFFIX) \
 +	$(DIST)/lib/$(LIB_PREFIX)ssl3.$(LIB_SUFFIX) \
  	$(DIST)/lib/$(LIB_PREFIX)sectool.$(LIB_SUFFIX) \
