@@ -1,9 +1,9 @@
-# $Revision: 1.9 $ $Date: 2001-12-17 17:54:13 $
+# $Revision: 1.10 $ $Date: 2002-01-10 19:43:01 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
 Version:	3.3.1
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries
 Group(de):	Libraries
@@ -123,6 +123,7 @@ cd mozilla/security/nss
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/nss,%{_libdir}}
+
 install mozilla/dist/private/security/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install mozilla/dist/public/dbm/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install mozilla/dist/public/seccmd/*	$RPM_BUILD_ROOT%{_includedir}/nss
