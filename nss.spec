@@ -1,22 +1,22 @@
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
-Version:	3.9.1
+Version:	3.9.2
 %define	foover	%(echo %{version} | tr . _)
 Release:	1
 Epoch:		1
 License:	GPL
 Group:		Libraries
 Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	c15d0cce17ca38f075d3fff450c291af
+# Source0-md5:	c10b5100510dab1e3c94b76a4d7b1f23
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-system-zlib.patch
 BuildRequires:	nspr-devel >= 4.4.1
 BuildRequires:	zip >= 2.1
 BuildConflicts:	mozilla < 0.9.6-3
 Requires:	nspr >= 4.4.1
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	libnss3
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 NSS supports cross-platform development of security-enabled server
