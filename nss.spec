@@ -1,4 +1,4 @@
-# $Revision: 1.1 $ $Date: 2001-12-13 15:59:26 $
+# $Revision: 1.2 $ $Date: 2001-12-13 16:29:18 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
@@ -16,6 +16,7 @@ Group(uk):	X11/Б╕бл╕отеки
 Source0:	ftp://ftp.mozilla.org/pub/security/nss/releases/NSS_3_3_1_RTM/src/%{name}-%{version}.tar.gz
 Patch0:		%{name}-Makefile.patch
 BuildRequires:	nspr-devel
+Conflicts:	mozilla
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description 
@@ -117,9 +118,6 @@ cd mozilla/security/nss
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/nss,%{_libdir}}
 install mozilla/dist/private/security/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install mozilla/dist/public/dbm/*	$RPM_BUILD_ROOT%{_includedir}/nss
@@ -127,6 +125,9 @@ install mozilla/dist/public/seccmd/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install mozilla/dist/public/security/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install mozilla/dist/pld/bin/*		$RPM_BUILD_ROOT%{_bindir}
 install mozilla/dist/pld/lib/*		$RPM_BUILD_ROOT%{_libdir}
+
+%clean
+rm -rf $RPM_BUILD_ROOT
 
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
