@@ -1,3 +1,15 @@
+diff -Nur nss-3.3.1/mozilla/security/coreconf/ruleset.mk nss-3.3.1/mozilla/security/coreconf/ruleset.mk
+--- nss-3.3.1/mozilla/security/coreconf/ruleset.mk	Sat Jun  2 08:03:14 2001
++++ nss-3.3.1/mozilla/security/coreconf/ruleset.mk.new	Wed Dec 19 00:00:36 2001
+@@ -156,7 +156,7 @@
+ 			SHARED_LIBRARY = $(OBJDIR)/$(LIBRARY_NAME)$(LIBRARY_VERSION)$(JDK_DEBUG_SUFFIX).dll
+ 			IMPORT_LIBRARY = $(OBJDIR)/$(LIBRARY_NAME)$(LIBRARY_VERSION)$(JDK_DEBUG_SUFFIX).lib
+ 		else
+-			LIBRARY = $(OBJDIR)/lib$(LIBRARY_NAME).$(LIB_SUFFIX)
++			LIBRARY = $(OBJDIR)/lib$(LIBRARY_NAME)$(LIBRARY_VERSION).$(LIB_SUFFIX)
+ 			ifeq ($(OS_ARCH)$(OS_RELEASE), AIX4.1)
+ 				SHARED_LIBRARY = $(OBJDIR)/lib$(LIBRARY_NAME)$(LIBRARY_VERSION)_shr$(JDK_DEBUG_SUFFIX).a
+ 			else
 diff -Nur nss-3.3.1/mozilla/security/coreconf/Linux.mk nss-3.3.1.new/mozilla/security/coreconf/Linux.mk
 --- nss-3.3.1/mozilla/security/coreconf/Linux.mk	Thu Dec 13 13:47:56 2001
 +++ nss-3.3.1.new/mozilla/security/coreconf/Linux.mk	Thu Dec 13 14:16:18 2001
