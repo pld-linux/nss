@@ -3,7 +3,7 @@ Summary(pl):	NSS - Network Security Services
 Name:		nss
 Version:	3.8
 %define	foover	%(echo %{version} | tr . _)
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPL
 Group:		Libraries
