@@ -1,8 +1,8 @@
-# $Revision: 1.33 $ $Date: 2003-03-17 09:51:33 $
+# $Revision: 1.34 $ $Date: 2003-04-03 08:43:28 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
-Version:	3.7.2
+Version:	3.7.3
 %define	foover	%(echo %{version} | tr . _)
 Release:	1
 Epoch:		1
