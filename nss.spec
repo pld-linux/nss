@@ -1,4 +1,4 @@
-# $Revision: 1.7 $ $Date: 2001-12-16 12:33:13 $
+# $Revision: 1.8 $ $Date: 2001-12-16 12:38:52 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
@@ -21,16 +21,16 @@ BuildConflicts:	mozilla
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description 
-NSS supports cross-platform development of security-enabled server 
-applications. Applications built with NSS can support PKCS #5, PKCS #7, 
-PKCS #11, PKCS #12, S/MIME, TLS, SSL v2 and v3, X.509 v3 certificates, 
-and other security standards.
+NSS supports cross-platform development of security-enabled server
+applications. Applications built with NSS can support PKCS #5, PKCS
+#7, PKCS #11, PKCS #12, S/MIME, TLS, SSL v2 and v3, X.509 v3
+certificates, and other security standards.
 
 %description -l pl
 NNS wspomaga pisanie wieloplatformowych bezpiecznych serwerów.
-Aplikacja u¿ywaj±ca NSS jest w stanie obs³u¿yæ PKCS #5, PKCS #7, 
-PKCS #11, PKCS #12, S/MIME, TLS, SSL v2 oraz v3, certyfikaty X.509 v3, 
-i wiele innych bezpiecznych standardów.
+Aplikacja u¿ywaj±ca NSS jest w stanie obs³u¿yæ PKCS #5, PKCS #7, PKCS
+#11, PKCS #12, S/MIME, TLS, SSL v2 oraz v3, certyfikaty X.509 v3, i
+wiele innych bezpiecznych standardów.
 
 %package devel
 Summary:	NSS - header files
@@ -55,8 +55,11 @@ Czê¶æ biblioteki NSS przeznaczona dla programistów.
 Summary:	NSS command line tools and utilities
 Group:		Applications
 Group(de):	Applikationen
+Group(es):	Aplicaciones
 Group(fr):	Utilitaires
 Group(pl):	Aplikacje
+Group(pt):	Aplicações
+Group(pt_BR):	Aplicações
 Requires:	%{name} = %{version}
 
 %description tools
@@ -105,8 +108,7 @@ cd mozilla/security/nss
 	USE_PTHREADS=1 \
 	BUILD_OPT=1 \
 	OPTIMIZER="%{rpmcflags}" \
-	PLATFORM="pld" \
-	OS_INCLUDES=""
+	PLATFORM="pld"
 	
 %{__make} all \
 	NSDISTMODE=copy \
