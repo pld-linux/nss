@@ -11,6 +11,7 @@ Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foov
 # Source0-md5:	6a186160159d51eebe636358f584d6b5
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-system-zlib.patch
+Patch2:		%{name}-amd64.patch
 BuildRequires:	nspr-devel >= 4.3
 BuildRequires:	zip >= 2.1
 BuildConflicts:	mozilla < 0.9.6-3
@@ -71,6 +72,7 @@ Statyczne wersje bibliotek z NSS.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 cp -f mozilla/security/coreconf/Linux2.5.mk mozilla/security/coreconf/Linux2.6.mk
 
 %build
