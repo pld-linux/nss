@@ -1,9 +1,9 @@
-# $Revision: 1.13 $ $Date: 2002-02-18 21:24:51 $
+# $Revision: 1.14 $ $Date: 2002-02-19 12:15:20 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
 Version:	3.3.1
-Release:	3
+Release:	4
 License:	GPL
 Group:		Libraries
 Group(de):	Libraries
