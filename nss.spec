@@ -1,5 +1,3 @@
-# TODO:
-# - SECURITY: http://securitytracker.com/alerts/2004/Aug/1011034.html
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
