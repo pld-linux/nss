@@ -1,17 +1,21 @@
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
-Version:	3.9.2
+Version:	3.9.4
 %define	foover	%(echo %{version} | tr . _)
-Release:	2
+Release:	1
 Epoch:		1
 License:	GPL
 Group:		Libraries
-Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	c10b5100510dab1e3c94b76a4d7b1f23
+# :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/dbm -r DBM_1_61_RTM
+# :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/dbm -r DBM_1_61_RTM
+# :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/coreconf -r NSS_3_9_4_RTM
+# :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/nss -r NSS_3_9_4_RTM
+Source0:	%{name}-%{version}.tar.bz2
+# Source0-md5:	ccf2d1cc0e8284fef3b49c94b9feafed
+#Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-system-zlib.patch
-Patch2:		%{name}-pk11_const.patch
 BuildRequires:	nspr-devel >= 4.4.1
 BuildRequires:	zip >= 2.1
 BuildConflicts:	mozilla < 0.9.6-3
@@ -72,7 +76,6 @@ Statyczne wersje bibliotek z NSS.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 cd mozilla/security/nss
