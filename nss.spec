@@ -1,13 +1,13 @@
-# $Revision: 1.27 $ $Date: 2002-06-10 23:28:19 $
+# $Revision: 1.28 $ $Date: 2002-07-26 12:02:30 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
-Version:	3.4.1
-Release:	2
+Version:	3.4.2
+Release:	1
 Epoch:		1
 License:	GPL
 Group:		Libraries
-Source0:	ftp://ftp.mozilla.org/pub/security/nss/releases/NSS_3_4_1_RTM/src/%{name}-%{version}.tar.gz
+Source0:	ftp://ftp.mozilla.org/pub/security/nss/releases/NSS_3_4_2_RTM/src/%{name}-%{version}.tar.gz
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-system-zlib.patch
 BuildRequires:  nspr-devel >= 4.1.2-3
