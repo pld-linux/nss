@@ -1,4 +1,4 @@
-# $Revision: 1.18 $ $Date: 2002-04-11 17:48:44 $
+# $Revision: 1.19 $ $Date: 2002-04-11 19:43:58 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
@@ -21,7 +21,7 @@ applications. Applications built with NSS can support PKCS #5, PKCS
 certificates, and other security standards.
 
 %description -l pl
-NNS wspomaga pisanie wieloplatformowych bezpiecznych serwerów.
+NSS wspomaga pisanie wieloplatformowych bezpiecznych serwerów.
 Aplikacja u¿ywaj±ca NSS jest w stanie obs³u¿yæ PKCS #5, PKCS #7, PKCS
 #11, PKCS #12, S/MIME, TLS, SSL v2 oraz v3, certyfikaty X.509 v3, i
 wiele innych bezpiecznych standardów.
