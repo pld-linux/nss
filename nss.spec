@@ -1,4 +1,4 @@
-# $Revision: 1.23 $ $Date: 2002-04-15 00:30:18 $
+# $Revision: 1.24 $ $Date: 2002-04-16 15:53:40 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
@@ -10,7 +10,8 @@ Source0:	ftp://ftp.mozilla.org/pub/security/nss/releases/NSS_3_4_RC1/src/%{name}
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-dbm.patch.bz2
 Patch2:		%{name}-system-zlib.patch
-BuildRequires:	nspr-devel
+BuildRequires:  nspr-devel >= 4.1.2-3
+BuildRequires:	zip >= 2.1
 BuildConflicts:	mozilla < 0.9.6-3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	libnss3
