@@ -1,4 +1,4 @@
-# $Revision: 1.6 $ $Date: 2001-12-14 11:06:23 $
+# $Revision: 1.7 $ $Date: 2001-12-16 12:33:13 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
@@ -105,7 +105,8 @@ cd mozilla/security/nss
 	USE_PTHREADS=1 \
 	BUILD_OPT=1 \
 	OPTIMIZER="%{rpmcflags}" \
-	PLATFORM="pld"
+	PLATFORM="pld" \
+	OS_INCLUDES=""
 	
 %{__make} all \
 	NSDISTMODE=copy \
