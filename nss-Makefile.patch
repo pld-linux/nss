@@ -95,7 +95,7 @@ diff -Nur nss-3.4.rc1.orig/mozilla/security/nss/lib/fortcrypt/swfort/pkcs11/Make
  EXTRA_LIBS += \
  	$(DIST)/lib/$(LIB_PREFIX)swfci.$(LIB_SUFFIX) \
 -	$(DIST)/lib/$(LIB_PREFIX)softokn.$(LIB_SUFFIX) \
-+	-L$(DIST)/lib -lsoftokn3 \
++	$(DIST)/lib/$(LIB_PREFIX)softokn3.$(LIB_SUFFIX) \
  	$(CRYPTO_LIB) \
  	$(DIST)/lib/$(LIB_PREFIX)secutil.$(LIB_SUFFIX) \
 -	$(DIST)/lib/$(LIB_PREFIX)plc4.$(LIB_SUFFIX) \
