@@ -1,11 +1,11 @@
-# $Revision: 1.27.2.1 $ $Date: 2002-09-28 23:17:01 $
+# $Revision: 1.27.2.2 $ $Date: 2002-09-28 23:25:45 $
 %define		snap	20020929
 
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
 Version:	3.4.2
-Release:	2.%{snap}
+Release:	3.%{snap}
 Epoch:		1
 License:	GPL
 Group:		Libraries
