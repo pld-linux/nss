@@ -1,4 +1,4 @@
-# $Revision: 1.3 $ $Date: 2001-12-13 23:43:01 $
+# $Revision: 1.4 $ $Date: 2001-12-13 23:51:00 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
@@ -16,6 +16,7 @@ Group(uk):	X11/Б╕бл╕отеки
 Source0:	ftp://ftp.mozilla.org/pub/security/nss/releases/NSS_3_3_1_RTM/src/%{name}-%{version}.tar.gz
 Patch0:		%{name}-Makefile.patch
 BuildRequires:	nspr-devel
+BuildConflicts:	mozilla
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description 
