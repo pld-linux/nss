@@ -7,7 +7,7 @@ Release:	4
 Epoch:		1
 License:	GPL
 Group:		Libraries
-Source0:	ftp://ftp.mozilla.org/pub/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
+Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
 # Source0-md5:	6a186160159d51eebe636358f584d6b5
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-system-zlib.patch
