@@ -1,17 +1,16 @@
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
-Version:	3.9
+Version:	3.9.1
 %define	foover	%(echo %{version} | tr . _)
 Release:	1
 Epoch:		1
 License:	GPL
 Group:		Libraries
 Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	9d6349eca70dc2ad06d2f6b01570faa7
+# Source0-md5:	c15d0cce17ca38f075d3fff450c291af
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-system-zlib.patch
-Patch2:		%{name}-amd64.patch
 BuildRequires:	nspr-devel >= 4.4.1
 BuildRequires:	zip >= 2.1
 BuildConflicts:	mozilla < 0.9.6-3
@@ -35,7 +34,7 @@ i wiele innych bezpiecznych standardów.
 Summary:	NSS command line tools and utilities
 Summary(pl):	Narzêdzia NSS
 Group:		Applications
-Requires:	%{name} = %{epoch}:%{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description tools
 The NSS Toolkit command line tool.
@@ -47,7 +46,7 @@ Narzêdzia NSS obs³ugiwane z linii poleceñ.
 Summary:	NSS - header files
 Summary(pl):	NSS - pliki nag³ówkowe
 Group:		Development/Libraries
-Requires:	%{name} = %{epoch}:%{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Obsoletes:	libnss3-devel
 
 %description devel
@@ -60,7 +59,7 @@ Czê¶æ biblioteki NSS przeznaczona dla programistów.
 Summary:	NSS - static library
 Summary(pl):	NSS - biblioteka statyczna
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{epoch}:%{version}
+Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
 %description static
 Static NSS Toolkit libraries.
@@ -72,8 +71,6 @@ Statyczne wersje bibliotek z NSS.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
-cp -f mozilla/security/coreconf/Linux2.5.mk mozilla/security/coreconf/Linux2.6.mk
 
 %build
 cd mozilla/security/nss
