@@ -1,9 +1,9 @@
-# $Revision: 1.21 $ $Date: 2002-04-13 16:30:14 $
+# $Revision: 1.22 $ $Date: 2002-04-13 21:57:46 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
 Version:	3.4.rc1
-Release:	0.1
+Release:	0.2
 License:	GPL
 Group:		Libraries
 Source0:	ftp://ftp.mozilla.org/pub/security/nss/releases/NSS_3_4_RC1/src/%{name}-%{version}.tar.gz
@@ -126,6 +126,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %{_includedir}/nss
+%{_libdir}/libcrmf.a
 
 %files tools
 %defattr(644,root,root,755)
@@ -133,4 +134,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/*.a
+%{_libdir}/lib[^c]*.a
+%{_libdir}/libc[^r]*.a
+%{_libdir}/libcr[^m]*.a
