@@ -1,0 +1,73 @@
+diff -Nur nss-3.3.1/mozilla/security/coreconf/Linux.mk nss-3.3.1.new/mozilla/security/coreconf/Linux.mk
+--- nss-3.3.1/mozilla/security/coreconf/Linux.mk	Thu Dec 13 13:47:56 2001
++++ nss-3.3.1.new/mozilla/security/coreconf/Linux.mk	Thu Dec 13 14:16:18 2001
+@@ -106,5 +106,5 @@
+ DSO_LDOPTS		= -shared
+ DSO_LDFLAGS		=
+ 
+-# INCLUDES += -I/usr/include -Y/usr/include/linux
+ G++INCLUDES		= -I/usr/include/g++
++INCLUDES += -I/usr/include -I/usr/include/nspr
+diff -Nur nss-3.3.1/mozilla/security/nss/cmd/modutil/manifest.mn nss-3.3.1.new/mozilla/security/nss/cmd/modutil/manifest.mn
+--- nss-3.3.1/mozilla/security/nss/cmd/modutil/manifest.mn	Thu Dec 13 13:47:50 2001
++++ nss-3.3.1.new/mozilla/security/nss/cmd/modutil/manifest.mn	Thu Dec 13 14:16:18 2001
+@@ -54,6 +54,6 @@
+ 
+ DEFINES = -DNSPR20
+ 
+-INCLUDES =
++INCLUDES = -I$(CORE_DEPTH)/nss/lib/nss
+ 
+ USE_STATIC_LIBS = 1
+diff -Nur nss-3.3.1/mozilla/security/nss/lib/ckfw/builtins/Makefile nss-3.3.1.new/mozilla/security/nss/lib/ckfw/builtins/Makefile
+--- nss-3.3.1/mozilla/security/nss/lib/ckfw/builtins/Makefile	Thu Dec 13 13:47:51 2001
++++ nss-3.3.1.new/mozilla/security/nss/lib/ckfw/builtins/Makefile	Thu Dec 13 14:16:18 2001
+@@ -60,8 +60,8 @@
+ EXTRA_LIBS += \
+         $(DIST)/lib/libnssckfw.$(LIB_SUFFIX) \
+         $(DIST)/lib/libnssb.$(LIB_SUFFIX) \
+-	$(PLC_STATIC_LIB) \
+-	$(PLDS_STATIC_LIB) \
++	-lplc4 \
++	-lplds4 \
+ 	$(NULL)
+ 
+ endif
+diff -Nur nss-3.3.1/mozilla/security/nss/lib/fortcrypt/swfort/pkcs11/Makefile nss-3.3.1.new/mozilla/security/nss/lib/fortcrypt/swfort/pkcs11/Makefile
+--- nss-3.3.1/mozilla/security/nss/lib/fortcrypt/swfort/pkcs11/Makefile	Thu Dec 13 13:47:55 2001
++++ nss-3.3.1.new/mozilla/security/nss/lib/fortcrypt/swfort/pkcs11/Makefile	Thu Dec 13 14:16:18 2001
+@@ -92,8 +92,8 @@
+ 	$(DIST)/lib/libsoftoken.$(LIB_SUFFIX) \
+ 	$(CRYPTO_LIB) \
+ 	$(DIST)/lib/libsecutil.$(LIB_SUFFIX) \
+-	$(PLC_STATIC_LIB) \
+-	$(PLDS_STATIC_LIB) \
++	-lplc4 \
++	-lplds4 \
+ 	$(NULL)
+ 
+ endif
+diff -Nur nss-3.3.1/mozilla/security/nss/lib/smime/manifest.mn nss-3.3.1.new/mozilla/security/nss/lib/smime/manifest.mn
+--- nss-3.3.1/mozilla/security/nss/lib/smime/manifest.mn	Thu Dec 13 13:47:54 2001
++++ nss-3.3.1.new/mozilla/security/nss/lib/smime/manifest.mn	Thu Dec 13 14:17:55 2001
+@@ -70,6 +70,8 @@
+ 	smimever.c \
+ 	$(NULL)
+ 
++INCLUDES = -I$(CORE_DEPTH)/nss/lib/nss
++
+ REQUIRES = security dbm
+ 
+ LIBRARY_NAME = smime
+diff -Nur nss-3.3.1/mozilla/security/nss/lib/ssl/manifest.mn nss-3.3.1.new/mozilla/security/nss/lib/ssl/manifest.mn
+--- nss-3.3.1/mozilla/security/nss/lib/ssl/manifest.mn	Thu Dec 13 13:47:51 2001
++++ nss-3.3.1.new/mozilla/security/nss/lib/ssl/manifest.mn	Thu Dec 13 14:18:41 2001
+@@ -72,6 +72,8 @@
+ 	nsskea.c \
+ 	$(NULL)
+ 
++INCLUDES = -I$(CORE_DEPTH)/nss/lib/nss
++
+ REQUIRES = security dbm
+ 
+ LIBRARY_NAME = ssl
