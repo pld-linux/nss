@@ -1,4 +1,4 @@
-# $Revision: 1.14 $ $Date: 2002-02-19 12:15:20 $
+# $Revision: 1.15 $ $Date: 2002-02-22 23:29:19 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
@@ -6,13 +6,6 @@ Version:	3.3.1
 Release:	4
 License:	GPL
 Group:		Libraries
-Group(de):	Libraries
-Group(es):	Bibliotecas
-Group(fr):	Librairies
-Group(pl):	Biblioteki
-Group(pt_BR):	Bibliotecas
-Group(ru):	âÉÂÌÉÏÔÅËÉ
-Group(uk):	â¦ÂÌ¦ÏÔÅËÉ
 Source0:	ftp://ftp.mozilla.org/pub/security/nss/releases/NSS_3_3_1_RTM/src/%{name}-%{version}.tar.gz
 Patch0:		%{name}-Makefile.patch
 BuildRequires:	nspr-devel
@@ -37,13 +30,6 @@ wiele innych bezpiecznych standardów.
 Summary:	NSS - header files
 Summary(pl):	NSS - pliki nag³ówkowe
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(ru):	òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
-Group(uk):	òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	%{name} = %{version}
 Obsoletes:	libnss3-devel
 
@@ -57,12 +43,6 @@ Czê¶æ biblioteki NSS przeznaczona dla programistów.
 Summary:	NSS command line tools and utilities
 Summary(pl):	Narzêdzia NSS
 Group:		Applications
-Group(de):	Applikationen
-Group(es):	Aplicaciones
-Group(fr):	Utilitaires
-Group(pl):	Aplikacje
-Group(pt):	Aplicações
-Group(pt_BR):	Aplicações
 Requires:	%{name} = %{version}
 
 %description tools
@@ -75,13 +55,6 @@ Narzêdzia NSS obs³ugiwane z linii poleceñ.
 Summary:	NSS - static library
 Summary(pl):	NSS - biblioteka statyczna
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(ru):	òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
-Group(uk):	òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	%{name}-devel = %{version}
 
 %description static
