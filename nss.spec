@@ -1,4 +1,4 @@
-# $Revision: 1.27.2.3 $ $Date: 2002-09-28 23:39:55 $
+# $Revision: 1.27.2.4 $ $Date: 2003-07-11 01:34:20 $
 %define		snap	20020929
 
 Summary:	NSS - Network Security Services
