@@ -1,8 +1,8 @@
-# $Revision: 1.34 $ $Date: 2003-04-03 08:43:28 $
+# $Revision: 1.35 $ $Date: 2003-05-19 11:17:39 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
-Version:	3.7.3
+Version:	3.8
 %define	foover	%(echo %{version} | tr . _)
 Release:	1
 Epoch:		1
@@ -11,9 +11,10 @@ Group:		Libraries
 Source0:	ftp://ftp.mozilla.org/pub/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-system-zlib.patch
-BuildRequires:  nspr-devel >= 4.2.2
+BuildRequires:  nspr-devel >= 4.3
 BuildRequires:	zip >= 2.1
 BuildConflicts:	mozilla < 0.9.6-3
+Requires:	nspr >= 4.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	libnss3
 
@@ -126,6 +127,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*.so
+%{_libdir}/lib*.chk
 
 %files devel
 %defattr(644,root,root,755)
@@ -138,6 +140,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib[^c]*.a
-%{_libdir}/libc[^r]*.a
-%{_libdir}/libcr[^m]*.a
+%{_libdir}/lib*.a
+%exclude %{_libdir}/libcrmf.a
