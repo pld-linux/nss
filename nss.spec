@@ -3,7 +3,7 @@ Summary(pl):	NSS - Network Security Services
 Name:		nss
 Version:	3.9.2
 %define	foover	%(echo %{version} | tr . _)
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPL
 Group:		Libraries
@@ -11,6 +11,7 @@ Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foov
 # Source0-md5:	c10b5100510dab1e3c94b76a4d7b1f23
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-system-zlib.patch
+Patch2:		%{name}-pk11_const.patch
 BuildRequires:	nspr-devel >= 4.4.1
 BuildRequires:	zip >= 2.1
 BuildConflicts:	mozilla < 0.9.6-3
@@ -71,6 +72,7 @@ Statyczne wersje bibliotek z NSS.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 cd mozilla/security/nss

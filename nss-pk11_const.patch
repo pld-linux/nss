@@ -1,0 +1,35 @@
+diff -uNr nss-3.9.2/mozilla/security/nss/lib/pk11wrap.orig/pk11func.h nss-3.9.2/mozilla/security/nss/lib/pk11wrap/pk11func.h
+--- nss-3.9.2/mozilla/security/nss/lib/pk11wrap.orig/pk11func.h	2004-06-22 00:53:18.000000000 +0200
++++ nss-3.9.2/mozilla/security/nss/lib/pk11wrap/pk11func.h	2004-11-30 23:53:18.647970312 +0100
+@@ -137,8 +137,8 @@
+ /******************************************************************
+  *           Slot info functions
+  ******************************************************************/
+-PK11SlotInfo *PK11_FindSlotByName(char *name);
+-PK11SlotInfo *PK11_FindSlotBySerial(char *serial);
++PK11SlotInfo *PK11_FindSlotByName(const char *name);
++PK11SlotInfo *PK11_FindSlotBySerial(const char *serial);
+ /******************************************************************
+  * PK11_FindSlotsByNames searches for a PK11SlotInfo using one or
+  * more criteria : dllName, slotName and tokenName . In addition, if
+diff -uNr nss-3.9.2/mozilla/security/nss/lib/pk11wrap.orig/pk11slot.c nss-3.9.2/mozilla/security/nss/lib/pk11wrap/pk11slot.c
+--- nss-3.9.2/mozilla/security/nss/lib/pk11wrap.orig/pk11slot.c	2004-06-22 00:53:19.000000000 +0200
++++ nss-3.9.2/mozilla/security/nss/lib/pk11wrap/pk11slot.c	2004-11-30 23:53:37.963033976 +0100
+@@ -638,7 +638,7 @@
+ }
+ 
+ PK11SlotInfo *
+-PK11_FindSlotByName(char *name)
++PK11_FindSlotByName(const char *name)
+ {
+    SECMODModuleList *mlp;
+    SECMODModuleList *modules = SECMOD_GetDefaultModuleList();
+@@ -675,7 +675,7 @@
+ 
+ 
+ PK11SlotInfo *
+-PK11_FindSlotBySerial(char *serial)
++PK11_FindSlotBySerial(const char *serial)
+ {
+    SECMODModuleList *mlp;
+    SECMODModuleList *modules = SECMOD_GetDefaultModuleList();
