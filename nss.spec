@@ -1,13 +1,16 @@
-# $Revision: 1.27 $ $Date: 2002-06-10 23:28:19 $
+# $Revision: 1.27.2.1 $ $Date: 2002-09-28 23:17:01 $
+%define		snap	20020929
+
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
-Version:	3.4.1
-Release:	2
+Version:	3.4.2
+Release:	2.%{snap}
 Epoch:		1
 License:	GPL
 Group:		Libraries
-Source0:	ftp://ftp.mozilla.org/pub/security/nss/releases/NSS_3_4_1_RTM/src/%{name}-%{version}.tar.gz
+#Source0:	ftp://ftp.mozilla.org/pub/security/nss/releases/NSS_3_4_2_RTM/src/%{name}-%{version}.tar.gz
+Source0:	%{name}-%{snap}.tar.bz2
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-system-zlib.patch
 BuildRequires:  nspr-devel >= 4.1.2-3
@@ -66,7 +69,7 @@ Static NSS Toolkit libraries.
 Statyczne wersje bibliotek z NSS.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{snap}
 %patch0 -p1
 %patch1 -p1
 
@@ -106,10 +109,10 @@ cd mozilla/security/nss
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/nss,%{_libdir}}
 
-install mozilla/dist/private/security/*	$RPM_BUILD_ROOT%{_includedir}/nss
+install mozilla/dist/private/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install mozilla/dist/public/dbm/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install mozilla/dist/public/seccmd/*	$RPM_BUILD_ROOT%{_includedir}/nss
-install mozilla/dist/public/security/*	$RPM_BUILD_ROOT%{_includedir}/nss
+install mozilla/dist/public/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install mozilla/dist/pld/bin/*		$RPM_BUILD_ROOT%{_bindir}
 install mozilla/dist/pld/lib/*		$RPM_BUILD_ROOT%{_libdir}
 
