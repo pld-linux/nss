@@ -8,10 +8,10 @@ Epoch:		1
 License:	GPL
 Group:		Libraries
 Source0:	ftp://ftp.mozilla.org/pub/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5: 6a186160159d51eebe636358f584d6b5
+# Source0-md5:	6a186160159d51eebe636358f584d6b5
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-system-zlib.patch
-BuildRequires:  nspr-devel >= 4.3
+BuildRequires:	nspr-devel >= 4.3
 BuildRequires:	zip >= 2.1
 BuildConflicts:	mozilla < 0.9.6-3
 Requires:	nspr >= 4.3
@@ -20,15 +20,15 @@ Obsoletes:	libnss3
 
 %description
 NSS supports cross-platform development of security-enabled server
-applications. Applications built with NSS can support PKCS #5, 
+applications. Applications built with NSS can support PKCS #5,
 PKCS #7, PKCS #11, PKCS #12, S/MIME, TLS, SSL v2 and v3, X.509 v3
 certificates, and other security standards.
 
 %description -l pl
 NSS wspomaga pisanie wieloplatformowych bezpiecznych serwerów.
-Aplikacja u¿ywaj±ca NSS jest w stanie obs³u¿yæ PKCS #5, PKCS #7, 
-PKCS #11, PKCS #12, S/MIME, TLS, SSL v2 oraz v3, certyfikaty X.509 v3, i
-wiele innych bezpiecznych standardów.
+Aplikacja u¿ywaj±ca NSS jest w stanie obs³u¿yæ PKCS #5, PKCS #7,
+PKCS #11, PKCS #12, S/MIME, TLS, SSL v2 oraz v3, certyfikaty X.509 v3,
+i wiele innych bezpiecznych standardów.
 
 %package tools
 Summary:	NSS command line tools and utilities
