@@ -1,4 +1,4 @@
-# $Revision: 1.19 $ $Date: 2002-04-11 19:43:58 $
+# $Revision: 1.20 $ $Date: 2002-04-11 22:42:23 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
@@ -8,8 +8,9 @@ License:	GPL
 Group:		Libraries
 Source0:	ftp://ftp.mozilla.org/pub/security/nss/releases/NSS_3_4_RC1/src/%{name}-%{version}.tar.gz
 Patch0:		%{name}-Makefile.patch
+Patch1:		%{name}-dbm.patch.bz2
+Patch2:		%{name}-system-zlib.patch
 BuildRequires:	nspr-devel
-BuildRequires:	zip
 BuildConflicts:	mozilla < 0.9.6-3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	libnss3
@@ -66,6 +67,8 @@ Statyczne wersje bibliotek z NSS.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %build
 cd mozilla/security/nss
@@ -113,8 +116,8 @@ install mozilla/dist/pld/lib/*		$RPM_BUILD_ROOT%{_libdir}
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
