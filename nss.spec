@@ -1,9 +1,9 @@
-# $Revision: 1.11 $ $Date: 2002-01-18 02:14:03 $
+# $Revision: 1.12 $ $Date: 2002-01-26 06:52:03 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
 Version:	3.3.1
-Release:	2
+Release:	3
 License:	GPL
 Group:		Libraries
 Group(de):	Libraries
@@ -19,6 +19,7 @@ BuildRequires:	nspr-devel
 BuildRequires:	zip
 BuildConflicts:	mozilla < 0.9.6-3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	libnss3
 
 %description 
 NSS supports cross-platform development of security-enabled server
@@ -44,6 +45,7 @@ Group(pt_BR):	Desenvolvimento/Bibliotecas
 Group(ru):	Разработка/Библиотеки
 Group(uk):	Розробка/Б╕бл╕отеки
 Requires:	%{name} = %{version}
+Obsoletes:	libnss3-devel
 
 %description devel
 Development part of NSS library.
