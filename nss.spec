@@ -3,7 +3,7 @@ Summary(pl):	NSS - Network Security Services
 Name:		nss
 Version:	3.8
 %define	foover	%(echo %{version} | tr . _)
-Release:	2
+Release:	4
 Epoch:		1
 License:	GPL
 Group:		Libraries
@@ -71,6 +71,7 @@ Statyczne wersje bibliotek z NSS.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+cp -f mozilla/security/coreconf/Linux2.5.mk mozilla/security/coreconf/Linux2.6.mk
 
 %build
 cd mozilla/security/nss
