@@ -1,4 +1,4 @@
-# $Revision: 1.35 $ $Date: 2003-05-19 11:17:39 $
+# $Revision: 1.36 $ $Date: 2003-05-25 05:51:13 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
