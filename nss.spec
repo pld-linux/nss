@@ -14,6 +14,7 @@ Group:		Libraries
 Source0:	%{name}-%{version}.tar.bz2
 # Source0-md5:	ccf2d1cc0e8284fef3b49c94b9feafed
 #Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
+Source1:	%{name}-mozilla-nss.pc
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-system-zlib.patch
 BuildRequires:	nspr-devel >= 4.4.1
@@ -111,7 +112,7 @@ cd mozilla/security/nss
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/nss,%{_libdir}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/nss,%{_libdir},%{_pkgconfigdir}}
 
 install mozilla/dist/private/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install mozilla/dist/public/dbm/*	$RPM_BUILD_ROOT%{_includedir}/nss
@@ -119,6 +120,13 @@ install mozilla/dist/public/seccmd/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install mozilla/dist/public/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install mozilla/dist/pld/bin/*		$RPM_BUILD_ROOT%{_bindir}
 install mozilla/dist/pld/lib/*		$RPM_BUILD_ROOT%{_libdir}
+
+install %{SOURCE1} $RPM_BUILD_ROOT%{_pkgconfigdir}/mozilla-nss.pc
+
+sed -i -e 's#libdir=.*#libdir=%{_libdir}#g' \
+        -e 's#includedir=.*#includedir=%{_includedir}#g' \
+	-e '#VERSION#%{version}#g' \
+        $RPM_BUILD_ROOT%{_pkgconfigdir}/mozilla-nss.pc
 
 # resolve conflict with squid
 mv -f $RPM_BUILD_ROOT%{_bindir}/{,nss-}client
@@ -138,6 +146,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_includedir}/nss
 %{_libdir}/libcrmf.a
+%{_pkgconfigdir}/*.pc
 
 %files tools
 %defattr(644,root,root,755)
