@@ -1,15 +1,14 @@
-# $Revision: 1.24 $ $Date: 2002-04-16 15:53:40 $
+# $Revision: 1.25 $ $Date: 2002-05-20 22:01:51 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
-Version:	3.4.rc1
+Version:	3.4.1
 Release:	1
 License:	GPL
 Group:		Libraries
-Source0:	ftp://ftp.mozilla.org/pub/security/nss/releases/NSS_3_4_RC1/src/%{name}-%{version}.tar.gz
+Source0:	ftp://ftp.mozilla.org/pub/security/nss/releases/NSS_3_4_1_RTM/src/%{name}-%{version}.tar.gz
 Patch0:		%{name}-Makefile.patch
-Patch1:		%{name}-dbm.patch.bz2
-Patch2:		%{name}-system-zlib.patch
+Patch1:		%{name}-system-zlib.patch
 BuildRequires:  nspr-devel >= 4.1.2-3
 BuildRequires:	zip >= 2.1
 BuildConflicts:	mozilla < 0.9.6-3
@@ -28,6 +27,18 @@ Aplikacja u¿ywaj±ca NSS jest w stanie obs³u¿yæ PKCS #5, PKCS #7, PKCS
 #11, PKCS #12, S/MIME, TLS, SSL v2 oraz v3, certyfikaty X.509 v3, i
 wiele innych bezpiecznych standardów.
 
+%package tools
+Summary:	NSS command line tools and utilities
+Summary(pl):	Narzêdzia NSS
+Group:		Applications
+Requires:	%{name} = %{version}
+
+%description tools
+The NSS Toolkit command line tool.
+
+%description tools -l pl
+Narzêdzia NSS obs³ugiwane z linii poleceñ.
+
 %package devel
 Summary:	NSS - header files
 Summary(pl):	NSS - pliki nag³ówkowe
@@ -40,18 +51,6 @@ Development part of NSS library.
 
 %description devel -l pl
 Czê¶æ biblioteki NSS przeznaczona dla programistów.
-
-%package tools
-Summary:	NSS command line tools and utilities
-Summary(pl):	Narzêdzia NSS
-Group:		Applications
-Requires:	%{name} = %{version}
-
-%description tools
-The NSS Toolkit command line tool.
-
-%description tools -l pl
-Narzêdzia NSS obs³ugiwane z linii poleceñ.
 
 %package static
 Summary:	NSS - static library
@@ -69,7 +68,6 @@ Statyczne wersje bibliotek z NSS.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 cd mozilla/security/nss
@@ -113,6 +111,9 @@ install mozilla/dist/public/seccmd/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install mozilla/dist/public/security/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install mozilla/dist/pld/bin/*		$RPM_BUILD_ROOT%{_bindir}
 install mozilla/dist/pld/lib/*		$RPM_BUILD_ROOT%{_libdir}
+
+# resolve conflict with squid
+mv -f $RPM_BUILD_ROOT%{_bindir}/{,nss-}client
 
 %clean
 rm -rf $RPM_BUILD_ROOT
