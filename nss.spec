@@ -34,7 +34,7 @@ wiele innych bezpiecznych standardów.
 Summary:	NSS command line tools and utilities
 Summary(pl):	Narzêdzia NSS
 Group:		Applications
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}
 
 %description tools
 The NSS Toolkit command line tool.
@@ -46,7 +46,7 @@ Narzêdzia NSS obs³ugiwane z linii poleceñ.
 Summary:	NSS - header files
 Summary(pl):	NSS - pliki nag³ówkowe
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}
 Obsoletes:	libnss3-devel
 
 %description devel
@@ -59,7 +59,7 @@ Czê¶æ biblioteki NSS przeznaczona dla programistów.
 Summary:	NSS - static library
 Summary(pl):	NSS - biblioteka statyczna
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{epoch}:%{version}
 
 %description static
 Static NSS Toolkit libraries.
