@@ -1,4 +1,4 @@
-# $Revision: 1.12 $ $Date: 2002-01-26 06:52:03 $
+# $Revision: 1.13 $ $Date: 2002-02-18 21:24:51 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
@@ -21,7 +21,7 @@ BuildConflicts:	mozilla < 0.9.6-3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	libnss3
 
-%description 
+%description
 NSS supports cross-platform development of security-enabled server
 applications. Applications built with NSS can support PKCS #5, PKCS
 #7, PKCS #11, PKCS #12, S/MIME, TLS, SSL v2 and v3, X.509 v3
@@ -55,6 +55,7 @@ Czê¶æ biblioteki NSS przeznaczona dla programistów.
 
 %package tools
 Summary:	NSS command line tools and utilities
+Summary(pl):	Narzêdzia NSS
 Group:		Applications
 Group(de):	Applikationen
 Group(es):	Aplicaciones
@@ -66,6 +67,9 @@ Requires:	%{name} = %{version}
 
 %description tools
 The NSS Toolkit command line tool.
+
+%description tools -l pl
+Narzêdzia NSS obs³ugiwane z linii poleceñ.
 
 %package static
 Summary:	NSS - static library
@@ -111,7 +115,7 @@ cd mozilla/security/nss
 	BUILD_OPT=1 \
 	OPTIMIZER="%{rpmcflags}" \
 	PLATFORM="pld"
-	
+
 %{__make} all \
 	NSDISTMODE=copy \
 	NS_USE_GCC=1 \
@@ -136,7 +140,7 @@ install mozilla/dist/pld/lib/*		$RPM_BUILD_ROOT%{_libdir}
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post   -p /sbin/ldconfig
+%post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
 %files
