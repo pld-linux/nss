@@ -1,9 +1,9 @@
-# $Revision: 1.22 $ $Date: 2002-04-13 21:57:46 $
+# $Revision: 1.23 $ $Date: 2002-04-15 00:30:18 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
 Version:	3.4.rc1
-Release:	0.2
+Release:	1
 License:	GPL
 Group:		Libraries
 Source0:	ftp://ftp.mozilla.org/pub/security/nss/releases/NSS_3_4_RC1/src/%{name}-%{version}.tar.gz
