@@ -1,4 +1,4 @@
-# $Revision: 1.27.2.2 $ $Date: 2002-09-28 23:25:45 $
+# $Revision: 1.27.2.3 $ $Date: 2002-09-28 23:39:55 $
 %define		snap	20020929
 
 Summary:	NSS - Network Security Services
@@ -21,14 +21,14 @@ Obsoletes:	libnss3
 
 %description
 NSS supports cross-platform development of security-enabled server
-applications. Applications built with NSS can support PKCS #5, PKCS
-#7, PKCS #11, PKCS #12, S/MIME, TLS, SSL v2 and v3, X.509 v3
+applications. Applications built with NSS can support PKCS #5, 
+PKCS #7, PKCS #11, PKCS #12, S/MIME, TLS, SSL v2 and v3, X.509 v3
 certificates, and other security standards.
 
 %description -l pl
 NSS wspomaga pisanie wieloplatformowych bezpiecznych serwerów.
-Aplikacja u¿ywaj±ca NSS jest w stanie obs³u¿yæ PKCS #5, PKCS #7, PKCS
-#11, PKCS #12, S/MIME, TLS, SSL v2 oraz v3, certyfikaty X.509 v3, i
+Aplikacja u¿ywaj±ca NSS jest w stanie obs³u¿yæ PKCS #5, PKCS #7, 
+PKCS #11, PKCS #12, S/MIME, TLS, SSL v2 oraz v3, certyfikaty X.509 v3, i
 wiele innych bezpiecznych standardów.
 
 %package tools
