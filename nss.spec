@@ -121,12 +121,11 @@ install mozilla/dist/public/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install mozilla/dist/pld/bin/*		$RPM_BUILD_ROOT%{_bindir}
 install mozilla/dist/pld/lib/*		$RPM_BUILD_ROOT%{_libdir}
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_pkgconfigdir}/mozilla-nss.pc
-
-sed -i -e 's#libdir=.*#libdir=%{_libdir}#g' \
+sed \
+	-e 's#libdir=.*#libdir=%{_libdir}#g' \
         -e 's#includedir=.*#includedir=%{_includedir}#g' \
 	-e '#VERSION#%{version}#g' \
-        $RPM_BUILD_ROOT%{_pkgconfigdir}/mozilla-nss.pc
+	%{SOURCE1} > $RPM_BUILD_ROOT%{_pkgconfigdir}/mozilla-nss.pc
 
 # resolve conflict with squid
 mv -f $RPM_BUILD_ROOT%{_bindir}/{,nss-}client
