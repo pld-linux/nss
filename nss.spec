@@ -1,4 +1,4 @@
-# $Revision: 1.36 $ $Date: 2003-05-25 05:51:13 $
+# $Revision: 1.37 $ $Date: 2003-05-25 11:00:56 $
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
@@ -9,6 +9,7 @@ Epoch:		1
 License:	GPL
 Group:		Libraries
 Source0:	ftp://ftp.mozilla.org/pub/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
+# Source0-md5: 6a186160159d51eebe636358f584d6b5
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-system-zlib.patch
 BuildRequires:  nspr-devel >= 4.3
