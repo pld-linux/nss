@@ -1,13 +1,13 @@
---- nss-3.8/mozilla/security/nss/cmd/manifest.mn.orig	Tue Jan 28 18:53:19 2003
-+++ nss-3.8/mozilla/security/nss/cmd/manifest.mn	Mon May 19 10:58:27 2003
-@@ -37,7 +37,6 @@
+--- nss-3.10/mozilla/security/nss/cmd/manifest.mn.orig	2005-04-06 23:35:41.000000000 +0200
++++ nss-3.10/mozilla/security/nss/cmd/manifest.mn	2005-04-29 07:38:34.665164688 +0200
+@@ -41,7 +41,6 @@
  REQUIRES = nss nspr libdbm
  
  DIRS = lib  \
 - zlib \
+  addbuiltin \
   atob  \
   bltest \
-  btoa  \
 --- nss-3.8/mozilla/security/nss/cmd/platlibs.mk.orig	Mon May 19 10:09:48 2003
 +++ nss-3.8/mozilla/security/nss/cmd/platlibs.mk	Mon May 19 10:16:54 2003
 @@ -141,7 +141,7 @@
