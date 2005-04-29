@@ -1,9 +1,9 @@
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
-Version:	3.9.4
+Version:	3.10
 %define	foover	%(echo %{version} | tr . _)
-Release:	2
+Release:	1
 Epoch:		1
 License:	GPL
 Group:		Libraries
@@ -11,12 +11,15 @@ Group:		Libraries
 # :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/dbm -r DBM_1_61_RTM
 # :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/coreconf -r NSS_3_9_4_RTM
 # :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/nss -r NSS_3_9_4_RTM
-Source0:	%{name}-%{version}.tar.bz2
-# Source0-md5:	ccf2d1cc0e8284fef3b49c94b9feafed
-#Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
+#Source0:	%{name}-%{version}.tar.bz2
+Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
+# Source0-md5:	bd58f762f1b352910901f11823e67b97
 Source1:	%{name}-mozilla-nss.pc
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-system-zlib.patch
+# missing files
+# (:pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/dbm -r NSS_3_10_RTM)
+Patch2:		%{name}-dbm.patch
 BuildRequires:	nspr-devel >= 4.4.1
 BuildRequires:	zip >= 2.1
 BuildConflicts:	mozilla < 0.9.6-3
@@ -77,6 +80,7 @@ Statyczne wersje bibliotek z NSS.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 cd mozilla/security/nss
@@ -116,7 +120,6 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/nss,%{_libdir},%{_pkgconfig
 
 install mozilla/dist/private/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install mozilla/dist/public/dbm/*	$RPM_BUILD_ROOT%{_includedir}/nss
-install mozilla/dist/public/seccmd/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install mozilla/dist/public/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install mozilla/dist/pld/bin/*		$RPM_BUILD_ROOT%{_bindir}
 install mozilla/dist/pld/lib/*		$RPM_BUILD_ROOT%{_libdir}
