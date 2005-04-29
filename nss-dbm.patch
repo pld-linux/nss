@@ -1,0 +1,1197 @@
+diff -Nur nss-3.10/mozilla/security/dbm.orig/config/config.mk nss-3.10/mozilla/security/dbm/config/config.mk
+--- nss-3.10/mozilla/security/dbm.orig/config/config.mk	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/config/config.mk	2005-04-29 09:18:43.769641952 +0200
+@@ -0,0 +1,67 @@
++#! gmake
++#
++# The contents of this file are subject to the Mozilla Public
++# License Version 1.1 (the "License"); you may not use this file
++# except in compliance with the License. You may obtain a copy of
++# the License at http://www.mozilla.org/MPL/
++# 
++# Software distributed under the License is distributed on an "AS
++# IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
++# implied. See the License for the specific language governing
++# rights and limitations under the License.
++# 
++# The Original Code is the Netscape security libraries.
++# 
++# The Initial Developer of the Original Code is Netscape
++# Communications Corporation.  Portions created by Netscape are 
++# Copyright (C) 1994-2000 Netscape Communications Corporation.  All
++# Rights Reserved.
++# 
++# Contributor(s):
++# 
++# Alternatively, the contents of this file may be used under the
++# terms of the GNU General Public License Version 2 or later (the
++# "GPL"), in which case the provisions of the GPL are applicable 
++# instead of those above.  If you wish to allow use of your 
++# version of this file only under the terms of the GPL and not to
++# allow others to use your version of this file under the MPL,
++# indicate your decision by deleting the provisions above and
++# replace them with the notice and other provisions required by
++# the GPL.  If you do not delete the provisions above, a recipient
++# may use your version of this file under either the MPL or the
++# GPL.
++#
++
++#
++# These macros are defined by mozilla's configure script.
++# We define them manually here.
++#
++
++DEFINES += -DSTDC_HEADERS -DHAVE_STRERROR
++
++#
++# Most platforms have snprintf, so it's simpler to list the exceptions.
++#
++HAVE_SNPRINTF = 1
++#
++# OSF1 V4.0D doesn't have snprintf but V5.0A does.
++#
++ifeq ($(OS_TARGET)$(OS_RELEASE),OSF1V4.0D)
++HAVE_SNPRINTF =
++endif
++ifdef HAVE_SNPRINTF
++DEFINES += -DHAVE_SNPRINTF
++endif
++
++ifeq (,$(filter-out IRIX Linux,$(OS_TARGET)))
++DEFINES += -DHAVE_SYS_CDEFS_H
++endif
++
++ifeq (,$(filter-out DGUX NCR ReliantUNIX SCO_SV SCOOS UNIXWARE,$(OS_TARGET)))
++DEFINES += -DHAVE_SYS_BYTEORDER_H
++endif
++
++#
++# None of the platforms that we are interested in need to
++# define HAVE_MEMORY_H.
++#
+diff -Nur nss-3.10/mozilla/security/dbm.orig/config/CVS/Entries nss-3.10/mozilla/security/dbm/config/CVS/Entries
+--- nss-3.10/mozilla/security/dbm.orig/config/CVS/Entries	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/config/CVS/Entries	2005-04-29 09:18:43.771641648 +0200
+@@ -0,0 +1,2 @@
++/config.mk/1.4/Fri Apr 29 07:18:43 2005//TNSS_3_10_RTM
++D
+diff -Nur nss-3.10/mozilla/security/dbm.orig/config/CVS/Repository nss-3.10/mozilla/security/dbm/config/CVS/Repository
+--- nss-3.10/mozilla/security/dbm.orig/config/CVS/Repository	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/config/CVS/Repository	2004-07-03 02:41:37.000000000 +0200
+@@ -0,0 +1 @@
++mozilla/security/dbm/config
+diff -Nur nss-3.10/mozilla/security/dbm.orig/config/CVS/Root nss-3.10/mozilla/security/dbm/config/CVS/Root
+--- nss-3.10/mozilla/security/dbm.orig/config/CVS/Root	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/config/CVS/Root	2004-07-03 02:41:37.000000000 +0200
+@@ -0,0 +1 @@
++:pserver:tfox%netscape.com@cvs.mozilla.org:/cvsroot
+diff -Nur nss-3.10/mozilla/security/dbm.orig/config/CVS/Tag nss-3.10/mozilla/security/dbm/config/CVS/Tag
+--- nss-3.10/mozilla/security/dbm.orig/config/CVS/Tag	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/config/CVS/Tag	2005-04-29 09:18:43.770641800 +0200
+@@ -0,0 +1 @@
++NNSS_3_10_RTM
+diff -Nur nss-3.10/mozilla/security/dbm.orig/CVS/Entries nss-3.10/mozilla/security/dbm/CVS/Entries
+--- nss-3.10/mozilla/security/dbm.orig/CVS/Entries	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/CVS/Entries	2005-04-29 09:18:43.765642560 +0200
+@@ -0,0 +1,6 @@
++D/config////
++D/include////
++D/src////
++D/tests////
++/Makefile/1.1/Mon Mar 12 22:06:01 2001//TNSS_3_10_RTM
++/manifest.mn/1.3/Fri Apr 29 07:18:43 2005//TNSS_3_10_RTM
+diff -Nur nss-3.10/mozilla/security/dbm.orig/CVS/Repository nss-3.10/mozilla/security/dbm/CVS/Repository
+--- nss-3.10/mozilla/security/dbm.orig/CVS/Repository	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/CVS/Repository	2004-07-03 02:41:37.000000000 +0200
+@@ -0,0 +1 @@
++mozilla/security/dbm
+diff -Nur nss-3.10/mozilla/security/dbm.orig/CVS/Root nss-3.10/mozilla/security/dbm/CVS/Root
+--- nss-3.10/mozilla/security/dbm.orig/CVS/Root	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/CVS/Root	2004-07-03 02:41:37.000000000 +0200
+@@ -0,0 +1 @@
++:pserver:tfox%netscape.com@cvs.mozilla.org:/cvsroot
+diff -Nur nss-3.10/mozilla/security/dbm.orig/CVS/Tag nss-3.10/mozilla/security/dbm/CVS/Tag
+--- nss-3.10/mozilla/security/dbm.orig/CVS/Tag	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/CVS/Tag	2005-04-29 09:18:43.764642712 +0200
+@@ -0,0 +1 @@
++NNSS_3_10_RTM
+diff -Nur nss-3.10/mozilla/security/dbm.orig/include/CVS/Entries nss-3.10/mozilla/security/dbm/include/CVS/Entries
+--- nss-3.10/mozilla/security/dbm.orig/include/CVS/Entries	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/include/CVS/Entries	2005-04-29 09:18:43.781640128 +0200
+@@ -0,0 +1,3 @@
++/Makefile/1.3/Sun Oct 14 02:33:15 2001//TNSS_3_10_RTM
++/manifest.mn/1.2/Tue May  8 23:31:04 2001//TNSS_3_10_RTM
++D
+diff -Nur nss-3.10/mozilla/security/dbm.orig/include/CVS/Repository nss-3.10/mozilla/security/dbm/include/CVS/Repository
+--- nss-3.10/mozilla/security/dbm.orig/include/CVS/Repository	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/include/CVS/Repository	2004-07-03 02:41:37.000000000 +0200
+@@ -0,0 +1 @@
++mozilla/security/dbm/include
+diff -Nur nss-3.10/mozilla/security/dbm.orig/include/CVS/Root nss-3.10/mozilla/security/dbm/include/CVS/Root
+--- nss-3.10/mozilla/security/dbm.orig/include/CVS/Root	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/include/CVS/Root	2004-07-03 02:41:37.000000000 +0200
+@@ -0,0 +1 @@
++:pserver:tfox%netscape.com@cvs.mozilla.org:/cvsroot
+diff -Nur nss-3.10/mozilla/security/dbm.orig/include/CVS/Tag nss-3.10/mozilla/security/dbm/include/CVS/Tag
+--- nss-3.10/mozilla/security/dbm.orig/include/CVS/Tag	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/include/CVS/Tag	2005-04-29 09:18:43.779640432 +0200
+@@ -0,0 +1 @@
++NNSS_3_10_RTM
+diff -Nur nss-3.10/mozilla/security/dbm.orig/include/Makefile nss-3.10/mozilla/security/dbm/include/Makefile
+--- nss-3.10/mozilla/security/dbm.orig/include/Makefile	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/include/Makefile	2001-10-14 04:33:15.000000000 +0200
+@@ -0,0 +1,76 @@
++#! gmake
++#
++# The contents of this file are subject to the Mozilla Public
++# License Version 1.1 (the "License"); you may not use this file
++# except in compliance with the License. You may obtain a copy of
++# the License at http://www.mozilla.org/MPL/
++# 
++# Software distributed under the License is distributed on an "AS
++# IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
++# implied. See the License for the specific language governing
++# rights and limitations under the License.
++# 
++# The Original Code is the Netscape security libraries.
++# 
++# The Initial Developer of the Original Code is Netscape
++# Communications Corporation.  Portions created by Netscape are 
++# Copyright (C) 1994-2000 Netscape Communications Corporation.  All
++# Rights Reserved.
++# 
++# Contributor(s):
++# 
++# Alternatively, the contents of this file may be used under the
++# terms of the GNU General Public License Version 2 or later (the
++# "GPL"), in which case the provisions of the GPL are applicable 
++# instead of those above.  If you wish to allow use of your 
++# version of this file only under the terms of the GPL and not to
++# allow others to use your version of this file under the MPL,
++# indicate your decision by deleting the provisions above and
++# replace them with the notice and other provisions required by
++# the GPL.  If you do not delete the provisions above, a recipient
++# may use your version of this file under either the MPL or the
++# GPL.
++#
++
++#######################################################################
++# (1) Include initial platform-independent assignments (MANDATORY).   #
++#######################################################################
++
++include manifest.mn
++
++#######################################################################
++# (2) Include "global" configuration information. (OPTIONAL)          #
++#######################################################################
++
++include $(CORE_DEPTH)/coreconf/config.mk
++
++#######################################################################
++# (3) Include "component" configuration information. (OPTIONAL)       #
++#######################################################################
++
++
++
++#######################################################################
++# (4) Include "local" platform-dependent assignments (OPTIONAL).      #
++#######################################################################
++
++
++
++#######################################################################
++# (5) Execute "global" rules. (OPTIONAL)                              #
++#######################################################################
++
++include $(CORE_DEPTH)/coreconf/rules.mk
++
++#######################################################################
++# (6) Execute "component" rules. (OPTIONAL)                           #
++#######################################################################
++
++
++
++#######################################################################
++# (7) Execute "local" rules. (OPTIONAL).                              #
++#######################################################################
++
++
++
+diff -Nur nss-3.10/mozilla/security/dbm.orig/include/manifest.mn nss-3.10/mozilla/security/dbm/include/manifest.mn
+--- nss-3.10/mozilla/security/dbm.orig/include/manifest.mn	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/include/manifest.mn	2001-05-09 01:31:04.000000000 +0200
+@@ -0,0 +1,57 @@
++#! gmake
++#
++# The contents of this file are subject to the Mozilla Public
++# License Version 1.1 (the "License"); you may not use this file
++# except in compliance with the License. You may obtain a copy of
++# the License at http://www.mozilla.org/MPL/
++# 
++# Software distributed under the License is distributed on an "AS
++# IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
++# implied. See the License for the specific language governing
++# rights and limitations under the License.
++# 
++# The Original Code is the Netscape security libraries.
++# 
++# The Initial Developer of the Original Code is Netscape
++# Communications Corporation.  Portions created by Netscape are 
++# Copyright (C) 1994-2000 Netscape Communications Corporation.  All
++# Rights Reserved.
++# 
++# Contributor(s):
++# 
++# Alternatively, the contents of this file may be used under the
++# terms of the GNU General Public License Version 2 or later (the
++# "GPL"), in which case the provisions of the GPL are applicable 
++# instead of those above.  If you wish to allow use of your 
++# version of this file only under the terms of the GPL and not to
++# allow others to use your version of this file under the MPL,
++# indicate your decision by deleting the provisions above and
++# replace them with the notice and other provisions required by
++# the GPL.  If you do not delete the provisions above, a recipient
++# may use your version of this file under either the MPL or the
++# GPL.
++#
++
++CORE_DEPTH = ../..
++
++VPATH  = $(CORE_DEPTH)/../dbm/include
++
++MODULE = dbm
++
++EXPORTS =	nsres.h   \
++		cdefs.h   \
++		mcom_db.h \
++		ncompat.h \
++		winfile.h \
++		$(NULL)
++
++PRIVATE_EXPORTS =	hsearch.h \
++			page.h    \
++			extern.h  \
++			ndbm.h    \
++			queue.h   \
++			hash.h    \
++			mpool.h   \
++			search.h  \
++			$(NULL)
++
+diff -Nur nss-3.10/mozilla/security/dbm.orig/Makefile nss-3.10/mozilla/security/dbm/Makefile
+--- nss-3.10/mozilla/security/dbm.orig/Makefile	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/Makefile	2001-03-12 23:06:01.000000000 +0100
+@@ -0,0 +1,80 @@
++#! gmake
++#
++# The contents of this file are subject to the Mozilla Public
++# License Version 1.1 (the "License"); you may not use this file
++# except in compliance with the License. You may obtain a copy of
++# the License at http://www.mozilla.org/MPL/
++# 
++# Software distributed under the License is distributed on an "AS
++# IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
++# implied. See the License for the specific language governing
++# rights and limitations under the License.
++# 
++# The Original Code is the Netscape security libraries.
++# 
++# The Initial Developer of the Original Code is Netscape
++# Communications Corporation.  Portions created by Netscape are 
++# Copyright (C) 1994-2000 Netscape Communications Corporation.  All
++# Rights Reserved.
++# 
++# Contributor(s):
++# 
++# Alternatively, the contents of this file may be used under the
++# terms of the GNU General Public License Version 2 or later (the
++# "GPL"), in which case the provisions of the GPL are applicable 
++# instead of those above.  If you wish to allow use of your 
++# version of this file only under the terms of the GPL and not to
++# allow others to use your version of this file under the MPL,
++# indicate your decision by deleting the provisions above and
++# replace them with the notice and other provisions required by
++# the GPL.  If you do not delete the provisions above, a recipient
++# may use your version of this file under either the MPL or the
++# GPL.
++#
++
++#######################################################################
++# (1) Include initial platform-independent assignments (MANDATORY).   #
++#######################################################################
++
++include manifest.mn
++
++#######################################################################
++# (2) Include "global" configuration information. (OPTIONAL)          #
++#######################################################################
++
++include $(CORE_DEPTH)/coreconf/config.mk
++
++#######################################################################
++# (3) Include "component" configuration information. (OPTIONAL)       #
++#######################################################################
++
++
++
++#######################################################################
++# (4) Include "local" platform-dependent assignments (OPTIONAL).      #
++#######################################################################
++
++
++
++#######################################################################
++# (5) Execute "global" rules. (OPTIONAL)                              #
++#######################################################################
++
++include $(CORE_DEPTH)/coreconf/rules.mk
++
++#######################################################################
++# (6) Execute "component" rules. (OPTIONAL)                           #
++#######################################################################
++
++
++
++#######################################################################
++# (7) Execute "local" rules. (OPTIONAL).                              #
++#######################################################################
++
++coreconf_hack:
++	cd ../coreconf; gmake
++	gmake import
++
++RelEng_bld: coreconf_hack
++	gmake
+diff -Nur nss-3.10/mozilla/security/dbm.orig/manifest.mn nss-3.10/mozilla/security/dbm/manifest.mn
+--- nss-3.10/mozilla/security/dbm.orig/manifest.mn	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/manifest.mn	2005-04-29 09:18:43.763642864 +0200
+@@ -0,0 +1,45 @@
++#! gmake
++#
++# The contents of this file are subject to the Mozilla Public
++# License Version 1.1 (the "License"); you may not use this file
++# except in compliance with the License. You may obtain a copy of
++# the License at http://www.mozilla.org/MPL/
++# 
++# Software distributed under the License is distributed on an "AS
++# IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
++# implied. See the License for the specific language governing
++# rights and limitations under the License.
++# 
++# The Original Code is the Netscape security libraries.
++# 
++# The Initial Developer of the Original Code is Netscape
++# Communications Corporation.  Portions created by Netscape are 
++# Copyright (C) 1994-2000 Netscape Communications Corporation.  All
++# Rights Reserved.
++# 
++# Contributor(s):
++# 
++# Alternatively, the contents of this file may be used under the
++# terms of the GNU General Public License Version 2 or later (the
++# "GPL"), in which case the provisions of the GPL are applicable 
++# instead of those above.  If you wish to allow use of your 
++# version of this file only under the terms of the GPL and not to
++# allow others to use your version of this file under the MPL,
++# indicate your decision by deleting the provisions above and
++# replace them with the notice and other provisions required by
++# the GPL.  If you do not delete the provisions above, a recipient
++# may use your version of this file under either the MPL or the
++# GPL.
++#
++
++CORE_DEPTH = ..
++
++MODULE = dbm
++
++IMPORTS = nspr20/v4.4.1
++
++RELEASE = dbm
++
++DIRS =  include \
++        src     \
++	$(NULL)
+diff -Nur nss-3.10/mozilla/security/dbm.orig/src/config.mk nss-3.10/mozilla/security/dbm/src/config.mk
+--- nss-3.10/mozilla/security/dbm.orig/src/config.mk	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/src/config.mk	2005-04-29 09:18:43.983609424 +0200
+@@ -0,0 +1,63 @@
++#! gmake
++#
++# The contents of this file are subject to the Mozilla Public
++# License Version 1.1 (the "License"); you may not use this file
++# except in compliance with the License. You may obtain a copy of
++# the License at http://www.mozilla.org/MPL/
++# 
++# Software distributed under the License is distributed on an "AS
++# IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
++# implied. See the License for the specific language governing
++# rights and limitations under the License.
++# 
++# The Original Code is the Netscape security libraries.
++# 
++# The Initial Developer of the Original Code is Netscape
++# Communications Corporation.  Portions created by Netscape are 
++# Copyright (C) 1994-2000 Netscape Communications Corporation.  All
++# Rights Reserved.
++# 
++# Contributor(s):
++# 
++# Alternatively, the contents of this file may be used under the
++# terms of the GNU General Public License Version 2 or later (the
++# "GPL"), in which case the provisions of the GPL are applicable 
++# instead of those above.  If you wish to allow use of your 
++# version of this file only under the terms of the GPL and not to
++# allow others to use your version of this file under the MPL,
++# indicate your decision by deleting the provisions above and
++# replace them with the notice and other provisions required by
++# the GPL.  If you do not delete the provisions above, a recipient
++# may use your version of this file under either the MPL or the
++# GPL.
++#
++
++DEFINES += -DMEMMOVE -D__DBINTERFACE_PRIVATE $(SECURITY_FLAG)
++
++INCLUDES += -I$(CORE_DEPTH)/../dbm/include
++
++#
++#  Currently, override TARGETS variable so that only static libraries
++#  are specifed as dependencies within rules.mk.
++#
++
++TARGETS        = $(LIBRARY)
++SHARED_LIBRARY =
++IMPORT_LIBRARY =
++PURE_LIBRARY   =
++PROGRAM        =
++
++ifdef SHARED_LIBRARY
++	ifeq (,$(filter-out WINNT WIN95 WINCE,$(OS_TARGET))) # list omits WIN16
++		DLLBASE=/BASE:0x30000000
++		RES=$(OBJDIR)/dbm.res
++		RESNAME=../include/dbm.rc
++	endif
++	ifeq ($(DLL_SUFFIX),dll)
++		DEFINES += -D_DLL
++	endif
++endif
++
++ifeq ($(OS_TARGET),AIX)
++	OS_LIBS += -lc_r
++endif
+diff -Nur nss-3.10/mozilla/security/dbm.orig/src/CVS/Entries nss-3.10/mozilla/security/dbm/src/CVS/Entries
+--- nss-3.10/mozilla/security/dbm.orig/src/CVS/Entries	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/src/CVS/Entries	2005-04-29 09:18:43.988608664 +0200
+@@ -0,0 +1,6 @@
++/Makefile/1.4/Sun Oct 14 02:33:16 2001//TNSS_3_10_RTM
++/config.mk/1.4/Fri Apr 29 07:18:43 2005//TNSS_3_10_RTM
++/dirent.c/1.1/Thu Nov 22 00:13:54 2001//TNSS_3_10_RTM
++/dirent.h/1.1/Thu Nov 22 00:13:54 2001//TNSS_3_10_RTM
++/manifest.mn/1.4/Thu Nov 22 00:13:56 2001//TNSS_3_10_RTM
++D
+diff -Nur nss-3.10/mozilla/security/dbm.orig/src/CVS/Repository nss-3.10/mozilla/security/dbm/src/CVS/Repository
+--- nss-3.10/mozilla/security/dbm.orig/src/CVS/Repository	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/src/CVS/Repository	2004-07-03 02:41:37.000000000 +0200
+@@ -0,0 +1 @@
++mozilla/security/dbm/src
+diff -Nur nss-3.10/mozilla/security/dbm.orig/src/CVS/Root nss-3.10/mozilla/security/dbm/src/CVS/Root
+--- nss-3.10/mozilla/security/dbm.orig/src/CVS/Root	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/src/CVS/Root	2004-07-03 02:41:37.000000000 +0200
+@@ -0,0 +1 @@
++:pserver:tfox%netscape.com@cvs.mozilla.org:/cvsroot
+diff -Nur nss-3.10/mozilla/security/dbm.orig/src/CVS/Tag nss-3.10/mozilla/security/dbm/src/CVS/Tag
+--- nss-3.10/mozilla/security/dbm.orig/src/CVS/Tag	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/src/CVS/Tag	2005-04-29 09:18:43.987608816 +0200
+@@ -0,0 +1 @@
++NNSS_3_10_RTM
+diff -Nur nss-3.10/mozilla/security/dbm.orig/src/dirent.c nss-3.10/mozilla/security/dbm/src/dirent.c
+--- nss-3.10/mozilla/security/dbm.orig/src/dirent.c	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/src/dirent.c	2001-11-22 01:13:54.000000000 +0100
+@@ -0,0 +1,348 @@
++#ifdef OS2
++
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <ctype.h>
++
++#include <dirent.h>
++#include <errno.h>
++
++/*#ifndef __EMX__ 
++#include <libx.h>
++#endif */
++
++#define INCL_DOSFILEMGR
++#define INCL_DOSERRORS
++#include <os2.h>
++
++#if OS2 >= 2
++# define FFBUF	FILEFINDBUF3
++# define Word	ULONG
++  /*
++   * LS20 recommends a request count of 100, but according to the
++   * APAR text it does not lead to missing files, just to funny
++   * numbers of returned entries.
++   *
++   * LS30 HPFS386 requires a count greater than 2, or some files
++   * are missing (those starting with a character less that '.').
++   *
++   * Novell looses entries which overflow the buffer. In previous
++   * versions of dirent2, this could have lead to missing files
++   * when the average length of 100 directory entries was 40 bytes
++   * or more (quite unlikely for files on a Novell server).
++   *
++   * Conclusion: Make sure that the entries all fit into the buffer
++   * and that the buffer is large enough for more than 2 entries
++   * (each entry is at most 300 bytes long). And ignore the LS20
++   * effect.
++   */
++# define Count	25
++# define BufSz	(25 * (sizeof(FILEFINDBUF3)+1))
++#else
++# define FFBUF	FILEFINDBUF
++# define Word	USHORT
++# define BufSz	1024
++# define Count	3
++#endif
++
++#if defined(__IBMC__) || defined(__IBMCPP__)
++  #define error(rc) _doserrno = rc, errno = EOS2ERR
++#elif defined(MICROSOFT)
++  #define error(rc) _doserrno = rc, errno = 255
++#else
++  #define error(rc) errno = 255
++#endif
++
++struct _dirdescr {
++	HDIR		handle;		/* DosFindFirst handle */
++	char		fstype;		/* filesystem type */
++	Word		count;		/* valid entries in <ffbuf> */
++	long		number;		/* absolute number of next entry */
++	int		index;		/* relative number of next entry */
++	FFBUF *		next;		/* pointer to next entry */
++	char		name[MAXPATHLEN+3]; /* directory name */
++	unsigned	attrmask;	/* attribute mask for seekdir */
++	struct dirent	entry;		/* buffer for directory entry */
++	BYTE		ffbuf[BufSz];
++};
++
++/*
++ * Return first char of filesystem type, or 0 if unknown.
++ */
++static char
++getFSType(const char *path)
++{
++	static char cache[1+26];
++	char drive[3], info[512];
++	Word unit, infolen;
++	char r;
++
++	if (isalpha(path[0]) && path[1] == ':') {
++		unit = toupper(path[0]) - '@';
++		path += 2;
++	} else {
++		ULONG driveMap;
++#if OS2 >= 2
++		if (DosQueryCurrentDisk(&unit, &driveMap))
++#else
++		if (DosQCurDisk(&unit, &driveMap))
++#endif
++			return 0;
++	}
++
++	if ((path[0] == '\\' || path[0] == '/')
++	 && (path[1] == '\\' || path[1] == '/'))
++		return 0;
++
++	if (cache [unit])
++		return cache [unit];
++
++	drive[0] = '@' + unit;
++	drive[1] = ':';
++	drive[2] = '\0';
++	infolen = sizeof info;
++#if OS2 >= 2
++	if (DosQueryFSAttach(drive, 0, FSAIL_QUERYNAME, (PVOID)info, &infolen))
++		return 0;
++	if (infolen >= sizeof(FSQBUFFER2)) {
++		FSQBUFFER2 *p = (FSQBUFFER2 *)info;
++		r = p->szFSDName[p->cbName];
++	} else
++#else
++	if (DosQFSAttach((PSZ)drive, 0, FSAIL_QUERYNAME, (PVOID)info, &infolen, 0))
++		return 0;
++	if (infolen >= 9) {
++		char *p = info + sizeof(USHORT);
++		p += sizeof(USHORT) + *(USHORT *)p + 1 + sizeof(USHORT);
++		r = *p;
++	} else
++#endif
++		r = 0;
++	return cache [unit] = r;
++}
++
++char *
++abs_path(const char *name, char *buffer, int len)
++{
++	char buf[4];
++	if (isalpha(name[0]) && name[1] == ':' && name[2] == '\0') {
++		buf[0] = name[0];
++		buf[1] = name[1];
++		buf[2] = '.';
++		buf[3] = '\0';
++		name = buf;
++	}
++#if OS2 >= 2
++	if (DosQueryPathInfo((PSZ)name, FIL_QUERYFULLNAME, buffer, len))
++#else
++	if (DosQPathInfo((PSZ)name, FIL_QUERYFULLNAME, (PBYTE)buffer, len, 0L))
++#endif
++		return NULL;
++	return buffer;
++}
++
++DIR *
++openxdir(const char *path, unsigned att_mask)
++{
++	DIR *dir;
++	char name[MAXPATHLEN+3];
++	Word rc;
++
++	dir = malloc(sizeof(DIR));
++	if (dir == NULL) {
++		errno = ENOMEM;
++		return NULL;
++	}
++
++	strncpy(name, path, MAXPATHLEN);
++	name[MAXPATHLEN] = '\0';
++	switch (name[strlen(name)-1]) {
++	default:
++		strcat(name, "\\");
++	case '\\':
++	case '/':
++	case ':':
++		;
++	}
++	strcat(name, ".");
++	if (!abs_path(name, dir->name, MAXPATHLEN+1))
++		strcpy(dir->name, name);
++	if (dir->name[strlen(dir->name)-1] == '\\')
++		strcat(dir->name, "*");
++	else
++		strcat(dir->name, "\\*");
++
++	dir->fstype = getFSType(dir->name);
++	dir->attrmask = att_mask | A_DIR;
++
++	dir->handle = HDIR_CREATE;
++	dir->count = 100;
++#if OS2 >= 2
++	rc = DosFindFirst(dir->name, &dir->handle, dir->attrmask,
++		dir->ffbuf, sizeof dir->ffbuf, &dir->count, FIL_STANDARD);
++#else
++	rc = DosFindFirst((PSZ)dir->name, &dir->handle, dir->attrmask,
++		(PFILEFINDBUF)dir->ffbuf, sizeof dir->ffbuf, &dir->count, 0);
++#endif
++	switch (rc) {
++	default:
++		free(dir);
++		error(rc);
++		return NULL;
++	case NO_ERROR:
++	case ERROR_NO_MORE_FILES:
++		;
++	}
++
++	dir->number = 0;
++	dir->index = 0;
++	dir->next = (FFBUF *)dir->ffbuf;
++
++	return (DIR *)dir;
++}
++
++DIR *
++opendir(const char *pathname)
++{
++	return openxdir(pathname, 0);
++}
++
++struct dirent *
++readdir(DIR *dir)
++{
++	static int dummy_ino = 2;
++
++	if (dir->index == dir->count) {
++		Word rc;
++		dir->count = 100;
++#if OS2 >= 2
++		rc = DosFindNext(dir->handle, dir->ffbuf,
++			sizeof dir->ffbuf, &dir->count);
++#else
++		rc = DosFindNext(dir->handle, (PFILEFINDBUF)dir->ffbuf,
++			sizeof dir->ffbuf, &dir->count);
++#endif
++		if (rc) {
++			error(rc);
++			return NULL;
++		}
++
++		dir->index = 0;
++		dir->next = (FFBUF *)dir->ffbuf;
++	}
++
++	if (dir->index == dir->count)
++		return NULL;
++
++	memcpy(dir->entry.d_name, dir->next->achName, dir->next->cchName);
++	dir->entry.d_name[dir->next->cchName] = '\0';
++	dir->entry.d_ino = dummy_ino++;
++	dir->entry.d_reclen = dir->next->cchName;
++	dir->entry.d_namlen = dir->next->cchName;
++	dir->entry.d_size = dir->next->cbFile;
++	dir->entry.d_attribute = dir->next->attrFile;
++	dir->entry.d_time = *(USHORT *)&dir->next->ftimeLastWrite;
++	dir->entry.d_date = *(USHORT *)&dir->next->fdateLastWrite;
++
++	switch (dir->fstype) {
++	case 'F': /* FAT */
++	case 'C': /* CDFS */
++		if (dir->next->attrFile & FILE_DIRECTORY)
++			strupr(dir->entry.d_name);
++		else
++			strlwr(dir->entry.d_name);
++	}
++
++#if OS2 >= 2
++	dir->next = (FFBUF *)((BYTE *)dir->next + dir->next->oNextEntryOffset);
++#else
++	dir->next = (FFBUF *)((BYTE *)dir->next->achName + dir->next->cchName + 1);
++#endif
++	++dir->number;
++	++dir->index;
++
++	return &dir->entry;
++}
++
++long
++telldir(DIR *dir)
++{
++	return dir->number;
++}
++
++void
++seekdir(DIR *dir, long off)
++{
++	if (dir->number > off) {
++		char name[MAXPATHLEN+2];
++		Word rc;
++
++		DosFindClose(dir->handle);
++
++		strcpy(name, dir->name);
++		strcat(name, "*");
++
++		dir->handle = HDIR_CREATE;
++		dir->count = 32767;
++#if OS2 >= 2
++		rc = DosFindFirst(name, &dir->handle, dir->attrmask,
++			dir->ffbuf, sizeof dir->ffbuf, &dir->count, FIL_STANDARD);
++#else
++		rc = DosFindFirst((PSZ)name, &dir->handle, dir->attrmask,
++			(PFILEFINDBUF)dir->ffbuf, sizeof dir->ffbuf, &dir->count, 0);
++#endif
++		switch (rc) {
++		default:
++			error(rc);
++			return;
++		case NO_ERROR:
++		case ERROR_NO_MORE_FILES:
++			;
++		}
++
++		dir->number = 0;
++		dir->index = 0;
++		dir->next = (FFBUF *)dir->ffbuf;
++	}
++
++	while (dir->number < off && readdir(dir))
++		;
++}
++
++void
++closedir(DIR *dir)
++{
++	DosFindClose(dir->handle);
++	free(dir);
++}
++
++/*****************************************************************************/
++
++#ifdef TEST
++
++main(int argc, char **argv)
++{
++	int i;
++	DIR *dir;
++	struct dirent *ep;
++
++	for (i = 1; i < argc; ++i) {
++		dir = opendir(argv[i]);
++		if (!dir)
++			continue;
++		while (ep = readdir(dir))
++			if (strchr("\\/:", argv[i] [strlen(argv[i]) - 1]))
++				printf("%s%s\n", argv[i], ep->d_name);
++			else
++				printf("%s/%s\n", argv[i], ep->d_name);
++		closedir(dir);
++	}
++
++	return 0;
++}
++
++#endif
++
++#endif /* OS2 */
++
+diff -Nur nss-3.10/mozilla/security/dbm.orig/src/dirent.h nss-3.10/mozilla/security/dbm/src/dirent.h
+--- nss-3.10/mozilla/security/dbm.orig/src/dirent.h	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/src/dirent.h	2001-11-22 01:13:54.000000000 +0100
+@@ -0,0 +1,97 @@
++#ifndef __DIRENT_H__
++#define __DIRENT_H__
++/*
++ * @(#)msd_dir.h 1.4 87/11/06   Public Domain.
++ *
++ *  A public domain implementation of BSD directory routines for
++ *  MS-DOS.  Written by Michael Rendell ({uunet,utai}michael@garfield),
++ *  August 1897
++ *
++ *  Extended by Peter Lim (lim@mullian.oz) to overcome some MS DOS quirks
++ *  and returns 2 more pieces of information - file size & attribute.
++ *  Plus a little reshuffling of some #define's positions    December 1987
++ *
++ *  Some modifications by Martin Junius                      02-14-89
++ *
++ *	AK900712
++ *	AK910410	abs_path - make absolute path
++ *
++ */
++
++#ifdef __EMX__
++#include <sys/param.h>
++#else
++#if defined(__IBMC__) || defined(__IBMCPP__) || defined(XP_W32_MSVC)
++#include <stdio.h>
++#ifdef MAXPATHLEN
++	#undef MAXPATHLEN
++#endif
++#define MAXPATHLEN (FILENAME_MAX*4)
++#define MAXNAMLEN FILENAME_MAX
++
++#else
++#include <param.h>
++#endif
++#endif
++
++#ifdef __cplusplus
++extern "C" {
++#endif
++
++/* attribute stuff */
++#ifndef A_RONLY
++# define A_RONLY   0x01
++# define A_HIDDEN  0x02
++# define A_SYSTEM  0x04
++# define A_LABEL   0x08
++# define A_DIR     0x10
++# define A_ARCHIVE 0x20
++#endif
++
++struct dirent {
++#if defined(OS2) || defined(WIN32)        /* use the layout of EMX to avoid trouble */
++    int            d_ino;                 /* Dummy */
++    int            d_reclen;		  /* Dummy, same as d_namlen */
++    int            d_namlen;              /* length of name */
++    char           d_name[MAXNAMLEN + 1];
++    unsigned long  d_size;
++    unsigned short d_attribute;           /* attributes (see above) */
++    unsigned short d_time;                /* modification time */
++    unsigned short d_date;                /* modification date */
++#else
++    char	   d_name[MAXNAMLEN + 1]; /* garentee null termination */
++    char	   d_attribute;		  /* .. extension .. */
++    unsigned long  d_size;		  /* .. extension .. */
++#endif
++};
++
++typedef struct _dirdescr DIR;
++/* the structs do not have to be defined here */
++
++extern DIR		*opendir(const char *);
++extern DIR		*openxdir(const char *, unsigned);
++extern struct dirent	*readdir(DIR *);
++extern void		seekdir(DIR *, long);
++extern long		telldir(DIR *);
++extern void 		closedir(DIR *);
++#define			rewinddir(dirp) seekdir(dirp, 0L)
++
++extern char *		abs_path(const char *name, char *buffer, int len);
++
++#ifndef S_IFMT
++#define S_IFMT ( S_IFDIR | S_IFREG )
++#endif
++
++#ifndef S_ISDIR
++#define S_ISDIR( m )                    (((m) & S_IFMT) == S_IFDIR)
++#endif
++
++#ifndef S_ISREG
++#define S_ISREG( m )                    (((m) & S_IFMT) == S_IFREG)
++#endif
++
++#ifdef __cplusplus
++}
++#endif
++
++#endif
+diff -Nur nss-3.10/mozilla/security/dbm.orig/src/Makefile nss-3.10/mozilla/security/dbm/src/Makefile
+--- nss-3.10/mozilla/security/dbm.orig/src/Makefile	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/src/Makefile	2001-10-14 04:33:16.000000000 +0200
+@@ -0,0 +1,76 @@
++#! gmake
++#
++# The contents of this file are subject to the Mozilla Public
++# License Version 1.1 (the "License"); you may not use this file
++# except in compliance with the License. You may obtain a copy of
++# the License at http://www.mozilla.org/MPL/
++# 
++# Software distributed under the License is distributed on an "AS
++# IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
++# implied. See the License for the specific language governing
++# rights and limitations under the License.
++# 
++# The Original Code is the Netscape security libraries.
++# 
++# The Initial Developer of the Original Code is Netscape
++# Communications Corporation.  Portions created by Netscape are 
++# Copyright (C) 1994-2000 Netscape Communications Corporation.  All
++# Rights Reserved.
++# 
++# Contributor(s):
++# 
++# Alternatively, the contents of this file may be used under the
++# terms of the GNU General Public License Version 2 or later (the
++# "GPL"), in which case the provisions of the GPL are applicable 
++# instead of those above.  If you wish to allow use of your 
++# version of this file only under the terms of the GPL and not to
++# allow others to use your version of this file under the MPL,
++# indicate your decision by deleting the provisions above and
++# replace them with the notice and other provisions required by
++# the GPL.  If you do not delete the provisions above, a recipient
++# may use your version of this file under either the MPL or the
++# GPL.
++#
++
++#######################################################################
++# (1) Include initial platform-independent assignments (MANDATORY).   #
++#######################################################################
++
++include manifest.mn
++
++#######################################################################
++# (2) Include "global" configuration information. (OPTIONAL)          #
++#######################################################################
++
++include $(CORE_DEPTH)/coreconf/config.mk
++
++#######################################################################
++# (3) Include "component" configuration information. (OPTIONAL)       #
++#######################################################################
++
++include $(CORE_DEPTH)/dbm/config/config.mk
++
++#######################################################################
++# (4) Include "local" platform-dependent assignments (OPTIONAL).      #
++#######################################################################
++
++include config.mk
++
++#######################################################################
++# (5) Execute "global" rules. (OPTIONAL)                              #
++#######################################################################
++
++include $(CORE_DEPTH)/coreconf/rules.mk
++
++#######################################################################
++# (6) Execute "component" rules. (OPTIONAL)                           #
++#######################################################################
++
++
++
++#######################################################################
++# (7) Execute "local" rules. (OPTIONAL).                              #
++#######################################################################
++
++
++
+diff -Nur nss-3.10/mozilla/security/dbm.orig/src/manifest.mn nss-3.10/mozilla/security/dbm/src/manifest.mn
+--- nss-3.10/mozilla/security/dbm.orig/src/manifest.mn	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/src/manifest.mn	2001-11-22 01:13:56.000000000 +0100
+@@ -0,0 +1,61 @@
++#! gmake
++#
++# The contents of this file are subject to the Mozilla Public
++# License Version 1.1 (the "License"); you may not use this file
++# except in compliance with the License. You may obtain a copy of
++# the License at http://www.mozilla.org/MPL/
++# 
++# Software distributed under the License is distributed on an "AS
++# IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
++# implied. See the License for the specific language governing
++# rights and limitations under the License.
++# 
++# The Original Code is the Netscape security libraries.
++# 
++# The Initial Developer of the Original Code is Netscape
++# Communications Corporation.  Portions created by Netscape are 
++# Copyright (C) 1994-2000 Netscape Communications Corporation.  All
++# Rights Reserved.
++# 
++# Contributor(s):
++# 
++# Alternatively, the contents of this file may be used under the
++# terms of the GNU General Public License Version 2 or later (the
++# "GPL"), in which case the provisions of the GPL are applicable 
++# instead of those above.  If you wish to allow use of your 
++# version of this file only under the terms of the GPL and not to
++# allow others to use your version of this file under the MPL,
++# indicate your decision by deleting the provisions above and
++# replace them with the notice and other provisions required by
++# the GPL.  If you do not delete the provisions above, a recipient
++# may use your version of this file under either the MPL or the
++# GPL.
++#
++
++CORE_DEPTH = ../..
++
++VPATH  = $(CORE_DEPTH)/../dbm/src
++
++MODULE = dbm
++
++#
++# memmove.c, snprintf.c, and strerror.c are not in CSRCS because
++# the Standard C Library has memmove and strerror and DBM is not
++# using snprintf.
++#
++
++CSRCS = db.c	   \
++	h_bigkey.c \
++	h_func.c   \
++	h_log2.c   \
++	h_page.c   \
++	hash.c	   \
++	hash_buf.c \
++	hsearch.c  \
++	mktemp.c   \
++	ndbm.c	   \
++	nsres.c	   \
++	dirent.c	   \
++	$(NULL)
++
++LIBRARY_NAME = dbm
+diff -Nur nss-3.10/mozilla/security/dbm.orig/tests/CVS/Entries nss-3.10/mozilla/security/dbm/tests/CVS/Entries
+--- nss-3.10/mozilla/security/dbm.orig/tests/CVS/Entries	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/tests/CVS/Entries	2005-04-29 09:18:43.997607296 +0200
+@@ -0,0 +1,2 @@
++/Makefile/1.4/Fri Apr 29 07:18:43 2005//TNSS_3_10_RTM
++D
+diff -Nur nss-3.10/mozilla/security/dbm.orig/tests/CVS/Repository nss-3.10/mozilla/security/dbm/tests/CVS/Repository
+--- nss-3.10/mozilla/security/dbm.orig/tests/CVS/Repository	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/tests/CVS/Repository	2004-07-03 02:41:37.000000000 +0200
+@@ -0,0 +1 @@
++mozilla/security/dbm/tests
+diff -Nur nss-3.10/mozilla/security/dbm.orig/tests/CVS/Root nss-3.10/mozilla/security/dbm/tests/CVS/Root
+--- nss-3.10/mozilla/security/dbm.orig/tests/CVS/Root	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/tests/CVS/Root	2004-07-03 02:41:37.000000000 +0200
+@@ -0,0 +1 @@
++:pserver:tfox%netscape.com@cvs.mozilla.org:/cvsroot
+diff -Nur nss-3.10/mozilla/security/dbm.orig/tests/CVS/Tag nss-3.10/mozilla/security/dbm/tests/CVS/Tag
+--- nss-3.10/mozilla/security/dbm.orig/tests/CVS/Tag	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/tests/CVS/Tag	2005-04-29 09:18:43.995607600 +0200
+@@ -0,0 +1 @@
++NNSS_3_10_RTM
+diff -Nur nss-3.10/mozilla/security/dbm.orig/tests/Makefile nss-3.10/mozilla/security/dbm/tests/Makefile
+--- nss-3.10/mozilla/security/dbm.orig/tests/Makefile	1970-01-01 01:00:00.000000000 +0100
++++ nss-3.10/mozilla/security/dbm/tests/Makefile	2005-04-29 09:18:43.994607752 +0200
+@@ -0,0 +1,69 @@
++#! gmake
++#
++# The contents of this file are subject to the Mozilla Public
++# License Version 1.1 (the "License"); you may not use this file
++# except in compliance with the License. You may obtain a copy of
++# the License at http://www.mozilla.org/MPL/
++# 
++# Software distributed under the License is distributed on an "AS
++# IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
++# implied. See the License for the specific language governing
++# rights and limitations under the License.
++# 
++# The Original Code is the Netscape security libraries.
++# 
++# The Initial Developer of the Original Code is Netscape
++# Communications Corporation.  Portions created by Netscape are 
++# Copyright (C) 1994-2000 Netscape Communications Corporation.  All
++# Rights Reserved.
++# 
++# Contributor(s):
++# 
++# Alternatively, the contents of this file may be used under the
++# terms of the GNU General Public License Version 2 or later (the
++# "GPL"), in which case the provisions of the GPL are applicable 
++# instead of those above.  If you wish to allow use of your 
++# version of this file only under the terms of the GPL and not to
++# allow others to use your version of this file under the MPL,
++# indicate your decision by deleting the provisions above and
++# replace them with the notice and other provisions required by
++# the GPL.  If you do not delete the provisions above, a recipient
++# may use your version of this file under either the MPL or the
++# GPL.
++#
++DEPTH		= ../..
++CORE_DEPTH	= ../..
++
++VPATH		= $(CORE_DEPTH)/../dbm/tests
++
++MODULE		= dbm
++
++CSRCS		= lots.c
++
++PROGRAM		= lots
++
++include $(DEPTH)/coreconf/config.mk
++
++include $(DEPTH)/dbm/config/config.mk
++
++ifeq (,$(filter-out WIN%,$(OS_TARGET))) 
++LIBDBM		= ../src/$(PLATFORM)/dbm$(STATIC_LIB_SUFFIX)
++else
++LIBDBM		= ../src/$(PLATFORM)/libdbm$(STATIC_LIB_SUFFIX)
++endif
++
++INCLUDES	+= -I$(CORE_DEPTH)/../dbm/include
++
++LDFLAGS		= $(LDOPTS) $(LIBDBM)
++
++include $(DEPTH)/coreconf/rules.mk
++
++lots.pure: lots
++	purify $(CC) -o lots.pure $(CFLAGS) $(OBJS) $(MYLIBS)
++
++crash: crash.o $(MYLIBS)
++	$(CC) -o crash $(CFLAGS) $^
++
++crash.pure: crash.o $(MYLIBS)
++	purify $(CC) -o crash.pure $(CFLAGS) $^
++
