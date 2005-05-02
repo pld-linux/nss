@@ -127,7 +127,7 @@ install mozilla/dist/pld/lib/*		$RPM_BUILD_ROOT%{_libdir}
 sed \
 	-e 's#libdir=.*#libdir=%{_libdir}#g' \
         -e 's#includedir=.*#includedir=%{_includedir}#g' \
-	-e '#VERSION#%{version}#g' \
+	-e 's#VERSION#%{version}#g' \
 	%{SOURCE1} > $RPM_BUILD_ROOT%{_pkgconfigdir}/mozilla-nss.pc
 
 # resolve conflict with squid
