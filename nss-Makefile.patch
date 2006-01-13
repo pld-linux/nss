@@ -31,14 +31,14 @@ diff -Nur nss-3.4.rc1.orig/mozilla/security/nss/cmd/platlibs.mk nss-3.4.rc1/mozi
  
  # $(PROGRAM) has explicit dependencies on $(EXTRA_LIBS)
 -CRYPTOLIB=$(DIST)/lib/$(LIB_PREFIX)freebl.$(LIB_SUFFIX)
-+CRYPTOLIB=$(DIST)/lib/$(LIB_PREFIX)freebl_3.$(LIB_SUFFIX)
++CRYPTOLIB=$(DIST)/lib/$(LIB_PREFIX)freebl3.$(LIB_SUFFIX)
  ifdef MOZILLA_SECURITY_BUILD
  	CRYPTOLIB=$(DIST)/lib/$(LIB_PREFIX)crypto.$(LIB_SUFFIX)
  endif
  ifdef MOZILLA_BSAFE_BUILD
  	CRYPTOLIB+=$(DIST)/lib/$(LIB_PREFIX)bsafe.$(LIB_SUFFIX)
 -	CRYPTOLIB+=$(DIST)/lib/$(LIB_PREFIX)freebl.$(LIB_SUFFIX)
-+	CRYPTOLIB+=$(DIST)/lib/$(LIB_PREFIX)freebl_3.$(LIB_SUFFIX)
++	CRYPTOLIB+=$(DIST)/lib/$(LIB_PREFIX)freebl3.$(LIB_SUFFIX)
  endif
  EXTRA_LIBS += \
 -	$(DIST)/lib/$(LIB_PREFIX)smime.$(LIB_SUFFIX) \
@@ -67,42 +67,6 @@ diff -Nur nss-3.4.rc1.orig/mozilla/security/nss/cmd/platlibs.mk nss-3.4.rc1/mozi
  	$(DIST)/lib/$(LIB_PREFIX)nssdev.$(LIB_SUFFIX) \
  	$(DIST)/lib/$(LIB_PREFIX)nssb.$(LIB_SUFFIX) \
  	$(DIST)/lib/$(LIB_PREFIX)swfci.$(LIB_SUFFIX) \
-diff -Nur nss-3.4.rc1.orig/mozilla/security/nss/lib/fortcrypt/swfort/pkcs11/Makefile nss-3.4.rc1/mozilla/security/nss/lib/fortcrypt/swfort/pkcs11/Makefile
---- nss-3.4.rc1.orig/mozilla/security/nss/lib/fortcrypt/swfort/pkcs11/Makefile	Fri Feb 15 23:53:46 2002
-+++ nss-3.4.rc1/mozilla/security/nss/lib/fortcrypt/swfort/pkcs11/Makefile	Thu Apr 11 20:46:45 2002
-@@ -36,7 +36,7 @@
- include $(CORE_DEPTH)/coreconf/config.mk
- include config.mk
- 
--CRYPTO_LIB = $(DIST)/lib/$(LIB_PREFIX)freebl.$(LIB_SUFFIX) 
-+CRYPTO_LIB = $(DIST)/lib/$(LIB_PREFIX)freebl_3.$(LIB_SUFFIX) 
- #SWCILI    = ../$(OBJDIR)/$(LIB_PREFIX)swfci.$(LIB_SUFFIX)
- 
- # can't do this in manifest.mn because OS_TARGET isn't defined there.
-@@ -67,7 +67,7 @@
- CRYPTO_LIB = $(DIST)/lib/$(LIB_PREFIX)crypto.$(LIB_SUFFIX)
- endif
- ifdef MOZILLA_BSAFE_BUILD
--CRYPTO_LIB += $(DIST)/lib/$(LIB_PREFIX)bsafe.$(LIB_SUFFIX)
-+CRYPTO_LIB += $(DIST)/lib/$(LIB_PREFIX)bsafe_3.$(LIB_SUFFIX)
- CRYPTO_LIB += $(DIST)/lib/$(LIB_PREFIX)freebl.$(LIB_SUFFIX)
- endif
- 
-@@ -73,11 +73,11 @@
- 
- EXTRA_LIBS += \
- 	$(DIST)/lib/$(LIB_PREFIX)swfci.$(LIB_SUFFIX) \
--	$(DIST)/lib/$(LIB_PREFIX)softokn.$(LIB_SUFFIX) \
-+	$(DIST)/lib/$(LIB_PREFIX)softokn3.$(LIB_SUFFIX) \
- 	$(CRYPTO_LIB) \
- 	$(DIST)/lib/$(LIB_PREFIX)secutil.$(LIB_SUFFIX) \
--	$(DIST)/lib/$(LIB_PREFIX)plc4.$(LIB_SUFFIX) \
--	$(DIST)/lib/$(LIB_PREFIX)plds4.$(LIB_SUFFIX) \
-+	-lplc4 \
-+	-lplds4 \
- 	$(NULL)
- 
- endif
 --- nss-3.4.rc1.orig/mozilla/security/nss/lib/softoken/config.mk	Sun Mar  3 03:34:32 2002
 +++ nss-3.4.rc1/mozilla/security/nss/lib/softoken/config.mk	Thu Apr 11 22:13:48 2002
 @@ -37,7 +37,7 @@
@@ -110,20 +74,27 @@ diff -Nur nss-3.4.rc1.orig/mozilla/security/nss/lib/fortcrypt/swfort/pkcs11/Make
  
  # $(PROGRAM) has explicit dependencies on $(EXTRA_LIBS)
 -CRYPTOLIB=$(DIST)/lib/$(LIB_PREFIX)freebl.$(LIB_SUFFIX)
-+CRYPTOLIB=$(DIST)/lib/$(LIB_PREFIX)freebl_3.$(LIB_SUFFIX)
++CRYPTOLIB=$(DIST)/lib/$(LIB_PREFIX)freebl3.$(LIB_SUFFIX)
  CRYPTODIR=../freebl
  ifdef MOZILLA_SECURITY_BUILD
  	CRYPTOLIB=$(DIST)/lib/$(LIB_PREFIX)crypto.$(LIB_SUFFIX)
---- nss-3.4.rc1.orig/mozilla/security/nss/lib/ckfw/builtins/Makefile	Fri Feb 15 23:53:42 2002
-+++ nss-3.4.rc1/mozilla/security/nss/lib/ckfw/builtins/Makefile	Thu Apr 11 22:17:58 2002
-@@ -54,8 +54,8 @@
+--- nss-3.11/mozilla/security/nss/lib/ssl/config.mk.orig	2005-10-19 03:04:16.000000000 +0200
++++ nss-3.11/mozilla/security/nss/lib/ssl/config.mk	2006-01-13 22:56:15.154701250 +0100
+@@ -67,7 +67,7 @@
+ endif # NS_USE_GCC
+ 
+ # $(PROGRAM) has explicit dependencies on $(EXTRA_LIBS)
+-CRYPTOLIB=$(DIST)/lib/$(LIB_PREFIX)freebl.$(LIB_SUFFIX)
++CRYPTOLIB=$(DIST)/lib/$(LIB_PREFIX)freebl3.$(LIB_SUFFIX)
+ CRYPTODIR=../freebl
+ ifdef MOZILLA_SECURITY_BUILD
+ 	CRYPTOLIB=$(DIST)/lib/$(LIB_PREFIX)crypto.$(LIB_SUFFIX)
+@@ -81,7 +81,7 @@
  else
  
- EXTRA_LIBS += \
--	$(DIST)/lib/$(LIB_PREFIX)plc4.$(LIB_SUFFIX) \
--	$(DIST)/lib/$(LIB_PREFIX)plds4.$(LIB_SUFFIX) \
-+	-lplc4 \
-+	-lplds4 \
- 	$(NULL)
- 
- endif
+ # $(PROGRAM) has explicit dependencies on $(EXTRA_LIBS)
+-CRYPTOLIB=$(DIST)/lib/$(LIB_PREFIX)freebl.$(LIB_SUFFIX)
++CRYPTOLIB=$(DIST)/lib/$(LIB_PREFIX)freebl3.$(LIB_SUFFIX)
+ CRYPTODIR=../freebl
+ ifdef MOZILLA_SECURITY_BUILD
+ 	CRYPTOLIB=$(DIST)/lib/$(LIB_PREFIX)crypto.$(LIB_SUFFIX)
