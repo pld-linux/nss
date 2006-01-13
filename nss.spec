@@ -1,7 +1,7 @@
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
-Version:	3.10
+Version:	3.11
 %define	foover	%(echo %{version} | tr . _)
 Release:	1
 Epoch:		1
@@ -12,14 +12,10 @@ Group:		Libraries
 # :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/coreconf -r NSS_3_9_4_RTM
 # :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/nss -r NSS_3_9_4_RTM
 #Source0:	%{name}-%{version}.tar.bz2
-Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	bd58f762f1b352910901f11823e67b97
+Source0:	ftp://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
+# Source0-md5:	9be73bd73e361e5e36edf77f456fa20a
 Source1:	%{name}-mozilla-nss.pc
 Patch0:		%{name}-Makefile.patch
-Patch1:		%{name}-system-zlib.patch
-# missing files
-# (:pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/dbm -r NSS_3_10_RTM)
-Patch2:		%{name}-dbm.patch
 BuildRequires:	nspr-devel >= 4.4.1
 BuildRequires:	zip >= 2.1
 BuildConflicts:	mozilla < 0.9.6-3
@@ -79,8 +75,6 @@ Statyczne wersje bibliotek z NSS.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 %build
 cd mozilla/security/nss
@@ -111,6 +105,8 @@ cd mozilla/security/nss
 	NO_MDUPDATE=1 \
 	USE_PTHREADS=1 \
 	BUILD_OPT=1 \
+	USE_SYSTEM_ZLIB=1 \
+	ZLIB_LIBS="-lz" \
 	OPTIMIZER="%{rpmcflags}" \
 	PLATFORM="pld"
 
