@@ -23,6 +23,8 @@ Requires:	nspr >= 4.4.1
 Obsoletes:	libnss3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define		specflags	-fno-strict-aliasing
+
 %description
 NSS supports cross-platform development of security-enabled server
 applications. Applications built with NSS can support PKCS #5,
@@ -78,6 +80,10 @@ Statyczne wersje bibliotek z NSS.
 
 %build
 cd mozilla/security/nss
+
+%ifarch %{x8664}
+export USE_64=1
+%endif
 
 %{__make} build_coreconf \
 	NSDISTMODE=copy \
