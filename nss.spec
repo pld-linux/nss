@@ -81,7 +81,7 @@ Statyczne wersje bibliotek z NSS.
 %build
 cd mozilla/security/nss
 
-%ifarch %{x8664}
+%ifarch %{x8664} ppc64
 export USE_64=1
 %endif
 
