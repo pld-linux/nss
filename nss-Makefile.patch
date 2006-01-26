@@ -1,9 +1,14 @@
-diff -Nur nss-3.4.rc1.orig/mozilla/security/coreconf/Linux.mk nss-3.4.rc1/mozilla/security/coreconf/Linux.mk
---- nss-3.4.rc1.orig/mozilla/security/coreconf/Linux.mk	Fri Feb 15 23:53:12 2002
-+++ nss-3.4.rc1/mozilla/security/coreconf/Linux.mk	Thu Apr 11 20:48:58 2002
-@@ -121,8 +121,8 @@
- DSO_LDOPTS		= -shared
+diff -Nur nss-3.11.orig/mozilla/security/coreconf/Linux.mk nss-3.11/mozilla/security/coreconf/Linux.mk
+--- nss-3.11.orig/mozilla/security/coreconf/Linux.mk	2005-09-16 18:09:23.000000000 +0100
++++ nss-3.11/mozilla/security/coreconf/Linux.mk	2006-01-26 15:14:24.000000000 +0000
+@@ -165,12 +165,12 @@
+ ARCH			= linux
+ 
+ DSO_CFLAGS		= -fPIC
+-DSO_LDOPTS		= -shared $(ARCHFLAG) -z defs
++DSO_LDOPTS		= -shared $(ARCHFLAG) -Wl,-z,defs
  DSO_LDFLAGS		=
+ LDFLAGS			+= $(ARCHFLAG)
  
 -# INCLUDES += -I/usr/include -Y/usr/include/linux
  G++INCLUDES		= -I/usr/include/g++
@@ -11,10 +16,10 @@ diff -Nur nss-3.4.rc1.orig/mozilla/security/coreconf/Linux.mk nss-3.4.rc1/mozill
  
  #
  # Always set CPU_TAG on Linux, OpenVMS, WINCE.
-diff -Nur nss-3.4.rc1.orig/mozilla/security/coreconf/ruleset.mk nss-3.4.rc1/mozilla/security/coreconf/ruleset.mk
---- nss-3.4.rc1.orig/mozilla/security/coreconf/ruleset.mk	Thu Feb 21 22:23:14 2002
-+++ nss-3.4.rc1/mozilla/security/coreconf/ruleset.mk	Thu Apr 11 20:48:26 2002
-@@ -114,7 +114,7 @@
+diff -Nur nss-3.11.orig/mozilla/security/coreconf/ruleset.mk nss-3.11/mozilla/security/coreconf/ruleset.mk
+--- nss-3.11.orig/mozilla/security/coreconf/ruleset.mk	2005-09-16 18:09:23.000000000 +0100
++++ nss-3.11/mozilla/security/coreconf/ruleset.mk	2006-01-26 15:13:55.000000000 +0000
+@@ -118,7 +118,7 @@
  
  ifdef LIBRARY_NAME
      ifndef LIBRARY
@@ -23,10 +28,10 @@ diff -Nur nss-3.4.rc1.orig/mozilla/security/coreconf/ruleset.mk nss-3.4.rc1/mozi
      endif
      ifndef SHARED_LIBRARY
  	SHARED_LIBRARY = $(OBJDIR)/$(DLL_PREFIX)$(LIBRARY_NAME)$(LIBRARY_VERSION)$(JDK_DEBUG_SUFFIX).$(DLL_SUFFIX)
-diff -Nur nss-3.4.rc1.orig/mozilla/security/nss/cmd/platlibs.mk nss-3.4.rc1/mozilla/security/nss/cmd/platlibs.mk
---- nss-3.4.rc1.orig/mozilla/security/nss/cmd/platlibs.mk	Sat Feb 16 00:38:41 2002
-+++ nss-3.4.rc1/mozilla/security/nss/cmd/platlibs.mk	Thu Apr 11 20:45:49 2002
-@@ -82,19 +82,19 @@
+diff -Nur nss-3.11.orig/mozilla/security/nss/cmd/platlibs.mk nss-3.11/mozilla/security/nss/cmd/platlibs.mk
+--- nss-3.11.orig/mozilla/security/nss/cmd/platlibs.mk	2005-11-15 18:19:18.000000000 +0000
++++ nss-3.11/mozilla/security/nss/cmd/platlibs.mk	2006-01-26 15:13:55.000000000 +0000
+@@ -84,19 +84,19 @@
  else
  
  # $(PROGRAM) has explicit dependencies on $(EXTRA_LIBS)
@@ -66,11 +71,12 @@ diff -Nur nss-3.4.rc1.orig/mozilla/security/nss/cmd/platlibs.mk nss-3.4.rc1/mozi
 +	$(DIST)/lib/$(LIB_PREFIX)nsspki3.$(LIB_SUFFIX) \
  	$(DIST)/lib/$(LIB_PREFIX)nssdev.$(LIB_SUFFIX) \
  	$(DIST)/lib/$(LIB_PREFIX)nssb.$(LIB_SUFFIX) \
- 	$(DIST)/lib/$(LIB_PREFIX)swfci.$(LIB_SUFFIX) \
---- nss-3.4.rc1.orig/mozilla/security/nss/lib/softoken/config.mk	Sun Mar  3 03:34:32 2002
-+++ nss-3.4.rc1/mozilla/security/nss/lib/softoken/config.mk	Thu Apr 11 22:13:48 2002
-@@ -37,7 +37,7 @@
- endif
+ 	$(CRYPTOLIB) \
+diff -Nur nss-3.11.orig/mozilla/security/nss/lib/softoken/config.mk nss-3.11/mozilla/security/nss/lib/softoken/config.mk
+--- nss-3.11.orig/mozilla/security/nss/lib/softoken/config.mk	2005-10-19 02:03:31.000000000 +0100
++++ nss-3.11/mozilla/security/nss/lib/softoken/config.mk	2006-01-26 15:13:55.000000000 +0000
+@@ -36,7 +36,7 @@
+ # ***** END LICENSE BLOCK *****
  
  # $(PROGRAM) has explicit dependencies on $(EXTRA_LIBS)
 -CRYPTOLIB=$(DIST)/lib/$(LIB_PREFIX)freebl.$(LIB_SUFFIX)
@@ -78,8 +84,9 @@ diff -Nur nss-3.4.rc1.orig/mozilla/security/nss/cmd/platlibs.mk nss-3.4.rc1/mozi
  CRYPTODIR=../freebl
  ifdef MOZILLA_SECURITY_BUILD
  	CRYPTOLIB=$(DIST)/lib/$(LIB_PREFIX)crypto.$(LIB_SUFFIX)
---- nss-3.11/mozilla/security/nss/lib/ssl/config.mk.orig	2005-10-19 03:04:16.000000000 +0200
-+++ nss-3.11/mozilla/security/nss/lib/ssl/config.mk	2006-01-13 22:56:15.154701250 +0100
+diff -Nur nss-3.11.orig/mozilla/security/nss/lib/ssl/config.mk nss-3.11/mozilla/security/nss/lib/ssl/config.mk
+--- nss-3.11.orig/mozilla/security/nss/lib/ssl/config.mk	2005-10-19 02:04:16.000000000 +0100
++++ nss-3.11/mozilla/security/nss/lib/ssl/config.mk	2006-01-26 15:13:55.000000000 +0000
 @@ -67,7 +67,7 @@
  endif # NS_USE_GCC
  
