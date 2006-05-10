@@ -16,6 +16,7 @@ Source0:	ftp://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foove
 # Source0-md5:	9be73bd73e361e5e36edf77f456fa20a
 Source1:	%{name}-mozilla-nss.pc
 Patch0:		%{name}-Makefile.patch
+URL:		http://www.mozilla.org/projects/security/pki/nss/
 BuildRequires:	nspr-devel >= 4.4.1
 BuildRequires:	zip >= 2.1
 BuildConflicts:	mozilla < 0.9.6-3
