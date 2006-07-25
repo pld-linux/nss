@@ -20,7 +20,7 @@ URL:		http://www.mozilla.org/projects/security/pki/nss/
 BuildRequires:	nspr-devel >= 4.6.2
 BuildRequires:	zip >= 2.1
 BuildConflicts:	mozilla < 0.9.6-3
-Requires:	nspr >= 4.6.2
+Requires:	nspr >= 1:4.6.2
 Obsoletes:	libnss3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
