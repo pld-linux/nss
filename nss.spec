@@ -1,7 +1,7 @@
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
-Version:	3.11.2
+Version:	3.11.3
 %define	foover	%(echo %{version} | tr . _)
 Release:	1
 Epoch:		1
@@ -13,14 +13,14 @@ Group:		Libraries
 # :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/nss -r NSS_3_9_4_RTM
 #Source0:	%{name}-%{version}.tar.bz2
 Source0:	ftp://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	f423aa9543b3b0dd747c010d6afdc01c
+# Source0-md5:	196c8d2746bd75d3561d129f64bbf9cf
 Source1:	%{name}-mozilla-nss.pc
 Patch0:		%{name}-Makefile.patch
 URL:		http://www.mozilla.org/projects/security/pki/nss/
-BuildRequires:	nspr-devel >= 4.6.2
+BuildRequires:	nspr-devel >= 4.6.3
 BuildRequires:	zip >= 2.1
 BuildConflicts:	mozilla < 0.9.6-3
-Requires:	nspr >= 1:4.6.2
+Requires:	nspr >= 1:4.6.3
 Obsoletes:	libnss3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
