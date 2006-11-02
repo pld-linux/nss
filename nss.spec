@@ -142,10 +142,8 @@ NSS_VPATCH=$(awk '/#define.*NSS_VPATCH/ {print $3}' mozilla/security/nss/lib/nss
 	s,@libdir@,%{_libdir},g
 	s,@prefix@,%{_prefix},g
 	s,@exec_prefix@,%{_prefix},g
-	s,@includedir@,%{_includedir}/nss3,g
-	s,@MOD_MAJOR_VERSION@,$NSS_VMAJOR,g
-	s,@MOD_MINOR_VERSION@,$NSS_VMINOR,g
-	s,@MOD_PATCH_VERSION@,$NSS_VPATCH,g
+	s,@includedir@,%{_includedir}/nss,g
+	s,@version@,%{version},g
 " %{SOURCE2} > $RPM_BUILD_ROOT%{_bindir}/nss-config
 chmod +x $RPM_BUILD_ROOT%{_bindir}/nss-config
 
@@ -168,7 +166,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/nss
 %{_libdir}/libcrmf.a
 %{_pkgconfigdir}/*.pc
-%{_bindir}/nss-config
+%attr(755,root,root) %{_bindir}/nss-config
 
 %files tools
 %defattr(644,root,root,755)
