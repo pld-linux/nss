@@ -3,7 +3,7 @@ Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
 Version:	3.11.3
-Release:	2
+Release:	3
 Epoch:		1
 License:	GPL
 Group:		Libraries
@@ -143,7 +143,9 @@ NSS_VPATCH=$(awk '/#define.*NSS_VPATCH/ {print $3}' mozilla/security/nss/lib/nss
 	s,@prefix@,%{_prefix},g
 	s,@exec_prefix@,%{_prefix},g
 	s,@includedir@,%{_includedir}/nss,g
-	s,@version@,%{version},g
+	s,@MOD_MAJOR_VERSION@,$NSS_VMAJOR,g
+	s,@MOD_MINOR_VERSION@,$NSS_VMINOR,g
+	s,@MOD_PATCH_VERSION@,$NSS_VPATCH,g
 " %{SOURCE2} > $RPM_BUILD_ROOT%{_bindir}/nss-config
 chmod +x $RPM_BUILD_ROOT%{_bindir}/nss-config
 

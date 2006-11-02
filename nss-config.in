@@ -2,6 +2,10 @@
 
 prefix=@prefix@
 
+major_version=@MOD_MAJOR_VERSION@
+minor_version=@MOD_MINOR_VERSION@
+patch_version=@MOD_PATCH_VERSION@
+
 usage()
 {
 	cat <<EOF
@@ -62,7 +66,7 @@ while test $# -gt 0; do
       echo_libdir=yes
       ;;
     --version)
-      echo @version@
+      echo ${major_version}.${minor_version}.${patch_version}
       ;;
     --cflags)
       echo_cflags=yes
