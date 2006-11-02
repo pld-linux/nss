@@ -1,0 +1,2 @@
+- added Conflicts: mozilla (because this lib shouldn't link with mozilla)
+- fix %install
