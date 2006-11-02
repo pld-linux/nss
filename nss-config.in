@@ -62,7 +62,7 @@ while test $# -gt 0; do
       echo_libdir=yes
       ;;
     --version)
-      echo @VERSION@
+      echo @version@
       ;;
     --cflags)
       echo_cflags=yes
