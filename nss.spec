@@ -1,3 +1,6 @@
+# TODO
+# - check if the signed nss lib data (*.chk) is still valid after rpm stripping
+#
 %define	foover	%(echo %{version} | tr . _)
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
