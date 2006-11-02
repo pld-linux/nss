@@ -88,13 +88,13 @@ done
 
 # Set variables that may be dependent upon other variables
 if test -z "$exec_prefix"; then
-    exec_prefix=`pkg-config --variable=exec_prefix nss`
+    exec_prefix=@exec_prefix@
 fi
 if test -z "$includedir"; then
-    includedir=`pkg-config --variable=includedir nss`
+    includedir=@includedir@
 fi
 if test -z "$libdir"; then
-    libdir=`pkg-config --variable=libdir nss`
+    libdir=@libdir@
 fi
 
 if test "$echo_prefix" = "yes"; then
