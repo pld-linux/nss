@@ -5,8 +5,8 @@
 Summary:	NSS - Network Security Services
 Summary(pl):	NSS - Network Security Services
 Name:		nss
-Version:	3.11.3
-Release:	3
+Version:	3.11.4
+Release:	1
 Epoch:		1
 License:	GPL
 Group:		Libraries
@@ -16,15 +16,15 @@ Group:		Libraries
 # :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/nss -r NSS_3_9_4_RTM
 #Source0:	%{name}-%{version}.tar.bz2
 Source0:	ftp://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	196c8d2746bd75d3561d129f64bbf9cf
+# Source0-md5:	74af8ebdf94307f47ff8931adbef9c39
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Patch0:		%{name}-Makefile.patch
 URL:		http://www.mozilla.org/projects/security/pki/nss/
-BuildRequires:	nspr-devel >= 1:4.6.3
+BuildRequires:	nspr-devel >= 1:4.6.4
 BuildRequires:	zlib-devel
 BuildConflicts:	mozilla < 0.9.6-3
-Requires:	nspr >= 1:4.6.3
+Requires:	nspr >= 1:4.6.4
 Obsoletes:	libnss3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -59,6 +59,7 @@ Summary:	NSS - header files
 Summary(pl):	NSS - pliki nag³ówkowe
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	nspr-devel >= 1:4.6.4
 Obsoletes:	libnss3-devel
 
 %description devel
@@ -97,6 +98,7 @@ export USE_64=1
 	NO_MDUPDATE=1 \
 	USE_PTHREADS=1 \
 	BUILD_OPT=1 \
+	CC="%{__cc}" \
 	OPTIMIZER="%{rpmcflags}"
 
 %{__make} -j1 build_dbm \
@@ -106,6 +108,7 @@ export USE_64=1
 	NO_MDUPDATE=1 \
 	USE_PTHREADS=1 \
 	BUILD_OPT=1 \
+	CC="%{__cc}" \
 	OPTIMIZER="%{rpmcflags}" \
 	PLATFORM="pld"
 
@@ -115,9 +118,10 @@ export USE_64=1
 	MOZILLA_CLIENT=1 \
 	NO_MDUPDATE=1 \
 	USE_PTHREADS=1 \
-	BUILD_OPT=1 \
 	USE_SYSTEM_ZLIB=1 \
 	ZLIB_LIBS="-lz" \
+	BUILD_OPT=1 \
+	CC="%{__cc}" \
 	OPTIMIZER="%{rpmcflags}" \
 	PLATFORM="pld"
 
