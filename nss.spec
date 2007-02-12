@@ -3,7 +3,7 @@
 #
 %define	foover	%(echo %{version} | tr . _)
 Summary:	NSS - Network Security Services
-Summary(pl):	NSS - Network Security Services
+Summary(pl.UTF-8):   NSS - Network Security Services
 Name:		nss
 Version:	3.11.4
 Release:	1
@@ -36,27 +36,27 @@ applications. Applications built with NSS can support PKCS #5,
 PKCS #7, PKCS #11, PKCS #12, S/MIME, TLS, SSL v2 and v3, X.509 v3
 certificates, and other security standards.
 
-%description -l pl
-NSS wspomaga pisanie wieloplatformowych bezpiecznych serwerów.
-Aplikacja u¿ywaj±ca NSS jest w stanie obs³u¿yæ PKCS #5, PKCS #7,
+%description -l pl.UTF-8
+NSS wspomaga pisanie wieloplatformowych bezpiecznych serwerÃ³w.
+Aplikacja uÅ¼ywajÄ…ca NSS jest w stanie obsÅ‚uÅ¼yÄ‡ PKCS #5, PKCS #7,
 PKCS #11, PKCS #12, S/MIME, TLS, SSL v2 oraz v3, certyfikaty X.509 v3,
-i wiele innych bezpiecznych standardów.
+i wiele innych bezpiecznych standardÃ³w.
 
 %package tools
 Summary:	NSS command line tools and utilities
-Summary(pl):	Narzêdzia NSS
+Summary(pl.UTF-8):   NarzÄ™dzia NSS
 Group:		Applications
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description tools
 The NSS Toolkit command line tool.
 
-%description tools -l pl
-Narzêdzia NSS obs³ugiwane z linii poleceñ.
+%description tools -l pl.UTF-8
+NarzÄ™dzia NSS obsÅ‚ugiwane z linii poleceÅ„.
 
 %package devel
 Summary:	NSS - header files
-Summary(pl):	NSS - pliki nag³ówkowe
+Summary(pl.UTF-8):   NSS - pliki nagÅ‚Ã³wkowe
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	nspr-devel >= 1:4.6.4
@@ -65,19 +65,19 @@ Obsoletes:	libnss3-devel
 %description devel
 Development part of NSS library.
 
-%description devel -l pl
-Czê¶æ biblioteki NSS przeznaczona dla programistów.
+%description devel -l pl.UTF-8
+CzÄ™Å›Ä‡ biblioteki NSS przeznaczona dla programistÃ³w.
 
 %package static
 Summary:	NSS - static library
-Summary(pl):	NSS - biblioteka statyczna
+Summary(pl.UTF-8):   NSS - biblioteka statyczna
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
 %description static
 Static NSS Toolkit libraries.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczne wersje bibliotek z NSS.
 
 %prep
