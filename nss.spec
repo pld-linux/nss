@@ -3,7 +3,7 @@
 #
 %define	foover	%(echo %{version} | tr . _)
 Summary:	NSS - Network Security Services
-Summary(pl.UTF-8):   NSS - Network Security Services
+Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
 Version:	3.11.4
 Release:	1
@@ -44,7 +44,7 @@ i wiele innych bezpiecznych standardów.
 
 %package tools
 Summary:	NSS command line tools and utilities
-Summary(pl.UTF-8):   Narzędzia NSS
+Summary(pl.UTF-8):	Narzędzia NSS
 Group:		Applications
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
@@ -56,7 +56,7 @@ Narzędzia NSS obsługiwane z linii poleceń.
 
 %package devel
 Summary:	NSS - header files
-Summary(pl.UTF-8):   NSS - pliki nagłówkowe
+Summary(pl.UTF-8):	NSS - pliki nagłówkowe
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	nspr-devel >= 1:4.6.4
@@ -70,7 +70,7 @@ Część biblioteki NSS przeznaczona dla programistów.
 
 %package static
 Summary:	NSS - static library
-Summary(pl.UTF-8):   NSS - biblioteka statyczna
+Summary(pl.UTF-8):	NSS - biblioteka statyczna
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
