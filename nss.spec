@@ -172,10 +172,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/nss-config
 %{_includedir}/nss
 %{_libdir}/libcrmf.a
 %{_pkgconfigdir}/*.pc
-%attr(755,root,root) %{_bindir}/nss-config
 
 %files tools
 %defattr(644,root,root,755)
