@@ -6,7 +6,7 @@ Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
 Version:	3.11.7
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPL
 Group:		Libraries
