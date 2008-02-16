@@ -1,34 +1,34 @@
-# TODO
-# - check if the signed nss lib data (*.chk) is still valid after rpm stripping
-#
 %define	foover	%(echo %{version} | tr . _)
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.11.7
-Release:	2
+Version:	3.11.9
+Release:	1
 Epoch:		1
-License:	GPL
+License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Libraries
 # :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/dbm -r DBM_1_61_RTM
 # :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/dbm -r DBM_1_61_RTM
 # :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/coreconf -r NSS_3_9_4_RTM
 # :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/nss -r NSS_3_9_4_RTM
 #Source0:	%{name}-%{version}.tar.bz2
-Source0:	ftp://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	82594a0773cedd7bb7aa25009a25f5a3
+Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
+# Source0-md5:	5df54e8522bebf0f8c8c22e8f0df18fa
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Patch0:		%{name}-Makefile.patch
 URL:		http://www.mozilla.org/projects/security/pki/nss/
-BuildRequires:	nspr-devel >= 1:4.6.7
+BuildRequires:	nspr-devel >= 1:4.7
 BuildRequires:	zlib-devel
 BuildConflicts:	mozilla < 0.9.6-3
-Requires:	nspr >= 1:4.6.7
+Requires:	nspr >= 1:4.7
 Obsoletes:	libnss3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		specflags	-fno-strict-aliasing
+# signed -  stripped before signing
+%define		_noautostrip	.*%{_libdir}/libfreebl3.so\\|.*%{_libdir}/libsoftokn3.so
+%define		_noautochrpath	.*%{_libdir}/libfreebl3.so\\|.*%{_libdir}/libsoftokn3.so
 
 %description
 NSS supports cross-platform development of security-enabled server
@@ -44,7 +44,7 @@ i wiele innych bezpiecznych standardów.
 
 %package tools
 Summary:	NSS command line tools and utilities
-Summary(pl.UTF-8):	Narzędzia NSS
+Summary(pl.UTF-8):	Narzędzia NSS obsługiwane z linii poleceń
 Group:		Applications
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
@@ -59,7 +59,7 @@ Summary:	NSS - header files
 Summary(pl.UTF-8):	NSS - pliki nagłówkowe
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	nspr-devel >= 1:4.6.7
+Requires:	nspr-devel >= 1:4.7
 Obsoletes:	libnss3-devel
 
 %description devel
@@ -83,6 +83,11 @@ Statyczne wersje bibliotek z NSS.
 %prep
 %setup -q
 %patch0 -p1
+
+%if 0%{!?debug:1}
+# strip before signing
+sed -i -e '/export ADDON_PATH$/a\    echo STRIP \; %{__strip} --strip-unneeded -R.comment -R.note ${5}' mozilla/security/nss/cmd/shlibsign/sign.sh
+%endif
 
 %build
 cd mozilla/security/nss
@@ -167,15 +172,22 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_libdir}/lib*.chk
+%attr(755,root,root) %{_libdir}/libfreebl3.so
+%attr(755,root,root) %{_libdir}/libnss3.so
+%attr(755,root,root) %{_libdir}/libnssckbi.so
+%attr(755,root,root) %{_libdir}/libsmime3.so
+%attr(755,root,root) %{_libdir}/libsoftokn3.so
+%attr(755,root,root) %{_libdir}/libssl3.so
+%{_libdir}/libfreebl3.chk
+%{_libdir}/libsoftokn3.chk
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/nss-config
 %{_includedir}/nss
 %{_libdir}/libcrmf.a
-%{_pkgconfigdir}/*.pc
+%{_pkgconfigdir}/mozilla-nss.pc
+%{_pkgconfigdir}/nss.pc
 
 %files tools
 %defattr(644,root,root,755)
@@ -184,5 +196,22 @@ rm -rf $RPM_BUILD_ROOT
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
-%exclude %{_libdir}/libcrmf.a
+%{_libdir}/libcertdb.a
+%{_libdir}/libcerthi.a
+%{_libdir}/libcryptohi.a
+%{_libdir}/libdbm.a
+%{_libdir}/libfreebl3.a
+%{_libdir}/libjar.a
+%{_libdir}/libnss3.a
+%{_libdir}/libnssb.a
+%{_libdir}/libnssckfw.a
+%{_libdir}/libnssdev.a
+%{_libdir}/libnsspki3.a
+%{_libdir}/libpk11wrap.a
+%{_libdir}/libpkcs12.a
+%{_libdir}/libpkcs7.a
+%{_libdir}/libsectool.a
+%{_libdir}/libsecutil.a
+%{_libdir}/libsmime3.a
+%{_libdir}/libsoftokn3.a
+%{_libdir}/libssl3.a
