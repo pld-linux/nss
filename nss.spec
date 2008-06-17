@@ -1,3 +1,6 @@
+# TODO
+# - discard $ORIGIN from rpath:
+#   /usr/bin/certutil: RPATH=$ORIGIN/../lib64:$ORIGIN/../lib
 %define	foover	%(echo %{version} | tr . _)
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
