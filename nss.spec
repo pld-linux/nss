@@ -1,11 +1,8 @@
-# TODO
-# - discard $ORIGIN from rpath:
-#   /usr/bin/certutil: RPATH=$ORIGIN/../lib64:$ORIGIN/../lib
 %define	foover	%(echo %{version} | tr . _)
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.11.9
+Version:	3.12
 Release:	1
 Epoch:		1
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
@@ -16,7 +13,7 @@ Group:		Libraries
 # :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/nss -r NSS_3_9_4_RTM
 #Source0:	%{name}-%{version}.tar.bz2
 Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	5df54e8522bebf0f8c8c22e8f0df18fa
+# Source0-md5:	917f4e05f3982bd7fceaede197f0e1d4
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Patch0:		%{name}-Makefile.patch
@@ -178,6 +175,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libfreebl3.so
 %attr(755,root,root) %{_libdir}/libnss3.so
 %attr(755,root,root) %{_libdir}/libnssckbi.so
+%attr(755,root,root) %{_libdir}/libnssdbm3.so
+%attr(755,root,root) %{_libdir}/libnssutil3.so
 %attr(755,root,root) %{_libdir}/libsmime3.so
 %attr(755,root,root) %{_libdir}/libsoftokn3.so
 %attr(755,root,root) %{_libdir}/libssl3.so
@@ -208,13 +207,25 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libnss3.a
 %{_libdir}/libnssb.a
 %{_libdir}/libnssckfw.a
+%{_libdir}/libnssdbm3.a
 %{_libdir}/libnssdev.a
 %{_libdir}/libnsspki3.a
-%{_libdir}/libpk11wrap.a
+%{_libdir}/libnssutil3.a
+%{_libdir}/libpk11wrap3.a
 %{_libdir}/libpkcs12.a
 %{_libdir}/libpkcs7.a
+%{_libdir}/libpkixcertsel.a
+%{_libdir}/libpkixchecker.a
+%{_libdir}/libpkixcrlsel.a
+%{_libdir}/libpkixmodule.a
+%{_libdir}/libpkixparams.a
+%{_libdir}/libpkixpki.a
+%{_libdir}/libpkixresults.a
+%{_libdir}/libpkixstore.a
+%{_libdir}/libpkixsystem.a
+%{_libdir}/libpkixtop.a
+%{_libdir}/libpkixutil.a
 %{_libdir}/libsectool.a
-%{_libdir}/libsecutil.a
 %{_libdir}/libsmime3.a
 %{_libdir}/libsoftokn3.a
 %{_libdir}/libssl3.a
