@@ -22,10 +22,24 @@ diff -Nur nss-3.11.orig/mozilla/security/coreconf/ruleset.mk nss-3.11/mozilla/se
      endif
      ifndef SHARED_LIBRARY
  	SHARED_LIBRARY = $(OBJDIR)/$(DLL_PREFIX)$(LIBRARY_NAME)$(LIBRARY_VERSION)$(JDK_DEBUG_SUFFIX).$(DLL_SUFFIX)
-diff -Nur nss-3.11.orig/mozilla/security/nss/cmd/platlibs.mk nss-3.11/mozilla/security/nss/cmd/platlibs.mk
---- nss-3.11.orig/mozilla/security/nss/cmd/platlibs.mk	2005-11-15 18:19:18.000000000 +0000
-+++ nss-3.11/mozilla/security/nss/cmd/platlibs.mk	2006-01-26 15:13:55.000000000 +0000
-@@ -84,19 +84,19 @@
+--- nss-3.12/mozilla/security/nss/cmd/platlibs.mk.orig	2008-02-25 22:32:33.000000000 +0100
++++ nss-3.12/mozilla/security/nss/cmd/platlibs.mk	2008-06-18 23:02:57.118830492 +0200
+@@ -50,14 +50,6 @@
+ endif
+ endif
+ 
+-ifeq ($(OS_ARCH), Linux)
+-ifeq ($(USE_64), 1)
+-EXTRA_SHARED_LIBS += -Wl,-rpath,'$$ORIGIN/../lib64:$$ORIGIN/../lib'
+-else
+-EXTRA_SHARED_LIBS += -Wl,-rpath,'$$ORIGIN/../lib'
+-endif
+-endif
+-
+ ifeq ($(OS_ARCH), HP-UX) 
+ ifeq ($(OS_TEST), ia64)
+ EXTRA_SHARED_LIBS += -Wl,+b,'$$ORIGIN/../lib'
+@@ -137,13 +129,13 @@
  else
  
  # $(PROGRAM) has explicit dependencies on $(EXTRA_LIBS)
@@ -39,6 +53,11 @@ diff -Nur nss-3.11.orig/mozilla/security/nss/cmd/platlibs.mk nss-3.11/mozilla/se
 -	CRYPTOLIB+=$(DIST)/lib/$(LIB_PREFIX)freebl.$(LIB_SUFFIX)
 +	CRYPTOLIB+=$(DIST)/lib/$(LIB_PREFIX)freebl3.$(LIB_SUFFIX)
  endif
+ 
+ PKIXLIB = \
+@@ -161,30 +153,30 @@
+ 	$(DIST)/lib/$(LIB_PREFIX)pkixcertsel.$(LIB_SUFFIX)
+ 
  EXTRA_LIBS += \
 -	$(DIST)/lib/$(LIB_PREFIX)smime.$(LIB_SUFFIX) \
 -	$(DIST)/lib/$(LIB_PREFIX)ssl.$(LIB_SUFFIX) \
@@ -51,14 +70,16 @@ diff -Nur nss-3.11.orig/mozilla/security/nss/cmd/platlibs.mk nss-3.11/mozilla/se
  	$(DIST)/lib/$(LIB_PREFIX)sectool.$(LIB_SUFFIX) \
  	$(DIST)/lib/$(LIB_PREFIX)pkcs12.$(LIB_SUFFIX) \
  	$(DIST)/lib/$(LIB_PREFIX)pkcs7.$(LIB_SUFFIX) \
-@@ -104,11 +104,11 @@
- 	$(DIST)/lib/$(LIB_PREFIX)pk11wrap.$(LIB_SUFFIX) \
+ 	$(DIST)/lib/$(LIB_PREFIX)certhi.$(LIB_SUFFIX) \
+-	$(DIST)/lib/$(LIB_PREFIX)pk11wrap.$(LIB_SUFFIX) \
++	$(DIST)/lib/$(LIB_PREFIX)pk11wrap3.$(LIB_SUFFIX) \
  	$(DIST)/lib/$(LIB_PREFIX)cryptohi.$(LIB_SUFFIX) \
  	$(DIST)/lib/$(LIB_PREFIX)certhi.$(LIB_SUFFIX) \
 -	$(DIST)/lib/$(LIB_PREFIX)nsspki.$(LIB_SUFFIX) \
-+	$(DIST)/lib/$(LIB_PREFIX)nsspki3.$(LIB_SUFFIX) \
- 	$(DIST)/lib/$(LIB_PREFIX)pk11wrap.$(LIB_SUFFIX) \
+-	$(DIST)/lib/$(LIB_PREFIX)pk11wrap.$(LIB_SUFFIX) \
 -	$(DIST)/lib/$(LIB_PREFIX)softokn.$(LIB_SUFFIX) \
++	$(DIST)/lib/$(LIB_PREFIX)nsspki3.$(LIB_SUFFIX) \
++	$(DIST)/lib/$(LIB_PREFIX)pk11wrap3.$(LIB_SUFFIX) \
 +	$(DIST)/lib/$(LIB_PREFIX)softokn3.$(LIB_SUFFIX) \
  	$(DIST)/lib/$(LIB_PREFIX)certdb.$(LIB_SUFFIX) \
 -	$(DIST)/lib/$(LIB_PREFIX)nsspki.$(LIB_SUFFIX) \
@@ -66,6 +87,17 @@ diff -Nur nss-3.11.orig/mozilla/security/nss/cmd/platlibs.mk nss-3.11/mozilla/se
  	$(DIST)/lib/$(LIB_PREFIX)nssdev.$(LIB_SUFFIX) \
  	$(DIST)/lib/$(LIB_PREFIX)nssb.$(LIB_SUFFIX) \
  	$(CRYPTOLIB) \
+-	$(DIST)/lib/$(LIB_PREFIX)nssutil.$(LIB_SUFFIX) \
++	$(DIST)/lib/$(LIB_PREFIX)nssutil3.$(LIB_SUFFIX) \
+ 	$(DIST)/lib/$(LIB_PREFIX)dbm.$(LIB_SUFFIX) \
+ 	$(PKIXLIB) \
+-	$(DIST)/lib/$(LIB_PREFIX)nss.$(LIB_SUFFIX) \
+-	$(DIST)/lib/$(LIB_PREFIX)pk11wrap.$(LIB_SUFFIX) \
++	$(DIST)/lib/$(LIB_PREFIX)nss3.$(LIB_SUFFIX) \
++	$(DIST)/lib/$(LIB_PREFIX)pk11wrap3.$(LIB_SUFFIX) \
+ 	$(DIST)/lib/$(LIB_PREFIX)certhi.$(LIB_SUFFIX) \
+ 	$(NULL)
+ 
 diff -Nur nss-3.11.orig/mozilla/security/nss/lib/softoken/config.mk nss-3.11/mozilla/security/nss/lib/softoken/config.mk
 --- nss-3.11.orig/mozilla/security/nss/lib/softoken/config.mk	2005-10-19 02:03:31.000000000 +0100
 +++ nss-3.11/mozilla/security/nss/lib/softoken/config.mk	2006-01-26 15:13:55.000000000 +0000
@@ -92,6 +124,17 @@ diff -Nur nss-3.11.orig/mozilla/security/nss/lib/ssl/config.mk nss-3.11/mozilla/
  	CRYPTOLIB=$(DIST)/lib/$(LIB_PREFIX)crypto.$(LIB_SUFFIX)
 @@ -81,7 +81,7 @@
  else
+ 
+ # $(PROGRAM) has explicit dependencies on $(EXTRA_LIBS)
+-CRYPTOLIB=$(DIST)/lib/$(LIB_PREFIX)freebl.$(LIB_SUFFIX)
++CRYPTOLIB=$(DIST)/lib/$(LIB_PREFIX)freebl3.$(LIB_SUFFIX)
+ CRYPTODIR=../freebl
+ ifdef MOZILLA_SECURITY_BUILD
+ 	CRYPTOLIB=$(DIST)/lib/$(LIB_PREFIX)crypto.$(LIB_SUFFIX)
+--- nss-3.12/mozilla/security/nss/lib/softoken/legacydb/config.mk.orig	2008-02-25 19:55:40.000000000 +0100
++++ nss-3.12/mozilla/security/nss/lib/softoken/legacydb/config.mk	2008-06-18 22:36:58.538010357 +0200
+@@ -36,7 +36,7 @@
+ # ***** END LICENSE BLOCK *****
  
  # $(PROGRAM) has explicit dependencies on $(EXTRA_LIBS)
 -CRYPTOLIB=$(DIST)/lib/$(LIB_PREFIX)freebl.$(LIB_SUFFIX)
