@@ -3,7 +3,7 @@ Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
 Version:	3.12
-Release:	3
+Release:	4
 Epoch:		1
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Libraries
@@ -16,9 +16,12 @@ Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foov
 # Source0-md5:	917f4e05f3982bd7fceaede197f0e1d4
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
+Source3:	http://www.cacert.org/certs/root.der
+# Source3-md5:	a61b375e390d9c3654eebd2031461f6b
 Patch0:		%{name}-Makefile.patch
 URL:		http://www.mozilla.org/projects/security/pki/nss/
 BuildRequires:	nspr-devel >= 1:4.7
+BuildRequires:	nss-tools
 BuildRequires:	sqlite3-devel
 BuildRequires:	zlib-devel
 BuildConflicts:	mozilla < 0.9.6-3
@@ -92,6 +95,9 @@ sed -i -e '/export ADDON_PATH$/a\    echo STRIP \; %{__strip} --strip-unneeded -
 
 %build
 cd mozilla/security/nss
+
+# http://wiki.cacert.org/wiki/NSSLib
+addbuiltin -n "CAcert Inc." -t "CT,C,C" < %{SOURCE3} >> lib/ckfw/builtins/certdata.txt
 
 %ifarch %{x8664} ppc64
 export USE_64=1
