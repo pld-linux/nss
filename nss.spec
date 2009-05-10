@@ -84,6 +84,17 @@ Static NSS Toolkit libraries.
 %description static -l pl.UTF-8
 Statyczne wersje bibliotek z NSS.
 
+%package softokn-freebl
+Summary:	Freebl library for the Network Security Services
+Group:		Libraries
+
+%description softokn-freebl
+Network Security Services (NSS) is a set of libraries designed to
+support cross-platform development of security-enabled client and
+server applications. Applications built with NSS can support SSL v2
+and v3, TLS, PKCS #5, PKCS #7, PKCS #11, PKCS #12, S/MIME, X.509 v3
+certificates, and other security standards.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -105,6 +116,7 @@ export USE_64=1
 %endif
 
 %{__make} -j1 build_coreconf \
+	FREEBL_NO_DEPEND=1 \
 	NSDISTMODE=copy \
 	NS_USE_GCC=1 \
 	MOZILLA_CLIENT=1 \
@@ -115,6 +127,7 @@ export USE_64=1
 	OPTIMIZER="%{rpmcflags}"
 
 %{__make} -j1 build_dbm \
+	FREEBL_NO_DEPEND=1 \
 	NSDISTMODE=copy \
 	NS_USE_GCC=1 \
 	MOZILLA_CLIENT=1 \
@@ -126,6 +139,7 @@ export USE_64=1
 	PLATFORM="pld"
 
 %{__make} -j1 all \
+	FREEBL_NO_DEPEND=1 \
 	NSDISTMODE=copy \
 	NS_USE_GCC=1 \
 	MOZILLA_CLIENT=1 \
@@ -140,7 +154,7 @@ export USE_64=1
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/nss,%{_libdir},%{_pkgconfigdir}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/nss,/%{_lib},%{_libdir},%{_pkgconfigdir}}
 
 install mozilla/dist/private/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install mozilla/dist/public/dbm/*	$RPM_BUILD_ROOT%{_includedir}/nss
@@ -168,6 +182,9 @@ NSS_VPATCH=$(awk '/#define.*NSS_VPATCH/ {print $3}' mozilla/security/nss/lib/nss
 	s,@MOD_PATCH_VERSION@,$NSS_VPATCH,g
 " %{SOURCE2} > $RPM_BUILD_ROOT%{_bindir}/nss-config
 chmod +x $RPM_BUILD_ROOT%{_bindir}/nss-config
+
+mv $RPM_BUILD_ROOT%{_libdir}/libfreebl3.so $RPM_BUILD_ROOT/%{_lib}
+ln -s /%{_lib}/libfreebl3.so $RPM_BUILD_ROOT%{_libdir}/libfreebl3.so
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -234,3 +251,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libsmime3.a
 %{_libdir}/libsoftokn3.a
 %{_libdir}/libssl3.a
+
+%files softokn-freebl
+%defattr(644,root,root,755)
+%attr(755,root,root) /%{_lib}/libfreebl3.so
