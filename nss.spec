@@ -26,6 +26,7 @@ BuildRequires:	sqlite3-devel
 BuildRequires:	zlib-devel
 BuildConflicts:	mozilla < 0.9.6-3
 Requires:	nspr >= 1:4.7
+Requires:	%{name}-softokn-freebl = %{epoch}:%{version}-%{release}
 Obsoletes:	libnss3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
