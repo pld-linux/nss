@@ -55,7 +55,9 @@ diff -Nur nss-3.11.orig/mozilla/security/coreconf/ruleset.mk nss-3.11/mozilla/se
  endif
  
  PKIXLIB = \
-@@ -161,30 +153,30 @@
+--- nss/mozilla/security/nss/cmd/platlibs.mk~	2009-05-10 22:23:08.330366552 +0200
++++ nss/mozilla/security/nss/cmd/platlibs.mk	2009-05-10 22:26:38.034387811 +0200
+@@ -159,29 +159,29 @@
  	$(DIST)/lib/$(LIB_PREFIX)pkixcertsel.$(LIB_SUFFIX)
  
  EXTRA_LIBS += \
@@ -87,9 +89,7 @@ diff -Nur nss-3.11.orig/mozilla/security/coreconf/ruleset.mk nss-3.11/mozilla/se
  	$(DIST)/lib/$(LIB_PREFIX)nssdev.$(LIB_SUFFIX) \
  	$(DIST)/lib/$(LIB_PREFIX)nssb.$(LIB_SUFFIX) \
  	$(CRYPTOLIB) \
--	$(DIST)/lib/$(LIB_PREFIX)nssutil.$(LIB_SUFFIX) \
-+	$(DIST)/lib/$(LIB_PREFIX)nssutil3.$(LIB_SUFFIX) \
- 	$(DIST)/lib/$(LIB_PREFIX)dbm.$(LIB_SUFFIX) \
+ 	$(DBMLIB) \
  	$(PKIXLIB) \
 -	$(DIST)/lib/$(LIB_PREFIX)nss.$(LIB_SUFFIX) \
 -	$(DIST)/lib/$(LIB_PREFIX)pk11wrap.$(LIB_SUFFIX) \

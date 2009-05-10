@@ -2,8 +2,8 @@
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.12
-Release:	4
+Version:	3.12.3
+Release:	1
 Epoch:		1
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Libraries
@@ -12,8 +12,8 @@ Group:		Libraries
 # :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/coreconf -r NSS_3_9_4_RTM
 # :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/nss -r NSS_3_9_4_RTM
 #Source0:	%{name}-%{version}.tar.bz2
-Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	917f4e05f3982bd7fceaede197f0e1d4
+Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	ecb7079ba4ebcf29b7716775384f1f18
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
@@ -168,9 +168,6 @@ NSS_VPATCH=$(awk '/#define.*NSS_VPATCH/ {print $3}' mozilla/security/nss/lib/nss
 	s,@MOD_PATCH_VERSION@,$NSS_VPATCH,g
 " %{SOURCE2} > $RPM_BUILD_ROOT%{_bindir}/nss-config
 chmod +x $RPM_BUILD_ROOT%{_bindir}/nss-config
-
-# resolve conflict with squid
-mv -f $RPM_BUILD_ROOT%{_bindir}/{,nss-}client
 
 %clean
 rm -rf $RPM_BUILD_ROOT
