@@ -3,7 +3,7 @@ Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
 Version:	3.12.3
-Release:	1
+Release:	2
 Epoch:		1
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Libraries
@@ -186,6 +186,8 @@ chmod +x $RPM_BUILD_ROOT%{_bindir}/nss-config
 
 mv $RPM_BUILD_ROOT%{_libdir}/libfreebl3.so $RPM_BUILD_ROOT/%{_lib}
 ln -s /%{_lib}/libfreebl3.so $RPM_BUILD_ROOT%{_libdir}/libfreebl3.so
+mv $RPM_BUILD_ROOT%{_libdir}/libfreebl3.chk $RPM_BUILD_ROOT/%{_lib}
+ln -s /%{_lib}/libfreebl3.chk $RPM_BUILD_ROOT%{_libdir}/libfreebl3.chk
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -256,3 +258,4 @@ rm -rf $RPM_BUILD_ROOT
 %files softokn-freebl
 %defattr(644,root,root,755)
 %attr(755,root,root) /%{_lib}/libfreebl3.so
+/%{_lib}/libfreebl3.chk
