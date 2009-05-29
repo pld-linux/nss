@@ -112,7 +112,7 @@ cd mozilla/security/nss
 addbuiltin -n "CAcert Inc." -t "CT,C,C" < %{SOURCE3} >> lib/ckfw/builtins/certdata.txt
 %{__make} -C lib/ckfw/builtins generate
 
-%ifarch %{x8664} ppc64
+%ifarch %{x8664} ppc64 sparc64
 export USE_64=1
 %endif
 
