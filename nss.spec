@@ -2,8 +2,8 @@
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.12.3
-Release:	3
+Version:	3.12.4
+Release:	1
 Epoch:		1
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Libraries
@@ -12,21 +12,20 @@ Group:		Libraries
 # :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/coreconf -r NSS_3_9_4_RTM
 # :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/nss -r NSS_3_9_4_RTM
 #Source0:	%{name}-%{version}.tar.bz2
-Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	ecb7079ba4ebcf29b7716775384f1f18
+Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
+# Source0-md5:	1ee3ed9c1900079319bd1de51388d856
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
 # Source3-md5:	a61b375e390d9c3654eebd2031461f6b
 Patch0:		%{name}-Makefile.patch
-Patch1:		execstack.patch
 URL:		http://www.mozilla.org/projects/security/pki/nss/
-BuildRequires:	nspr-devel >= 1:4.7
+BuildRequires:	nspr-devel >= 1:4.7.4
 BuildRequires:	nss-tools
 BuildRequires:	sqlite3-devel
 BuildRequires:	zlib-devel
 BuildConflicts:	mozilla < 0.9.6-3
-Requires:	nspr >= 1:4.7
+Requires:	nspr >= 1:4.7.4
 Requires:	%{name}-softokn-freebl = %{epoch}:%{version}-%{release}
 Obsoletes:	libnss3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -65,7 +64,7 @@ Summary:	NSS - header files
 Summary(pl.UTF-8):	NSS - pliki nagłówkowe
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	nspr-devel >= 1:4.7
+Requires:	nspr-devel >= 1:4.7.4
 Obsoletes:	libnss3-devel
 
 %description devel
@@ -88,19 +87,18 @@ Statyczne wersje bibliotek z NSS.
 
 %package softokn-freebl
 Summary:	Freebl library for the Network Security Services
+Summary(pl.UTF-8):	Biblioteka freebl dla bibliotek NSS
 Group:		Libraries
 
 %description softokn-freebl
-Network Security Services (NSS) is a set of libraries designed to
-support cross-platform development of security-enabled client and
-server applications. Applications built with NSS can support SSL v2
-and v3, TLS, PKCS #5, PKCS #7, PKCS #11, PKCS #12, S/MIME, X.509 v3
-certificates, and other security standards.
+Freebl cryptographic library for the Network Security Services.
+
+%description softokn-freebl -l pl.UTF-8
+Biblioteka kryptograficzna freebl dla bibliotek NSS.
 
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %if 0%{!?debug:1}
 # strip before signing
@@ -208,13 +206,14 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libsoftokn3.so
 %attr(755,root,root) %{_libdir}/libssl3.so
 %{_libdir}/libfreebl3.chk
+%{_libdir}/libnssdbm3.chk
 %{_libdir}/libsoftokn3.chk
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/nss-config
-%{_includedir}/nss
 %{_libdir}/libcrmf.a
+%{_includedir}/nss
 %{_pkgconfigdir}/mozilla-nss.pc
 %{_pkgconfigdir}/nss.pc
 
