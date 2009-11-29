@@ -22,6 +22,7 @@ Patch0:		%{name}-Makefile.patch
 URL:		http://www.mozilla.org/projects/security/pki/nss/
 BuildRequires:	nspr-devel >= 1:4.7.4
 BuildRequires:	nss-tools
+BuildRequires:	perl-base
 BuildRequires:	sqlite3-devel
 BuildRequires:	zlib-devel
 BuildConflicts:	mozilla < 0.9.6-3
