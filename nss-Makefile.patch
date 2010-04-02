@@ -100,9 +100,9 @@ diff -Nur nss-3.11.orig/mozilla/security/coreconf/ruleset.mk nss-3.11/mozilla/se
 --- nss-3.12.4/mozilla/security/nss/lib/ssl/config.mk.orig	2009-06-11 02:55:52.000000000 +0200
 +++ nss-3.12.4/mozilla/security/nss/lib/ssl/config.mk	2009-08-28 22:40:25.676607585 +0200
 @@ -83,7 +83,7 @@
- else
+ DEFINES += -DNSS_SURVIVE_DOUBLE_BYPASS_FAILURE
+ endif
  
- # $(PROGRAM) has explicit dependencies on $(EXTRA_LIBS)
 -CRYPTOLIB=$(SOFTOKEN_LIB_DIR)/$(LIB_PREFIX)freebl.$(LIB_SUFFIX)
 +CRYPTOLIB=$(SOFTOKEN_LIB_DIR)/$(LIB_PREFIX)freebl3.$(LIB_SUFFIX)
  
