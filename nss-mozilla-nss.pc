@@ -8,4 +8,4 @@ Description: Mozilla Network Security Services
 Version: VERSION
 Requires: mozilla-nspr
 Libs: -L${libdir} -lnss3 -lnssutil3 -lsmime3 -lssl3 -lsoftokn3
-Cflags: -I${includedir}/nss
+Cflags: -I${includedir}/nss -I${includedir}/nspr

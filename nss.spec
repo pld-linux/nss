@@ -3,7 +3,7 @@ Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
 Version:	3.12.6
-Release:	1
+Release:	2
 Epoch:		1
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Libraries
@@ -117,8 +117,9 @@ addbuiltin -n "CAcert Inc." -t "CT,C,C" < %{SOURCE3} >> lib/ckfw/builtins/certda
 export USE_64=1
 %endif
 
+export FREEBL_NO_DEPEND=1
+
 %{__make} -j1 build_coreconf \
-	FREEBL_NO_DEPEND=1 \
 	NSDISTMODE=copy \
 	NS_USE_GCC=1 \
 	MOZILLA_CLIENT=1 \
@@ -129,7 +130,6 @@ export USE_64=1
 	OPTIMIZER="%{rpmcflags}"
 
 %{__make} -j1 build_dbm \
-	FREEBL_NO_DEPEND=1 \
 	NSDISTMODE=copy \
 	NS_USE_GCC=1 \
 	MOZILLA_CLIENT=1 \
@@ -141,7 +141,6 @@ export USE_64=1
 	PLATFORM="pld"
 
 %{__make} -j1 all \
-	FREEBL_NO_DEPEND=1 \
 	NSDISTMODE=copy \
 	NS_USE_GCC=1 \
 	MOZILLA_CLIENT=1 \
