@@ -1,6 +1,6 @@
 #
 # TODO:
-# - nsslowlevel.h gone due to problems with build system. glibc needs this!
+# - nsslowhash.h gone due to problems with build system. glibc needs this!
 #
 %define	foover	%(echo %{version} | tr . _)
 Summary:	NSS - Network Security Services
