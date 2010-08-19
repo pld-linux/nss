@@ -145,6 +145,10 @@ export FREEBL_NO_DEPEND=1
 	OPTIMIZER="%{rpmcflags}" \
 	PLATFORM="pld"
 
+# NOTE: LOWHASH_EXPORTS is a hack for lib/freebl brokeness:
+# - LOWHASH_EXPORTS is defined in config.mk
+# - it's used in manifest.mn, which can use only variables passed by make, not in config or Makefile
+# remove this hack when problem is fixed in sources
 %{__make} -j1 all \
 	NSDISTMODE=copy \
 	NS_USE_GCC=1 \
@@ -156,7 +160,8 @@ export FREEBL_NO_DEPEND=1
 	BUILD_OPT=1 \
 	CC="%{__cc}" \
 	OPTIMIZER="%{rpmcflags}" \
-	PLATFORM="pld"
+	PLATFORM="pld" \
+	LOWHASH_EXPORTS=nsslowhash.h
 
 %install
 rm -rf $RPM_BUILD_ROOT
