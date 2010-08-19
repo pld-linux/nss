@@ -195,6 +195,11 @@ ln -s /%{_lib}/libfreebl3.so $RPM_BUILD_ROOT%{_libdir}/libfreebl3.so
 mv $RPM_BUILD_ROOT%{_libdir}/libfreebl3.chk $RPM_BUILD_ROOT/%{_lib}
 ln -s /%{_lib}/libfreebl3.chk $RPM_BUILD_ROOT%{_libdir}/libfreebl3.chk
 
+if [ ! -f "$RPM_BUILD_ROOT%{_includedir}/nss/nsslowhash.h" ]; then
+	echo "ERROR: %{_includedir}/nss/nsslowhash.h not installed. Needed by glibc" >&2
+	exit 1
+fi
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
