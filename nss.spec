@@ -1,14 +1,10 @@
 #
-# TODO:
-# - nsslowhash.h gone due to problems with build system. glibc needs this!
-#
 %define	foover	%(echo %{version} | tr . _)
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
 Version:	3.12.7
-# fix TODO first
-Release:	1.1
+Release:	2
 Epoch:		1
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Libraries
