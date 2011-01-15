@@ -21,13 +21,13 @@ Source3:	http://www.cacert.org/certs/root.der
 # Source3-md5:	a61b375e390d9c3654eebd2031461f6b
 Patch0:		%{name}-Makefile.patch
 URL:		http://www.mozilla.org/projects/security/pki/nss/
-BuildRequires:	nspr-devel >= 1:4.8.6
+BuildRequires:	nspr-devel >= 1:4.8.7
 BuildRequires:	nss-tools
 BuildRequires:	perl-base
 BuildRequires:	sqlite3-devel
 BuildRequires:	zlib-devel
 BuildConflicts:	mozilla < 0.9.6-3
-Requires:	nspr >= 1:4.8.6
+Requires:	nspr >= 1:4.8.7
 Requires:	%{name}-softokn-freebl = %{epoch}:%{version}-%{release}
 Obsoletes:	libnss3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -66,7 +66,7 @@ Summary:	NSS - header files
 Summary(pl.UTF-8):	NSS - pliki nagłówkowe
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	nspr-devel >= 1:4.8.6
+Requires:	nspr-devel >= 1:4.8.7
 Obsoletes:	libnss3-devel
 
 %description devel
