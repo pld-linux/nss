@@ -65,7 +65,7 @@ Summary:	NSS - header files
 Summary(pl.UTF-8):	NSS - pliki nagłówkowe
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	nspr-devel >= 1:4.8.8
+Requires:	nspr-devel >= 1:4.8.9
 Obsoletes:	libnss3-devel
 
 %description devel
