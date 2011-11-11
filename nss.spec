@@ -3,7 +3,7 @@ Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
 Version:	3.13.1
-Release:	1
+Release:	2
 Epoch:		1
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Libraries
@@ -19,6 +19,7 @@ Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
 # Source3-md5:	a61b375e390d9c3654eebd2031461f6b
 Patch0:		%{name}-Makefile.patch
+Patch1:		%{name}-gnuc-minor-def-fix.patch
 URL:		http://www.mozilla.org/projects/security/pki/nss/
 BuildRequires:	nspr-devel >= 1:4.8.9
 BuildRequires:	nss-tools
@@ -100,6 +101,7 @@ Biblioteka kryptograficzna freebl dla bibliotek NSS.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %if 0%{!?debug:1}
 # strip before signing
