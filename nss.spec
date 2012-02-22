@@ -2,8 +2,8 @@
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.13.1
-Release:	2
+Version:	3.13.3
+Release:	1
 Epoch:		1
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Libraries
@@ -13,13 +13,12 @@ Group:		Libraries
 # :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/nss -r NSS_3_9_4_RTM
 #Source0:	%{name}-%{version}.tar.bz2
 Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	c500f96d33ba1390c8a35c667e05e542
+# Source0-md5:	006cb82fa900e9e664b4b14a9b7810ca
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
 # Source3-md5:	a61b375e390d9c3654eebd2031461f6b
 Patch0:		%{name}-Makefile.patch
-Patch1:		%{name}-gnuc-minor-def-fix.patch
 URL:		http://www.mozilla.org/projects/security/pki/nss/
 BuildRequires:	nspr-devel >= 1:4.8.9
 BuildRequires:	nss-tools
@@ -101,7 +100,6 @@ Biblioteka kryptograficzna freebl dla bibliotek NSS.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %if 0%{!?debug:1}
 # strip before signing
@@ -118,8 +116,6 @@ addbuiltin -n "CAcert Inc." -t "CT,C,C" < %{SOURCE3} >> lib/ckfw/builtins/certda
 %ifarch %{x8664} ppc64 sparc64
 export USE_64=1
 %endif
-
-export FREEBL_NO_DEPEND=1
 
 %{__make} -j1 build_coreconf \
 	NSDISTMODE=copy \
@@ -142,10 +138,6 @@ export FREEBL_NO_DEPEND=1
 	OPTIMIZER="%{rpmcflags}" \
 	PLATFORM="pld"
 
-# NOTE: LOWHASH_EXPORTS is a hack for lib/freebl brokeness:
-# - LOWHASH_EXPORTS is defined in config.mk
-# - it's used in manifest.mn, which can use only variables passed by make, not in config or Makefile
-# remove this hack when problem is fixed in sources
 %{__make} -j1 all \
 	NSDISTMODE=copy \
 	NS_USE_GCC=1 \
@@ -157,8 +149,7 @@ export FREEBL_NO_DEPEND=1
 	BUILD_OPT=1 \
 	CC="%{__cc}" \
 	OPTIMIZER="%{rpmcflags}" \
-	PLATFORM="pld" \
-	LOWHASH_EXPORTS=nsslowhash.h
+	PLATFORM="pld"
 
 %install
 rm -rf $RPM_BUILD_ROOT
