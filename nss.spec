@@ -2,7 +2,7 @@
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.13.3
+Version:	3.13.4
 Release:	1
 Epoch:		1
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
@@ -13,20 +13,20 @@ Group:		Libraries
 # :pserver:anonymous@cvs-mirror.mozilla.org:/cvsroot mozilla/security/nss -r NSS_3_9_4_RTM
 #Source0:	%{name}-%{version}.tar.bz2
 Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	006cb82fa900e9e664b4b14a9b7810ca
+# Source0-md5:	2510d41ade236584cc0096954ea449c0
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
 # Source3-md5:	a61b375e390d9c3654eebd2031461f6b
 Patch0:		%{name}-Makefile.patch
 URL:		http://www.mozilla.org/projects/security/pki/nss/
-BuildRequires:	nspr-devel >= 1:4.8.9
+BuildRequires:	nspr-devel >= 1:4.9
 BuildRequires:	nss-tools
 BuildRequires:	perl-base
 BuildRequires:	sqlite3-devel
 BuildRequires:	zlib-devel
 BuildConflicts:	mozilla < 0.9.6-3
-Requires:	nspr >= 1:4.8.9
+Requires:	nspr >= 1:4.9
 Requires:	%{name}-softokn-freebl = %{epoch}:%{version}-%{release}
 Obsoletes:	libnss3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -65,7 +65,7 @@ Summary:	NSS - header files
 Summary(pl.UTF-8):	NSS - pliki nagłówkowe
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	nspr-devel >= 1:4.8.9
+Requires:	nspr-devel >= 1:4.9
 Obsoletes:	libnss3-devel
 
 %description devel
