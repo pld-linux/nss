@@ -24,29 +24,6 @@ diff -Nur nss-3.11.orig/mozilla/security/coreconf/ruleset.mk nss-3.11/mozilla/se
  	SHARED_LIBRARY = $(OBJDIR)/$(DLL_PREFIX)$(LIBRARY_NAME)$(LIBRARY_VERSION)$(JDK_DEBUG_SUFFIX).$(DLL_SUFFIX)
 --- nss-3.12.4/mozilla/security/nss/cmd/platlibs.mk.orig	2009-08-28 22:37:12.708606747 +0200
 +++ nss-3.12.4/mozilla/security/nss/cmd/platlibs.mk	2009-08-28 22:39:19.888606747 +0200
-@@ -50,22 +50,6 @@
- endif
- endif
- 
--ifeq ($(OS_ARCH), Linux)
--ifeq ($(BUILD_SUN_PKG), 1)
--ifeq ($(USE_64), 1)
--EXTRA_SHARED_LIBS += -Wl,-rpath,'$$ORIGIN/../lib64:/opt/sun/private/lib64:$$ORIGIN/../lib'
--else
--EXTRA_SHARED_LIBS += -Wl,-rpath,'$$ORIGIN/../lib:/opt/sun/private/lib'
--endif
--else
--ifeq ($(USE_64), 1)
--EXTRA_SHARED_LIBS += -Wl,-rpath,'$$ORIGIN/../lib64:$$ORIGIN/../lib'
--else
--EXTRA_SHARED_LIBS += -Wl,-rpath,'$$ORIGIN/../lib'
--endif
--endif
--endif
--
- ifeq ($(OS_ARCH), HP-UX) 
- ifeq ($(OS_TEST), ia64)
- EXTRA_SHARED_LIBS += -Wl,+b,'$$ORIGIN/../lib'
 @@ -144,7 +128,7 @@
  else
  
@@ -97,12 +74,12 @@ diff -Nur nss-3.11.orig/mozilla/security/coreconf/ruleset.mk nss-3.11/mozilla/se
  	$(DIST)/lib/$(LIB_PREFIX)certhi.$(LIB_SUFFIX) \
  	$(NULL)
  
---- nss-3.12.4/mozilla/security/nss/lib/ssl/config.mk.orig	2009-06-11 02:55:52.000000000 +0200
-+++ nss-3.12.4/mozilla/security/nss/lib/ssl/config.mk	2009-08-28 22:40:25.676607585 +0200
-@@ -83,7 +83,7 @@
- DEFINES += -DNSS_SURVIVE_DOUBLE_BYPASS_FAILURE
- endif
- 
+--- nss-3.14/mozilla/security/nss/lib/ssl/config.mk.orig	2012-10-22 19:40:03.822256886 +0200
++++ nss-3.14/mozilla/security/nss/lib/ssl/config.mk	2012-10-22 20:42:30.725432977 +0200
+@@ -14,7 +14,7 @@
+ ifdef NSS_NO_PKCS11_BYPASS
+ DEFINES += -DNO_PKCS11_BYPASS
+ else
 -CRYPTOLIB=$(SOFTOKEN_LIB_DIR)/$(LIB_PREFIX)freebl.$(LIB_SUFFIX)
 +CRYPTOLIB=$(SOFTOKEN_LIB_DIR)/$(LIB_PREFIX)freebl3.$(LIB_SUFFIX)
  
