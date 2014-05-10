@@ -1,15 +1,15 @@
-%define	nspr_ver	1:4.10.4
+%define	nspr_ver	1:4.10.5
 %define	foover	%(echo %{version} | tr . _)
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.16
+Version:	3.16.1
 Release:	1
 Epoch:		1
-License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
+License:	MPL v2.0
 Group:		Libraries
 Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	0a6f8503d08c078d64d500e77678e33c
+# Source0-md5:	97ccaa5d27aa59faf07c8b968dbaea1d
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
@@ -139,13 +139,14 @@ export USE_64=1
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/nss,/%{_lib},%{_libdir},%{_pkgconfigdir}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1,%{_includedir}/nss,/%{_lib},%{_libdir},%{_pkgconfigdir}}
 
 install dist/private/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install dist/public/dbm/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install dist/public/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install dist/pld/bin/*		$RPM_BUILD_ROOT%{_bindir}
 install dist/pld/lib/*		$RPM_BUILD_ROOT%{_libdir}
+cp -p nss/doc/nroff/*.1		$RPM_BUILD_ROOT%{_mandir}/man1
 
 %{__sed} -e '
 	s#libdir=.*#libdir=%{_libdir}#g
@@ -187,6 +188,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+# COPYING beside MPL v2.0 text contains GPL/LGPL compatibility notes
+%doc nss/{COPYING,trademarks.txt}
 %attr(755,root,root) %{_libdir}/libfreebl3.so
 %attr(755,root,root) %{_libdir}/libnss3.so
 %attr(755,root,root) %{_libdir}/libnssckbi.so
@@ -264,6 +267,18 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/tstclnt
 %attr(755,root,root) %{_bindir}/vfychain
 %attr(755,root,root) %{_bindir}/vfyserv
+%{_mandir}/man1/certutil.1*
+%{_mandir}/man1/cmsutil.1*
+%{_mandir}/man1/crlutil.1*
+%{_mandir}/man1/derdump.1*
+%{_mandir}/man1/modutil.1*
+%{_mandir}/man1/pk12util.1*
+%{_mandir}/man1/pp.1*
+%{_mandir}/man1/signtool.1*
+%{_mandir}/man1/signver.1*
+%{_mandir}/man1/ssltap.1*
+%{_mandir}/man1/vfychain.1*
+%{_mandir}/man1/vfyserv.1*
 
 %files static
 %defattr(644,root,root,755)
