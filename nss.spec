@@ -4,7 +4,7 @@ Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
 Version:	3.17.2
-Release:	2
+Release:	3
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
@@ -14,6 +14,7 @@ Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
 # Source3-md5:	a61b375e390d9c3654eebd2031461f6b
+Source4:	nss-softokn.pc.in
 Patch0:		%{name}-Makefile.patch
 # Upstream: https://bugzilla.mozilla.org/show_bug.cgi?id=1083900
 Patch1:		tls12.patch
@@ -159,6 +160,17 @@ cp -p nss/doc/nroff/*.1		$RPM_BUILD_ROOT%{_mandir}/man1
 # compatibility symlink
 ln -s nss.pc $RPM_BUILD_ROOT%{_pkgconfigdir}/mozilla-nss.pc
 
+cat %{SOURCE4} | \
+sed -e "s,%%libdir%%,%{_libdir},g" \
+	-e "s,%%prefix%%,%{_prefix},g" \
+	-e "s,%%exec_prefix%%,%{_prefix},g" \
+	-e "s,%%includedir%%,%{_includedir}/nss,g" \
+	-e "s,%%NSPR_VERSION%%,$(echo %{nspr_ver} | sed -e 's#.*:##g'),g" \
+	-e "s,%%NSS_VERSION%%,%{version},g" \
+	-e "s,%%SOFTOKEN_VERSION%%,%{version},g" > \
+	$RPM_BUILD_ROOT%{_pkgconfigdir}/nss-softokn.pc
+
+
 NSS_VMAJOR=$(awk '/#define.*NSS_VMAJOR/ {print $3}' nss/lib/nss/nss.h)
 NSS_VMINOR=$(awk '/#define.*NSS_VMINOR/ {print $3}' nss/lib/nss/nss.h)
 NSS_VPATCH=$(awk '/#define.*NSS_VPATCH/ {print $3}' nss/lib/nss/nss.h)
@@ -212,6 +224,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/nss
 %{_pkgconfigdir}/mozilla-nss.pc
 %{_pkgconfigdir}/nss.pc
+%{_pkgconfigdir}/nss-softokn.pc
 
 %files tools
 %defattr(644,root,root,755)
