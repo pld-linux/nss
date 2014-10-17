@@ -4,7 +4,7 @@ Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
 Version:	3.17.2
-Release:	3
+Release:	4
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
@@ -109,26 +109,14 @@ cd ..
 %endif
 
 %build
-cd nss
-
 # http://wiki.cacert.org/wiki/NSSLib
-addbuiltin -n "CAcert Inc." -t "CT,C,C" < %{SOURCE3} >> lib/ckfw/builtins/certdata.txt
+addbuiltin -n "CAcert Inc." -t "CT,C,C" < %{SOURCE3} >> nss/lib/ckfw/builtins/certdata.txt
 
 %ifarch %{x8664} ppc64 sparc64
 export USE_64=1
 %endif
 
-%{__make} -C coreconf -j1 \
-	NSDISTMODE=copy \
-	NS_USE_GCC=1 \
-	MOZILLA_CLIENT=1 \
-	NO_MDUPDATE=1 \
-	USE_PTHREADS=1 \
-	BUILD_OPT=1 \
-	CC="%{__cc}" \
-	OPTIMIZER="%{rpmcflags}"
-
-%{__make} -j1 \
+%{__make} -C nss -j1 all \
 	NSDISTMODE=copy \
 	NS_USE_GCC=1 \
 	MOZILLA_CLIENT=1 \
@@ -136,10 +124,11 @@ export USE_64=1
 	USE_PTHREADS=1 \
 	USE_SYSTEM_ZLIB=1 \
 	ZLIB_LIBS="-lz" \
+	NSS_USE_SYSTEM_SQLITE=1 \
+	NSS_ENABLE_ECC=1 \
 	BUILD_OPT=1 \
 	CC="%{__cc}" \
-	OPTIMIZER="%{rpmcflags}" \
-	PLATFORM="pld"
+	OPTIMIZER="%{rpmcflags} %{rpmcppflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -148,8 +137,8 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1,%{_includedir}/nss,/%{_lib
 install dist/private/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install dist/public/dbm/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install dist/public/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
-install dist/pld/bin/*		$RPM_BUILD_ROOT%{_bindir}
-install dist/pld/lib/*		$RPM_BUILD_ROOT%{_libdir}
+install dist/*/bin/*		$RPM_BUILD_ROOT%{_bindir}
+install dist/*/lib/*		$RPM_BUILD_ROOT%{_libdir}
 cp -p nss/doc/nroff/*.1		$RPM_BUILD_ROOT%{_mandir}/man1
 
 %{__sed} -e '
