@@ -4,7 +4,7 @@ Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
 Version:	3.17.2
-Release:	1
+Release:	2
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
@@ -15,6 +15,8 @@ Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
 # Source3-md5:	a61b375e390d9c3654eebd2031461f6b
 Patch0:		%{name}-Makefile.patch
+# Upstream: https://bugzilla.mozilla.org/show_bug.cgi?id=1083900
+Patch1:		tls12.patch
 URL:		http://www.mozilla.org/projects/security/pki/nss/
 BuildRequires:	nspr-devel >= %{nspr_ver}
 BuildRequires:	nss-tools
@@ -22,8 +24,8 @@ BuildRequires:	perl-base
 BuildRequires:	sqlite3-devel
 BuildRequires:	zlib-devel
 BuildConflicts:	mozilla < 0.9.6-3
-Requires:	nspr >= %{nspr_ver}
 Requires:	%{name}-softokn-freebl = %{epoch}:%{version}-%{release}
+Requires:	nspr >= %{nspr_ver}
 Obsoletes:	libnss3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -96,6 +98,9 @@ Biblioteka kryptograficzna freebl dla bibliotek NSS.
 %prep
 %setup -q
 %patch0 -p1
+cd nss
+%patch1 -p1
+cd ..
 
 %if 0%{!?debug:1}
 # strip before signing
