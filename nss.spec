@@ -115,20 +115,19 @@ export USE_64=1
 %endif
 
 # http://pki.fedoraproject.org/wiki/ECC_Capable_NSS
-
 for dir in ecc noecc; do
 	install -d $dir
 	cp -a nss $dir/nss
 done
 
-NSPR_INCLUDE_DIR=/usr/include/nspr; export NSPR_INCLUDE_DIR
-NSDISTMODE=copy; export NSDISTMODE
-MOZILLA_CLIENT=1; export MOZILLA_CLIENT
-USE_PTHREADS=1; export USE_PTHREADS
-USE_SYSTEM_ZLIB=1; export USE_SYSTEM_ZLIB
-ZLIB_LIBS="-lz"; export ZLIB_LIBS
-NSS_USE_SYSTEM_SQLITE=1; export NSS_USE_SYSTEM_SQLITE
-BUILD_OPT=1; export BUILD_OPT=1
+export BUILD_OPT=1
+export MOZILLA_CLIENT=1
+export NSDISTMODE=copy
+export NSPR_INCLUDE_DIR=/usr/include/nspr
+export NSS_USE_SYSTEM_SQLITE=1
+export USE_PTHREADS=1
+export USE_SYSTEM_ZLIB=1
+export ZLIB_LIBS="-lz"
 
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1084623
 
@@ -149,16 +148,16 @@ sed -i -e 's|#error|#warning|g' ecc/nss/lib/freebl/ecl/ecl-curve.h
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1,%{_includedir}/nss,/%{_lib},%{_libdir},%{_pkgconfigdir}}
 
-install ecc/dist/private/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
-install ecc/dist/public/dbm/*	$RPM_BUILD_ROOT%{_includedir}/nss
-install ecc/dist/public/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
-install ecc/dist/*/bin/*		$RPM_BUILD_ROOT%{_bindir}
-install ecc/dist/*/lib/*		$RPM_BUILD_ROOT%{_libdir}
+cp -p ecc/dist/private/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
+cp -p ecc/dist/public/dbm/*	$RPM_BUILD_ROOT%{_includedir}/nss
+cp -p ecc/dist/public/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
+install -p ecc/dist/*/bin/*		$RPM_BUILD_ROOT%{_bindir}
+install -p ecc/dist/*/lib/*		$RPM_BUILD_ROOT%{_libdir}
 
 # non-ECC version, we need only libnssdbm3, libsoftokn3, libfreebl3
-install noecc/dist/*/lib/libnssdbm3.*	$RPM_BUILD_ROOT%{_libdir}
-install noecc/dist/*/lib/libsoftokn3.*	$RPM_BUILD_ROOT%{_libdir}
-install noecc/dist/*/lib/libfreebl3.*	$RPM_BUILD_ROOT%{_libdir}
+install -p noecc/dist/*/lib/libnssdbm3.*	$RPM_BUILD_ROOT%{_libdir}
+install -p noecc/dist/*/lib/libsoftokn3.*	$RPM_BUILD_ROOT%{_libdir}
+install -p noecc/dist/*/lib/libfreebl3.*	$RPM_BUILD_ROOT%{_libdir}
 
 cp -p nss/doc/nroff/*.1		$RPM_BUILD_ROOT%{_mandir}/man1
 
@@ -204,7 +203,7 @@ ln -s /%{_lib}/libfreebl3.chk $RPM_BUILD_ROOT%{_libdir}/libfreebl3.chk
 mv $RPM_BUILD_ROOT%{_libdir}/libssl{,3}.a
 
 if [ ! -f "$RPM_BUILD_ROOT%{_includedir}/nss/nsslowhash.h" ]; then
-	echo "ERROR: %{_includedir}/nss/nsslowhash.h not installed. Needed by glibc" >&2
+	echo >&2 "ERROR: %{_includedir}/nss/nsslowhash.h not installed. Needed by glibc"
 	exit 1
 fi
 
