@@ -4,7 +4,7 @@ Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
 Version:	3.17.2
-Release:	4
+Release:	5
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
@@ -15,9 +15,9 @@ Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
 # Source3-md5:	a61b375e390d9c3654eebd2031461f6b
 Source4:	nss-softokn.pc.in
-Patch0:		%{name}-Makefile.patch
 # Upstream: https://bugzilla.mozilla.org/show_bug.cgi?id=1083900
-Patch1:		tls12.patch
+Patch0:		tls12.patch
+Patch1:		build-nss-softoken-only.patch
 URL:		http://www.mozilla.org/projects/security/pki/nss/
 BuildRequires:	nspr-devel >= %{nspr_ver}
 BuildRequires:	nss-tools
@@ -98,9 +98,8 @@ Biblioteka kryptograficzna freebl dla bibliotek NSS.
 
 %prep
 %setup -q
-%patch0 -p1
 cd nss
-%patch1 -p1
+%patch0 -p1
 cd ..
 
 %if 0%{!?debug:1}
@@ -116,17 +115,34 @@ addbuiltin -n "CAcert Inc." -t "CT,C,C" < %{SOURCE3} >> nss/lib/ckfw/builtins/ce
 export USE_64=1
 %endif
 
-%{__make} -C nss -j1 all \
-	NSDISTMODE=copy \
-	NS_USE_GCC=1 \
-	MOZILLA_CLIENT=1 \
-	NO_MDUPDATE=1 \
-	USE_PTHREADS=1 \
-	USE_SYSTEM_ZLIB=1 \
-	ZLIB_LIBS="-lz" \
-	NSS_USE_SYSTEM_SQLITE=1 \
-	NSS_ENABLE_ECC=1 \
-	BUILD_OPT=1 \
+# http://pki.fedoraproject.org/wiki/ECC_Capable_NSS
+
+for dir in ecc noecc; do
+	install -d $dir
+	cp -a nss $dir/nss
+done
+
+NSPR_INCLUDE_DIR=/usr/include/nspr; export NSPR_INCLUDE_DIR
+NSDISTMODE=copy; export NSDISTMODE
+MOZILLA_CLIENT=1; export MOZILLA_CLIENT
+USE_PTHREADS=1; export USE_PTHREADS
+USE_SYSTEM_ZLIB=1; export USE_SYSTEM_ZLIB
+ZLIB_LIBS="-lz"; export ZLIB_LIBS
+NSS_USE_SYSTEM_SQLITE=1; export NSS_USE_SYSTEM_SQLITE
+BUILD_OPT=1; export BUILD_OPT=1
+
+# https://bugzilla.mozilla.org/show_bug.cgi?id=1084623
+
+# Forcing ecc with this hack would produce broken librares (softoken, freebl etc).
+# Thus we also build noecc version (which doesn't require hack) and use these
+# libs from there.
+sed -i -e 's|#error|#warning|g' ecc/nss/lib/freebl/ecl/ecl-curve.h
+%{__make} -j1 -C ecc/nss \
+	NSS_ECC_MORE_THAN_SUITE_B=1 \
+	CC="%{__cc}" \
+	OPTIMIZER="%{rpmcflags} %{rpmcppflags}" \
+
+%{__make} -j1 -C noecc/nss \
 	CC="%{__cc}" \
 	OPTIMIZER="%{rpmcflags} %{rpmcppflags}"
 
@@ -134,11 +150,17 @@ export USE_64=1
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1,%{_includedir}/nss,/%{_lib},%{_libdir},%{_pkgconfigdir}}
 
-install dist/private/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
-install dist/public/dbm/*	$RPM_BUILD_ROOT%{_includedir}/nss
-install dist/public/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
-install dist/*/bin/*		$RPM_BUILD_ROOT%{_bindir}
-install dist/*/lib/*		$RPM_BUILD_ROOT%{_libdir}
+install ecc/dist/private/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
+install ecc/dist/public/dbm/*	$RPM_BUILD_ROOT%{_includedir}/nss
+install ecc/dist/public/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
+install ecc/dist/*/bin/*		$RPM_BUILD_ROOT%{_bindir}
+install ecc/dist/*/lib/*		$RPM_BUILD_ROOT%{_libdir}
+
+# non-ECC version, we need only libnssdbm3, libsoftokn3, libfreebl3
+install noecc/dist/*/lib/libnssdbm3.*	$RPM_BUILD_ROOT%{_libdir}
+install noecc/dist/*/lib/libsoftokn3.*	$RPM_BUILD_ROOT%{_libdir}
+install noecc/dist/*/lib/libfreebl3.*	$RPM_BUILD_ROOT%{_libdir}
+
 cp -p nss/doc/nroff/*.1		$RPM_BUILD_ROOT%{_mandir}/man1
 
 %{__sed} -e '
@@ -179,6 +201,9 @@ ln -s /%{_lib}/libfreebl3.so $RPM_BUILD_ROOT%{_libdir}/libfreebl3.so
 mv $RPM_BUILD_ROOT%{_libdir}/libfreebl3.chk $RPM_BUILD_ROOT/%{_lib}
 ln -s /%{_lib}/libfreebl3.chk $RPM_BUILD_ROOT%{_libdir}/libfreebl3.chk
 
+# conflict with openssl-static
+mv $RPM_BUILD_ROOT%{_libdir}/libssl{,3}.a
+
 if [ ! -f "$RPM_BUILD_ROOT%{_includedir}/nss/nsslowhash.h" ]; then
 	echo "ERROR: %{_includedir}/nss/nsslowhash.h not installed. Needed by glibc" >&2
 	exit 1
@@ -210,6 +235,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/nss-config
 %{_libdir}/libcrmf.a
+%{_libdir}/libfreebl.a
 %{_includedir}/nss
 %{_pkgconfigdir}/mozilla-nss.pc
 %{_pkgconfigdir}/nss.pc
@@ -291,16 +317,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libcerthi.a
 %{_libdir}/libcryptohi.a
 %{_libdir}/libdbm.a
-%{_libdir}/libfreebl3.a
 %{_libdir}/libjar.a
-%{_libdir}/libnss3.a
+%{_libdir}/libnss.a
 %{_libdir}/libnssb.a
 %{_libdir}/libnssckfw.a
-%{_libdir}/libnssdbm3.a
+%{_libdir}/libnssdbm.a
 %{_libdir}/libnssdev.a
-%{_libdir}/libnsspki3.a
-%{_libdir}/libnssutil3.a
-%{_libdir}/libpk11wrap3.a
+%{_libdir}/libnsspki.a
+%{_libdir}/libnssutil.a
+%{_libdir}/libpk11wrap.a
 %{_libdir}/libpkcs12.a
 %{_libdir}/libpkcs7.a
 %{_libdir}/libpkixcertsel.a
@@ -315,8 +340,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libpkixtop.a
 %{_libdir}/libpkixutil.a
 %{_libdir}/libsectool.a
-%{_libdir}/libsmime3.a
-%{_libdir}/libsoftokn3.a
+%{_libdir}/libsmime.a
+%{_libdir}/libsoftokn.a
 %{_libdir}/libssl3.a
 
 %files softokn-freebl
