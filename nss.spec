@@ -17,7 +17,6 @@ Source3:	http://www.cacert.org/certs/root.der
 Source4:	nss-softokn.pc.in
 # Upstream: https://bugzilla.mozilla.org/show_bug.cgi?id=1083900
 Patch0:		tls12.patch
-Patch1:		build-nss-softoken-only.patch
 URL:		http://www.mozilla.org/projects/security/pki/nss/
 BuildRequires:	nspr-devel >= %{nspr_ver}
 BuildRequires:	nss-tools
