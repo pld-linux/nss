@@ -128,6 +128,9 @@ export NSS_USE_SYSTEM_SQLITE=1
 export USE_PTHREADS=1
 export USE_SYSTEM_ZLIB=1
 export ZLIB_LIBS="-lz"
+%ifarch x32
+export USE_X32=1
+%endif
 
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1084623
 
