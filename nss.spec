@@ -1,4 +1,4 @@
-%define	nspr_ver	1:4.10.7
+%define	nspr_ver	1:4.10.8
 %define	foover	%(echo %{version} | tr . _)
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
