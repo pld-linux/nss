@@ -3,13 +3,13 @@
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.20.1
+Version:	3.21
 Release:	1
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
 Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	c285ef92de0031cb0a8caa60d396d618
+# Source0-md5:	3c8b2ed880dd3a8d86c9e0151afe6eba
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
@@ -135,7 +135,7 @@ export USE_X32=1
 # Forcing ecc with this hack would produce broken librares (softoken, freebl etc).
 # Thus we also build noecc version (which doesn't require hack) and use these
 # libs from there.
-sed -i -e 's|#error|#warning|g' ecc/nss/lib/freebl/ecl/ecl-curve.h
+%{__sed} -i -e 's|#error|//error|g' ecc/nss/lib/freebl/ecl/ecl-curve.h
 %{__make} -j1 -C ecc/nss \
 	NSS_ECC_MORE_THAN_SUITE_B=1 \
 	CC="%{__cc}" \
@@ -152,13 +152,15 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1,%{_includedir}/nss,/%{_lib
 cp -p ecc/dist/private/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
 cp -p ecc/dist/public/dbm/*	$RPM_BUILD_ROOT%{_includedir}/nss
 cp -p ecc/dist/public/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
-install -p ecc/dist/*/bin/*		$RPM_BUILD_ROOT%{_bindir}
-install -p ecc/dist/*/lib/*		$RPM_BUILD_ROOT%{_libdir}
+install -p ecc/dist/Linux*/bin/*	$RPM_BUILD_ROOT%{_bindir}
+install -p ecc/dist/Linux*/lib/*	$RPM_BUILD_ROOT%{_libdir}
+# exclude unit tests
+%{__rm} $RPM_BUILD_ROOT{%{_bindir}/ssl_gtest,%{_libdir}/libgtest*}
 
 # non-ECC version, we need only libnssdbm3, libsoftokn3, libfreebl3
-install -p noecc/dist/*/lib/libnssdbm3.*	$RPM_BUILD_ROOT%{_libdir}
-install -p noecc/dist/*/lib/libsoftokn3.*	$RPM_BUILD_ROOT%{_libdir}
-install -p noecc/dist/*/lib/libfreebl3.*	$RPM_BUILD_ROOT%{_libdir}
+install -p noecc/dist/Linux*/lib/libnssdbm3.*	$RPM_BUILD_ROOT%{_libdir}
+install -p noecc/dist/Linux*/lib/libsoftokn3.*	$RPM_BUILD_ROOT%{_libdir}
+install -p noecc/dist/Linux*/lib/libfreebl3.*	$RPM_BUILD_ROOT%{_libdir}
 
 cp -p nss/doc/nroff/*.1		$RPM_BUILD_ROOT%{_mandir}/man1
 
