@@ -1,15 +1,15 @@
-%define	nspr_ver	1:4.10.10
+%define	nspr_ver	1:4.11
 %define	foover	%(echo %{version} | tr . _)
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.21
+Version:	3.22
 Release:	1
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
 Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	3c8b2ed880dd3a8d86c9e0151afe6eba
+# Source0-md5:	07dfe5bed80cf44caa9a06e8eb043742
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
@@ -197,13 +197,13 @@ NSS_VPATCH=$(awk '/#define.*NSS_VPATCH/ {print $3}' nss/lib/nss/nss.h)
 " %{SOURCE2} > $RPM_BUILD_ROOT%{_bindir}/nss-config
 chmod +x $RPM_BUILD_ROOT%{_bindir}/nss-config
 
-mv $RPM_BUILD_ROOT%{_libdir}/libfreebl3.so $RPM_BUILD_ROOT/%{_lib}
+%{__mv} $RPM_BUILD_ROOT%{_libdir}/libfreebl3.so $RPM_BUILD_ROOT/%{_lib}
 ln -s /%{_lib}/libfreebl3.so $RPM_BUILD_ROOT%{_libdir}/libfreebl3.so
-mv $RPM_BUILD_ROOT%{_libdir}/libfreebl3.chk $RPM_BUILD_ROOT/%{_lib}
+%{__mv} $RPM_BUILD_ROOT%{_libdir}/libfreebl3.chk $RPM_BUILD_ROOT/%{_lib}
 ln -s /%{_lib}/libfreebl3.chk $RPM_BUILD_ROOT%{_libdir}/libfreebl3.chk
 
 # conflict with openssl-static
-mv $RPM_BUILD_ROOT%{_libdir}/libssl{,3}.a
+%{__mv} $RPM_BUILD_ROOT%{_libdir}/libssl{,3}.a
 
 if [ ! -f "$RPM_BUILD_ROOT%{_includedir}/nss/nsslowhash.h" ]; then
 	echo >&2 "ERROR: %{_includedir}/nss/nsslowhash.h not installed. Needed by glibc"
@@ -251,7 +251,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/btoa
 %attr(755,root,root) %{_bindir}/certcgi
 %attr(755,root,root) %{_bindir}/certutil
-%attr(755,root,root) %{_bindir}/checkcert
 %attr(755,root,root) %{_bindir}/chktest
 %attr(755,root,root) %{_bindir}/cmsutil
 %attr(755,root,root) %{_bindir}/conflict
@@ -278,6 +277,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/p7env
 %attr(755,root,root) %{_bindir}/p7sign
 %attr(755,root,root) %{_bindir}/p7verify
+%attr(755,root,root) %{_bindir}/pk11_gtest
 %attr(755,root,root) %{_bindir}/pk11gcmtest
 %attr(755,root,root) %{_bindir}/pk11mode
 %attr(755,root,root) %{_bindir}/pk12util
