@@ -1,15 +1,15 @@
-%define	nspr_ver	1:4.11
+%define	nspr_ver	1:4.12
 %define	foover	%(echo %{version} | tr . _)
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.22
+Version:	3.22.1
 Release:	1
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
 Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	07dfe5bed80cf44caa9a06e8eb043742
+# Source0-md5:	66175367b13bbe41295d62fce4efb88b
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
