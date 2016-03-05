@@ -3,13 +3,13 @@
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.22.2
+Version:	3.23
 Release:	1
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
 Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	c42c743b3e70b2912c77fb4129b0a12b
+# Source0-md5:	21c3fed84441b2ab4c50ac626f6517e7
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
@@ -155,7 +155,7 @@ cp -p ecc/dist/public/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install -p ecc/dist/Linux*/bin/*	$RPM_BUILD_ROOT%{_bindir}
 install -p ecc/dist/Linux*/lib/*	$RPM_BUILD_ROOT%{_libdir}
 # exclude unit tests
-%{__rm} $RPM_BUILD_ROOT{%{_bindir}/ssl_gtest,%{_libdir}/libgtest*}
+%{__rm} $RPM_BUILD_ROOT{%{_bindir}/{der,pk11,ssl}_gtest,%{_libdir}/libgtest*}
 
 # non-ECC version, we need only libnssdbm3, libsoftokn3, libfreebl3
 install -p noecc/dist/Linux*/lib/libnssdbm3.*	$RPM_BUILD_ROOT%{_libdir}
@@ -277,7 +277,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/p7env
 %attr(755,root,root) %{_bindir}/p7sign
 %attr(755,root,root) %{_bindir}/p7verify
-%attr(755,root,root) %{_bindir}/pk11_gtest
 %attr(755,root,root) %{_bindir}/pk11gcmtest
 %attr(755,root,root) %{_bindir}/pk11mode
 %attr(755,root,root) %{_bindir}/pk12util
