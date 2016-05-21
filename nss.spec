@@ -3,13 +3,13 @@
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.23
+Version:	3.24
 Release:	1
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
 Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	21c3fed84441b2ab4c50ac626f6517e7
+# Source0-md5:	35854c549cb02100d0f90a6ef328e2e8
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
@@ -182,7 +182,6 @@ sed -e "s,%%libdir%%,%{_libdir},g" \
 	-e "s,%%SOFTOKEN_VERSION%%,%{version},g" > \
 	$RPM_BUILD_ROOT%{_pkgconfigdir}/nss-softokn.pc
 
-
 NSS_VMAJOR=$(awk '/#define.*NSS_VMAJOR/ {print $3}' nss/lib/nss/nss.h)
 NSS_VMINOR=$(awk '/#define.*NSS_VMINOR/ {print $3}' nss/lib/nss/nss.h)
 NSS_VPATCH=$(awk '/#define.*NSS_VPATCH/ {print $3}' nss/lib/nss/nss.h)
@@ -201,9 +200,16 @@ chmod +x $RPM_BUILD_ROOT%{_bindir}/nss-config
 ln -s /%{_lib}/libfreebl3.so $RPM_BUILD_ROOT%{_libdir}/libfreebl3.so
 %{__mv} $RPM_BUILD_ROOT%{_libdir}/libfreebl3.chk $RPM_BUILD_ROOT/%{_lib}
 ln -s /%{_lib}/libfreebl3.chk $RPM_BUILD_ROOT%{_libdir}/libfreebl3.chk
+%{__mv} $RPM_BUILD_ROOT%{_libdir}/libfreeblpriv3.so $RPM_BUILD_ROOT/%{_lib}
+ln -s /%{_lib}/libfreeblpriv3.so $RPM_BUILD_ROOT%{_libdir}/libfreeblpriv3.so
+%{__mv} $RPM_BUILD_ROOT%{_libdir}/libfreeblpriv3.chk $RPM_BUILD_ROOT/%{_lib}
+ln -s /%{_lib}/libfreeblpriv3.chk $RPM_BUILD_ROOT%{_libdir}/libfreeblpriv3.chk
 
 # conflict with openssl-static
 %{__mv} $RPM_BUILD_ROOT%{_libdir}/libssl{,3}.a
+
+# unit tests
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/util_gtest
 
 if [ ! -f "$RPM_BUILD_ROOT%{_includedir}/nss/nsslowhash.h" ]; then
 	echo >&2 "ERROR: %{_includedir}/nss/nsslowhash.h not installed. Needed by glibc"
@@ -221,6 +227,7 @@ rm -rf $RPM_BUILD_ROOT
 # COPYING beside MPL v2.0 text contains GPL/LGPL compatibility notes
 %doc nss/{COPYING,trademarks.txt}
 %attr(755,root,root) %{_libdir}/libfreebl3.so
+%attr(755,root,root) %{_libdir}/libfreeblpriv3.so
 %attr(755,root,root) %{_libdir}/libnss3.so
 %attr(755,root,root) %{_libdir}/libnssckbi.so
 %attr(755,root,root) %{_libdir}/libnssdbm3.so
@@ -229,6 +236,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libsoftokn3.so
 %attr(755,root,root) %{_libdir}/libssl3.so
 %{_libdir}/libfreebl3.chk
+%{_libdir}/libfreeblpriv3.chk
 %{_libdir}/libnssdbm3.chk
 %{_libdir}/libsoftokn3.chk
 
@@ -347,4 +355,6 @@ rm -rf $RPM_BUILD_ROOT
 %files softokn-freebl
 %defattr(644,root,root,755)
 %attr(755,root,root) /%{_lib}/libfreebl3.so
+%attr(755,root,root) /%{_lib}/libfreeblpriv3.so
 /%{_lib}/libfreebl3.chk
+/%{_lib}/libfreeblpriv3.chk

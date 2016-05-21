@@ -1,27 +1,11 @@
-https://bugzilla.mozilla.org/show_bug.cgi?id=966596
-
---- nss-3.15/nss/lib/freebl/Makefile
-+++ nss-3.15/nss/lib/freebl/Makefile
-@@ -193,12 +193,16 @@
-     MPI_SRCS += mpi_amd64.c mp_comba.c
- endif
- ifeq ($(CPU_ARCH),x86)
--    ASFILES  = mpi_x86.s
--    DEFINES += -DMP_ASSEMBLY_MULTIPLY -DMP_ASSEMBLY_SQUARE 
--    DEFINES += -DMP_ASSEMBLY_DIV_2DX1D -DMP_USE_UINT_DIGIT
--    DEFINES += -DMP_CHAR_STORE_SLOW -DMP_IS_LITTLE_ENDIAN
--    # The floating point ECC code doesn't work on Linux x86 (bug 311432).
--    #ECL_USE_FP = 1
-+    ifeq ($(USE_X32),1)
-+	DEFINES += -DMP_CHAR_STORE_SLOW -DMP_IS_LITTLE_ENDIAN
-+    else
-+	ASFILES  = mpi_x86.s
-+	DEFINES += -DMP_ASSEMBLY_MULTIPLY -DMP_ASSEMBLY_SQUARE 
-+	DEFINES += -DMP_ASSEMBLY_DIV_2DX1D -DMP_USE_UINT_DIGIT
-+	DEFINES += -DMP_CHAR_STORE_SLOW -DMP_IS_LITTLE_ENDIAN
-+	# The floating point ECC code doesn't work on Linux x86 (bug 311432).
-+	#ECL_USE_FP = 1
-+    endif
- endif
- ifeq ($(CPU_ARCH),arm)
-     DEFINES += -DMP_ASSEMBLY_MULTIPLY -DMP_ASSEMBLY_SQUARE 
+--- nss-3.24/nss/lib/freebl/poly1305-donna-x64-sse2-incremental-source.c.orig	2016-05-17 09:58:45.000000000 +0200
++++ nss-3.24/nss/lib/freebl/poly1305-donna-x64-sse2-incremental-source.c	2016-05-21 08:20:41.271989390 +0200
+@@ -79,7 +79,7 @@
+ 
+ static poly1305_state_internal INLINE
+ *poly1305_aligned_state(poly1305_state *state) {
+-	return (poly1305_state_internal *)(((uint64_t)state + 63) & ~63);
++	return (poly1305_state_internal *)(((uintptr_t)state + 63) & ~63);
+ }
+ 
+ /* copy 0-63 bytes */
