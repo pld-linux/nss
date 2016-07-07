@@ -3,13 +3,13 @@
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.24
+Version:	3.25
 Release:	1
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
 Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	35854c549cb02100d0f90a6ef328e2e8
+# Source0-md5:	23169c406adc8ac3672d34bf9ea2433d
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
@@ -209,6 +209,7 @@ ln -s /%{_lib}/libfreeblpriv3.chk $RPM_BUILD_ROOT%{_libdir}/libfreeblpriv3.chk
 %{__mv} $RPM_BUILD_ROOT%{_libdir}/libssl{,3}.a
 
 # unit tests
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/gtests
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/util_gtest
 
 if [ ! -f "$RPM_BUILD_ROOT%{_includedir}/nss/nsslowhash.h" ]; then
@@ -268,6 +269,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/derdump
 %attr(755,root,root) %{_bindir}/dertimetest
 %attr(755,root,root) %{_bindir}/digest
+%attr(755,root,root) %{_bindir}/ecperf
 %attr(755,root,root) %{_bindir}/encodeinttest
 %attr(755,root,root) %{_bindir}/fipstest
 %attr(755,root,root) %{_bindir}/httpserv
