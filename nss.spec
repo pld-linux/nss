@@ -3,13 +3,13 @@
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.25
+Version:	3.26
 Release:	1
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
 Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	23169c406adc8ac3672d34bf9ea2433d
+# Source0-md5:	b71ab412cf07af436726679b204b0777
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
@@ -209,6 +209,7 @@ ln -s /%{_lib}/libfreeblpriv3.chk $RPM_BUILD_ROOT%{_libdir}/libfreeblpriv3.chk
 %{__mv} $RPM_BUILD_ROOT%{_libdir}/libssl{,3}.a
 
 # unit tests
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/ectest
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/gtests
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/util_gtest
 
