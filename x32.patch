@@ -1,11 +1,11 @@
 --- nss-3.24/nss/lib/freebl/poly1305-donna-x64-sse2-incremental-source.c.orig	2016-05-17 09:58:45.000000000 +0200
 +++ nss-3.24/nss/lib/freebl/poly1305-donna-x64-sse2-incremental-source.c	2016-05-21 08:20:41.271989390 +0200
 @@ -79,7 +79,7 @@
- 
- static poly1305_state_internal INLINE
- *poly1305_aligned_state(poly1305_state *state) {
--	return (poly1305_state_internal *)(((uint64_t)state + 63) & ~63);
-+	return (poly1305_state_internal *)(((uintptr_t)state + 63) & ~63);
+     *
+     poly1305_aligned_state(poly1305_state *state)
+ {
+-    return (poly1305_state_internal *)(((uint64_t)state + 63) & ~63);
++    return (poly1305_state_internal *)(((uintptr_t)state + 63) & ~63);
  }
  
  /* copy 0-63 bytes */

@@ -1,15 +1,15 @@
-%define	nspr_ver	1:4.12
+%define	nspr_ver	1:4.13
 %define	foover	%(echo %{version} | tr . _)
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.26
+Version:	3.27
 Release:	1
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
 Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	b71ab412cf07af436726679b204b0777
+# Source0-md5:	d11b3038db57b2acaf9a638cd41ce8d8
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
@@ -154,8 +154,6 @@ cp -p ecc/dist/public/dbm/*	$RPM_BUILD_ROOT%{_includedir}/nss
 cp -p ecc/dist/public/nss/*	$RPM_BUILD_ROOT%{_includedir}/nss
 install -p ecc/dist/Linux*/bin/*	$RPM_BUILD_ROOT%{_bindir}
 install -p ecc/dist/Linux*/lib/*	$RPM_BUILD_ROOT%{_libdir}
-# exclude unit tests
-%{__rm} $RPM_BUILD_ROOT{%{_bindir}/{der,pk11,ssl}_gtest,%{_libdir}/libgtest*}
 
 # non-ECC version, we need only libnssdbm3, libsoftokn3, libfreebl3
 install -p noecc/dist/Linux*/lib/libnssdbm3.*	$RPM_BUILD_ROOT%{_libdir}
@@ -209,9 +207,14 @@ ln -s /%{_lib}/libfreeblpriv3.chk $RPM_BUILD_ROOT%{_libdir}/libfreeblpriv3.chk
 %{__mv} $RPM_BUILD_ROOT%{_libdir}/libssl{,3}.a
 
 # unit tests
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/der_gtest
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/ectest
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/gtests
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/nss_bogo_shim
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/pk11_gtest
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/ssl_gtest
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/util_gtest
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libgtest*
 
 if [ ! -f "$RPM_BUILD_ROOT%{_includedir}/nss/nsslowhash.h" ]; then
 	echo >&2 "ERROR: %{_includedir}/nss/nsslowhash.h not installed. Needed by glibc"
