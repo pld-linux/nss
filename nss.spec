@@ -3,13 +3,13 @@
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.27
+Version:	3.27.1
 Release:	1
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
-Source0:	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	d11b3038db57b2acaf9a638cd41ce8d8
+Source0:	http://ftp.mozilla.org/pub/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
+# Source0-md5:	f18e1ebfe07969c84b890e45843edcb7
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
@@ -17,7 +17,7 @@ Source3:	http://www.cacert.org/certs/root.der
 Source4:	nss-softokn.pc.in
 # Upstream: https://bugzilla.mozilla.org/show_bug.cgi?id=1083900
 Patch0:		x32.patch
-URL:		http://www.mozilla.org/projects/security/pki/nss/
+URL:		https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS
 BuildRequires:	nspr-devel >= %{nspr_ver}
 BuildRequires:	nss-tools
 BuildRequires:	perl-base
