@@ -4,7 +4,7 @@ Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
 Version:	3.28.1
-Release:	1
+Release:	2
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
@@ -29,7 +29,7 @@ Requires:	nspr >= %{nspr_ver}
 Obsoletes:	libnss3
 # needs http2 code update: https://bugzilla.mozilla.org/show_bug.cgi?id=1323209
 Conflicts:	firefox < 50.1.0-2
-Conflicts:	iceape < 2.47
+Conflicts:	iceape < 2.46-1
 Conflicts:	iceweasel < 51
 Conflicts:	mozilla-firefox < 51
 Conflicts:	seamonkey < 2.47
