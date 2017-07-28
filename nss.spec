@@ -1,15 +1,15 @@
-%define	nspr_ver	1:4.15
+%define	nspr_ver	1:4.16
 %define	foover	%(echo %{version} | tr . _)
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.31
+Version:	3.32
 Release:	1
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
 Source0:	http://ftp.mozilla.org/pub/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	4c1204af8372a9a07c6fc7ed5c636f74
+# Source0-md5:	076abf8ed88b6bb28f3396b072d252ed
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
@@ -215,7 +215,6 @@ ln -s /%{_lib}/libfreeblpriv3.chk $RPM_BUILD_ROOT%{_libdir}/libfreeblpriv3.chk
 # unit tests
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/{certdb,certhigh,der,pk11,ssl,util}_gtest
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/fbectest
-%{__rm} $RPM_BUILD_ROOT%{_bindir}/gtests
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/nss_bogo_shim
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/pk11ectest
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libgtest*
@@ -252,6 +251,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/nss-config
+%{_libdir}/libcpputil.a
 %{_libdir}/libcrmf.a
 %{_libdir}/libfreebl.a
 %{_includedir}/nss
