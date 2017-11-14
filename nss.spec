@@ -3,13 +3,13 @@
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.33
+Version:	3.34
 Release:	1
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
 Source0:	http://ftp.mozilla.org/pub/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	43663c850e2b2ed48ecb8910b055f5a9
+# Source0-md5:	1e30b8e5b13b5b08bbc489c265948d82
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
@@ -213,10 +213,11 @@ ln -s /%{_lib}/libfreeblpriv3.chk $RPM_BUILD_ROOT%{_libdir}/libfreeblpriv3.chk
 %{__mv} $RPM_BUILD_ROOT%{_libdir}/libssl{,3}.a
 
 # unit tests
-%{__rm} $RPM_BUILD_ROOT%{_bindir}/{certdb,certhigh,der,pk11,ssl,util}_gtest
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/{certdb,certhigh,cryptohi,der,pk11,softoken,ssl,util}_gtest
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/fbectest
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/nss_bogo_shim
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/pk11ectest
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/rsapoptst
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libgtest*
 
 if [ ! -f "$RPM_BUILD_ROOT%{_includedir}/nss/nsslowhash.h" ]; then
