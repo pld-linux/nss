@@ -1,15 +1,15 @@
-%define	nspr_ver	1:4.22
+%define	nspr_ver	1:4.23
 %define	foover	%(echo %{version} | tr . _)
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.46.1
+Version:	3.47
 Release:	1
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
 Source0:	http://ftp.mozilla.org/pub/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	e0fe0d828091919746eabba57ca5f155
+# Source0-md5:	81e47f3c70c2c53f801ab39434c887fb
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
@@ -218,6 +218,7 @@ ln -s /%{_lib}/libfreeblpriv3.chk $RPM_BUILD_ROOT%{_libdir}/libfreeblpriv3.chk
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/pk11importtest
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/rsapoptst
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libgtest*
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libnss*-testlib.so
 
 if [ ! -f "$RPM_BUILD_ROOT%{_includedir}/nss/nsslowhash.h" ]; then
 	echo >&2 "ERROR: %{_includedir}/nss/nsslowhash.h not installed. Needed by glibc"
