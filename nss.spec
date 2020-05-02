@@ -112,7 +112,7 @@ Biblioteka kryptograficzna freebl dla bibliotek NSS.
 # http://wiki.cacert.org/wiki/NSSLib
 addbuiltin -n "CAcert Inc." -t "CT,C,C" < %{SOURCE3} >> nss/lib/ckfw/builtins/certdata.txt
 
-%ifarch %{x8664} ppc64 sparc64
+%ifarch %{x8664} ppc64 sparc64 aarch64
 export USE_64=1
 %endif
 
