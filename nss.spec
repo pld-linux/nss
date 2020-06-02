@@ -1,3 +1,6 @@
+# Conditional build:
+%bcond_with	tests		# enable tests
+
 %define	nspr_ver	1:4.25
 %define	foover	%(echo %{version} | tr . _)
 Summary:	NSS - Network Security Services
@@ -133,6 +136,7 @@ export ZLIB_LIBS="-lz"
 %ifarch x32
 export USE_X32=1
 %endif
+%{!?with_tests:export NSS_DISABLE_GTESTS=1}
 
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1084623
 
@@ -211,15 +215,18 @@ ln -s /%{_lib}/libfreeblpriv3.chk $RPM_BUILD_ROOT%{_libdir}/libfreeblpriv3.chk
 %{__mv} $RPM_BUILD_ROOT%{_libdir}/libssl{,3}.a
 
 # unit tests
+%if %{with tests}
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/{certdb,certhigh,cryptohi,der,pk11,softoken,smime,ssl,util}_gtest
-%{__rm} $RPM_BUILD_ROOT%{_bindir}/fbectest
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/nss_bogo_shim
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libgtest*
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libpkcs11testmodule.*
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libcpputil.*
+%endif
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/fbectest
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/pk11ectest
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/pk11importtest
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/rsapoptst
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/libgtest*
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libnss*-testlib.so
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/libpkcs11testmodule.*
 
 if [ ! -f "$RPM_BUILD_ROOT%{_includedir}/nss/nsslowhash.h" ]; then
 	echo >&2 "ERROR: %{_includedir}/nss/nsslowhash.h not installed. Needed by glibc"
@@ -253,7 +260,6 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/nss-config
-%{_libdir}/libcpputil.a
 %{_libdir}/libcrmf.a
 %{_libdir}/libfreebl.a
 %{_includedir}/nss
