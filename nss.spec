@@ -3,13 +3,13 @@
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.52.1
+Version:	3.53
 Release:	1
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
 Source0:	http://ftp.mozilla.org/pub/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	8b2ef922d39951c300cf9bec4eb6aa97
+# Source0-md5:	64f5b4719d26e01257ba5f0fa19acf20
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	http://www.cacert.org/certs/root.der
@@ -140,12 +140,12 @@ export USE_X32=1
 # Thus we also build noecc version (which doesn't require hack) and use these
 # libs from there.
 %{__sed} -i -e 's|#error|//error|g' ecc/nss/lib/freebl/ecl/ecl-curve.h
-%{__make} -j1 -C ecc/nss \
+%{__make} -C ecc/nss all \
 	NSS_ECC_MORE_THAN_SUITE_B=1 \
 	CC="%{__cc}" \
 	OPTIMIZER="%{rpmcflags} %{rpmcppflags}" \
 
-%{__make} -j1 -C noecc/nss \
+%{__make} -C noecc/nss all \
 	CC="%{__cc}" \
 	OPTIMIZER="%{rpmcflags} %{rpmcppflags}"
 
