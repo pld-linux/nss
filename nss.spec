@@ -148,10 +148,12 @@ export USE_X32=1
 	NSS_ECC_MORE_THAN_SUITE_B=1 \
 	CC="%{__cc}" \
 	OPTIMIZER="%{rpmcflags} %{rpmcppflags}" \
+	NS_USE_GCC=1
 
 %{__make} -C noecc/nss all \
 	CC="%{__cc}" \
-	OPTIMIZER="%{rpmcflags} %{rpmcppflags}"
+	OPTIMIZER="%{rpmcflags} %{rpmcppflags}" \
+	NS_USE_GCC=1
 
 %install
 rm -rf $RPM_BUILD_ROOT
