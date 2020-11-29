@@ -132,6 +132,7 @@ export BUILD_OPT=1
 export MOZILLA_CLIENT=1
 export NSDISTMODE=copy
 export NSPR_INCLUDE_DIR=/usr/include/nspr
+export NSS_ENABLE_WERROR=0
 export NSS_USE_SYSTEM_SQLITE=1
 export USE_PTHREADS=1
 export USE_SYSTEM_ZLIB=1
