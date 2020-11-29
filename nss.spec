@@ -1,4 +1,5 @@
 # Conditional build:
+%bcond_with	bootstrap	# avoid dependency on nss-tools
 %bcond_with	tests		# enable tests
 
 %define	nspr_ver	1:4.29
@@ -21,7 +22,7 @@ Source4:	nss-softokn.pc.in
 # Upstream: https://bugzilla.mozilla.org/show_bug.cgi?id=1083900
 URL:		https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS
 BuildRequires:	nspr-devel >= %{nspr_ver}
-BuildRequires:	nss-tools
+%{!?with_bootstrap:BuildRequires:	nss-tools}
 BuildRequires:	perl-base
 BuildRequires:	sqlite3-devel
 BuildRequires:	zlib-devel
@@ -112,8 +113,10 @@ Biblioteka kryptograficzna freebl dla bibliotek NSS.
 %endif
 
 %build
+%if %{without bootstrap}
 # http://wiki.cacert.org/wiki/NSSLib
 addbuiltin -n "CAcert Inc." -t "CT,C,C" < %{SOURCE3} >> nss/lib/ckfw/builtins/certdata.txt
+%endif
 
 %ifarch %{x8664} ppc64 sparc64 aarch64
 export USE_64=1
