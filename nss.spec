@@ -7,13 +7,13 @@
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.68
+Version:	3.69
 Release:	1
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
 Source0:	https://ftp.mozilla.org/pub/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	71e82e8e57f373902c3ba1c8b59c7330
+# Source0-md5:	df451e99d09589da6c3d4f103de877bc
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	https://www.cacert.org/certs/root.der
@@ -234,6 +234,7 @@ ln -s /%{_lib}/libfreeblpriv3.chk $RPM_BUILD_ROOT%{_libdir}/libfreeblpriv3.chk
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/pk11ectest
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/pk11importtest
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/rsapoptst
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/sdbthreadtst
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libnss*-testlib.so
 
 if [ ! -f "$RPM_BUILD_ROOT%{_includedir}/nss/nsslowhash.h" ]; then
