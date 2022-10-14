@@ -2,18 +2,18 @@
 %bcond_with	bootstrap	# avoid dependency on nss-tools
 %bcond_with	tests		# enable tests
 
-%define	nspr_ver	1:4.34.1
+%define	nspr_ver	1:4.35
 %define	foover	%(echo %{version} | tr . _)
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.83
+Version:	3.84
 Release:	1
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
 Source0:	https://ftp.mozilla.org/pub/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	4a5a8c42772e202e4e94c261f6a5324c
+# Source0-md5:	5f784b9cad172d6df9c24e0673bd5ecd
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	https://www.cacert.org/certs/root.der
