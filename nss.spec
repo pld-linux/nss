@@ -112,6 +112,12 @@ Biblioteka kryptograficzna freebl dla bibliotek NSS.
 %{__sed} -i -e '/export ADDON_PATH$/a\    echo STRIP \; %{__strip} --strip-unneeded -R.comment -R.note ${5}' nss/cmd/shlibsign/sign.sh
 %endif
 
+# http://pki.fedoraproject.org/wiki/ECC_Capable_NSS
+for dir in ecc noecc; do
+	install -d $dir
+	cp -a nss $dir
+done
+
 %build
 %if %{without bootstrap}
 # http://wiki.cacert.org/wiki/NSSLib
@@ -121,12 +127,6 @@ addbuiltin -n "CAcert Inc." -t "CT,C,C" < %{SOURCE3} >> nss/lib/ckfw/builtins/ce
 %ifarch %{x8664} ppc64 sparc64 aarch64
 export USE_64=1
 %endif
-
-# http://pki.fedoraproject.org/wiki/ECC_Capable_NSS
-for dir in ecc noecc; do
-	install -d $dir
-	cp -a nss $dir/nss
-done
 
 export BUILD_OPT=1
 export MOZILLA_CLIENT=1
