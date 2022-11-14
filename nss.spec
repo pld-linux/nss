@@ -39,8 +39,9 @@ Conflicts:	seamonkey < 2.47
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		specflags	-fno-strict-aliasing
+%define		signedlibs	libfreebl3.so libfreeblpriv3.so libnssdbm3.so libsoftokn3.so
 # signed -  stripped before signing
-%define		_noautostrip	.*%{_libdir}/libfreebl3.so\\|.*%{_libdir}/libsoftokn3.so
+%define		_noautostrip	.*%{_lib}/\\(%(echo %{signedlibs} | sed 's/ /\\\\|/g')\\)
 %define		_noautochrpath	.*%{_libdir}/libfreebl3.so\\|.*%{_libdir}/libsoftokn3.so
 
 %description
@@ -107,11 +108,6 @@ Biblioteka kryptograficzna freebl dla bibliotek NSS.
 %prep
 %setup -q
 
-%if 0%{!?debug:1}
-# strip before signing
-%{__sed} -i -e '/export ADDON_PATH$/a\    echo STRIP \; %{__strip} --strip-unneeded -R.comment -R.note ${5}' nss/cmd/shlibsign/sign.sh
-%endif
-
 # http://pki.fedoraproject.org/wiki/ECC_Capable_NSS
 for dir in ecc noecc; do
 	install -d $dir
@@ -160,6 +156,17 @@ export USE_X32=1
 	OPTIMIZER="%{rpmcflags} %{rpmcppflags}" \
 	OS_TEST="%{_target_cpu}" \
 	NS_USE_GCC=1
+
+# strip and sign again
+%{__strip} --strip-unneeded -R.comment -R.note \
+	{,no}ecc/dist/Linux*/lib/{%(echo %{signedlibs} | tr ' ' ',')}
+
+for dir in ecc noecc; do
+	distdir=$(echo $(pwd)/$dir/dist/Linux*)
+	for lib in %{signedlibs}; do
+		LD_LIBRARY_PATH="$distdir/lib" "$distdir/bin/shlibsign" -i "$distdir/lib/$lib"
+	done
+done
 
 %install
 rm -rf $RPM_BUILD_ROOT
