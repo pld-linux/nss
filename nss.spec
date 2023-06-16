@@ -28,8 +28,8 @@ BuildRequires:	perl-base
 BuildRequires:	sqlite3-devel
 BuildRequires:	zlib-devel
 BuildConflicts:	mozilla < 0.9.6-3
-Requires:	%{name}-softokn-freebl = %{epoch}:%{version}-%{release}
-Requires:	nspr >= %{nspr_ver}
+Requires:	%{name}-softokn-freebl%{?_isa} = %{epoch}:%{version}-%{release}
+Requires:	nspr%{?_isa} >= %{nspr_ver}
 Obsoletes:	libnss3
 # needs http2 code update: https://bugzilla.mozilla.org/show_bug.cgi?id=1323209
 Conflicts:	firefox < 50.1.0-2
@@ -61,7 +61,7 @@ i wiele innych bezpiecznych standardów.
 Summary:	NSS command line tools and utilities
 Summary(pl.UTF-8):	Narzędzia NSS obsługiwane z linii poleceń
 Group:		Applications
-Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description tools
 The NSS Toolkit command line tool.
@@ -73,7 +73,7 @@ Narzędzia NSS obsługiwane z linii poleceń.
 Summary:	NSS - header files
 Summary(pl.UTF-8):	NSS - pliki nagłówkowe
 Group:		Development/Libraries
-Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name}%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:	nspr-devel >= %{nspr_ver}
 Obsoletes:	libnss3-devel
 
