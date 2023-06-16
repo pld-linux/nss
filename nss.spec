@@ -8,7 +8,7 @@ Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
 Version:	3.90
-Release:	1
+Release:	2
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
@@ -20,7 +20,7 @@ Source3:	https://www.cacert.org/certs/root.der
 # Source3-md5:	a61b375e390d9c3654eebd2031461f6b
 Source4:	nss-softokn.pc.in
 # Upstream: https://bugzilla.mozilla.org/show_bug.cgi?id=1083900
-Patch0:		non-x86-64b-archs.patch
+Patch0:		disable-hacl-curve25519.patch
 URL:		https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS
 BuildRequires:	nspr-devel >= %{nspr_ver}
 %{!?with_bootstrap:BuildRequires:	nss-tools}
