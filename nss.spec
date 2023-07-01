@@ -7,20 +7,19 @@
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.90
-Release:	2
+Version:	3.91
+Release:	1
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
 Source0:	https://ftp.mozilla.org/pub/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	d83c24d03fb4f9a7f688b5d7c6938972
+# Source0-md5:	a8168bc23c9e9b5419aede4984ba259e
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	https://www.cacert.org/certs/root.der
 # Source3-md5:	a61b375e390d9c3654eebd2031461f6b
 Source4:	nss-softokn.pc.in
 # Upstream: https://bugzilla.mozilla.org/show_bug.cgi?id=1083900
-Patch0:		disable-hacl-curve25519.patch
 URL:		https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS
 BuildRequires:	nspr-devel >= %{nspr_ver}
 %{!?with_bootstrap:BuildRequires:	nss-tools}
@@ -108,9 +107,6 @@ Biblioteka kryptograficzna freebl dla bibliotek NSS.
 
 %prep
 %setup -q
-cd nss
-%patch0 -p1
-cd ..
 
 # http://pki.fedoraproject.org/wiki/ECC_Capable_NSS
 for dir in ecc noecc; do
