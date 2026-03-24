@@ -2,18 +2,18 @@
 %bcond_with	bootstrap	# avoid dependency on nss-tools
 %bcond_with	tests		# enable tests
 
-%define	nspr_ver	1:4.38
+%define	nspr_ver	1:4.38.2
 %define	foover	%(echo %{version} | tr . _)
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.121
+Version:	3.122
 Release:	1
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
 Source0:	https://ftp.mozilla.org/pub/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	c26dbbc863c69008be8851be2e37ece8
+# Source0-md5:	4447be0223b8ec9f283b8cee73a6c8d0
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	https://www.cacert.org/certs/root.der
@@ -293,7 +293,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/certutil
 %attr(755,root,root) %{_bindir}/chktest
 %attr(755,root,root) %{_bindir}/cmsutil
-%attr(755,root,root) %{_bindir}/conflict
 %attr(755,root,root) %{_bindir}/crlutil
 %attr(755,root,root) %{_bindir}/crmftest
 %attr(755,root,root) %{_bindir}/dbtest
