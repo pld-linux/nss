@@ -7,13 +7,13 @@
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.123.1
+Version:	3.124
 Release:	1
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
 Source0:	https://ftp.mozilla.org/pub/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	af095ecde13b76cd700ef325758c662d
+# Source0-md5:	7b6b89b1271721b3694d1a2646a4e69c
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	https://www.cacert.org/certs/root.der
@@ -276,7 +276,6 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/nss-config
-%{_libdir}/libcrmf.a
 %{_libdir}/libfreebl.a
 %{_includedir}/nss
 %{_pkgconfigdir}/mozilla-nss.pc
@@ -294,7 +293,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/chktest
 %attr(755,root,root) %{_bindir}/cmsutil
 %attr(755,root,root) %{_bindir}/crlutil
-%attr(755,root,root) %{_bindir}/crmftest
 %attr(755,root,root) %{_bindir}/dbtest
 %attr(755,root,root) %{_bindir}/dbtool
 %attr(755,root,root) %{_bindir}/derdump
