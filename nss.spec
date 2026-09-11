@@ -7,13 +7,13 @@
 Summary:	NSS - Network Security Services
 Summary(pl.UTF-8):	NSS - Network Security Services
 Name:		nss
-Version:	3.128
+Version:	3.129
 Release:	1
 Epoch:		1
 License:	MPL v2.0
 Group:		Libraries
 Source0:	https://ftp.mozilla.org/pub/security/nss/releases/NSS_%{foover}_RTM/src/%{name}-%{version}.tar.gz
-# Source0-md5:	b2714a3a66dea2b5ffe5370f5438b097
+# Source0-md5:	b1655c2e2b2d6980b600ad7da571a7a8
 Source1:	%{name}-mozilla-nss.pc
 Source2:	%{name}-config.in
 Source3:	https://www.cacert.org/certs/root.der
